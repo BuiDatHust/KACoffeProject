@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,10 @@
   },
   "homepage": "https://github.com/BuiDatHust/KACoffeProject#readme",
   "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "http-status-codes": "^2.1.4",
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.14"
   }
