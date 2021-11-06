@@ -32,7 +32,13 @@
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
+  --white-color: #fff;
+  --black-color: #000;
+  --text-color: #333;
+  --primary-color: #ee4d2d;
+  --border-color: #dbdbdb;
+}
 
 *,
 *::before,
@@ -9575,7 +9581,7 @@ textarea.form-control {
 
 /*modal*/
 .modal {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -9591,11 +9597,178 @@ textarea.form-control {
 }
 
 .modal__body {
-    width: 500px;
-    height: 500px;
     background-color: var(--white);
     margin: auto;
     position: relative;
     z-index: 1;
     border-radius: 5px;
+}
+
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+  --growth-from: 0.7;
+  --growth-to: 1;
+  animation: growth linear 0.1s;
+}
+
+
+/* button style */
+
+.btn {
+  min-width: 124px;
+  height: 34px;
+  text-decoration: none;
+  border: none;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  padding: 0 12px;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn.btn--primary {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn.btn--size-s {
+  height: 32px;
+  font-size: 1.2rem;
+  padding: 0 8px;
+}
+
+/* auth form modal */
+
+.auth-form {
+  width: 500px;
+  background-color: var(--white-color);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.auth-form__container {
+  padding: 0 32px;
+}
+
+.auth-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  margin-top: 10px;
+}
+
+.auth-form__heading {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+
+.auth-form__switch {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.auth-form__form {}
+
+.auth-form__input {
+  width: 100%;
+  height: 40px;
+  margin-top: 16px;
+  padding: 0 12px;
+  font-size: 1.4rem;
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  outline: none;
+}
+
+.auth-form__input:focus {
+  border-color: #777;
+}
+
+.auth-form__aside {
+  margin-top: 18px;
+}
+
+.auth-form__policy-text {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  text-align: center;
+  padding: 0 12px;
+}
+
+.auth-form__text-link {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.auth-form__controls {
+  margin-top: 80px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-form__control-back {
+  margin-right: 8px;
+}
+
+.auth-form__socials {
+  background-color: #f5f5f5;
+  padding: 16px 36px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.auth-form__socials-icon {
+  font-size: 1.8rem;
+}
+
+.auth-form__socials--facebook {
+  background-color: #3a5a98;
+  color: var(--white-color);
+}
+
+.auth-form__socials--facebook.auth-form__socials-icon {
+  color: var(--white-color);
+}
+
+.auth-form__socials-label {
+  margin: 0 36px;
+}
+
+.auth-form__socials--google {
+  background-color: var(--white-color);
+  color: #666;
+}
+
+
+/* login */
+
+.auth-form__help {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-form__help-link {
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: #939399;
+}
+
+.auth-form__help-separate {
+  display: block;
+  border-left: 1px solid #eaeaea;
+  margin: 1px 16px 0;
+  height: 22px;
+}
+
+.auth-form__help-forgot {
+  color: var(--primary-color);
 }
