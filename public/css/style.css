@@ -9615,7 +9615,7 @@ textarea.form-control {
 
 /* button style */
 
-.btn {
+/* .btn {
   min-width: 124px;
   height: 34px;
   text-decoration: none;
@@ -9627,16 +9627,16 @@ textarea.form-control {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.btn.btn--primary {
+.btn.btn--primaryy {
   background-color: var(--primary-color);
   color: var(--white-color);
 }
 
 .btn.btn--size-s {
   height: 32px;
-  font-size: 1.2rem;
+  font-size: 0.1rem;
   padding: 0 8px;
 }
 
