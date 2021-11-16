@@ -81,7 +81,7 @@ const getCurrentUserOrders = async (req, res) => {
 };
 
 const updateOrder = async (req, res) => {
-    const { id: orderId } = req.params;
+    const { id: orderId } = req.params
     const { amount,address } = req.body 
     
     const order = await Order.findOne({ _id: orderId });
