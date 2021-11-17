@@ -1,19 +1,32 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs')
 
-const Schema = mongoose.Schema();
 
-const user = new Schema({
-    name: {type: String, require: true, maxLength: 100,},
-    phoneNumber: {type: Number, require: true},
-    //defaultAddress: {type: String, require: false},
-    password: {type: String, require: true, minLength: 8},
-    voucher: [mongoose.Types.ObjectId],
-    rank: {type: String, require: true},
-    email: {type:String, require: true},
-    role: {type: Boolean, require: true},
-    orderStatus: {
+const user = new mongoose.Schema({
+    name: {type: String, required: true, maxLength: 100,},
+    phone: {type: String, required: true},
+    password: {type: String, required: true, minLength: 8},
+    rank: {
         type: String,
-        Order: mongoose.Types.ObjectId,
+        enum:["gold","sliver","bronze","no ranking"],
+        default: "no ranking"
     },
+    email: {type:String, required: true},
+    role: {type: String, required: true},
+    
 })
+
+user.pre('save', async function () {
+    // console.log(this.modifiedPaths());
+    // console.log(this.isModified('name'));
+    if (!this.isModified('password')) return;
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  });
+
+user.methods.comparePassword = async function (canditatePassword) {
+    const isMatch = await bcrypt.compare(canditatePassword, this.password);
+    return isMatch;
+};
+
 module.exports = mongoose.model('user', user);
