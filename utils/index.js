@@ -1,10 +1,10 @@
 const createTokenUser =require('./createTokenUser')
-const { generateAcessToken, isToken,attachTokenToRes } = require('./jwt') 
+const { generateAccessToken, isToken,attachTokenToRes } = require('./jwt') 
 const Permission = require('./Permission')
 
 module.exports = {
     createTokenUser,
-    generateAcessToken,
+    generateAccessToken,
     isToken,
     attachTokenToRes,
     Permission

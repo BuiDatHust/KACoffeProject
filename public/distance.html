@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+      function haversine_distance(mk1, mk2) {
+      var R = 3958.8; // Radius of the Earth in miles
+      var rlat1 = mk1.lat * (Math.PI/180); // Convert degrees to radians
+      var rlat2 = mk2.lat * (Math.PI/180); // Convert degrees to radians
+      var difflat = rlat2-rlat1; // Radian difference (latitudes)
+      var difflon = (mk2.lng-mk1.lng) * (Math.PI/180); // Radian difference (longitudes)
+
+      var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+      return d;
+      }
+      function locate() {
+          const posStatus = document.querySelector('#posStatus');
+          const locInfo = document.querySelector('#locInfo'); 
+          posStatus.innerHTML = 'Đang lấy vị trí...'
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition((position) => {
+                  const lat = position.coords.latitude;
+                  const long = position.coords.longitude; posStatus.innerHTML = 'Vị trí của bạn là: ';      // Display Latitude and Logitude
+                  locInfo.innerHTML = `Latitude: ${lat}, Longitude: ${long}`;      // Create the link. Use map=15-19 for zooming out and in
+                  // Pass lat and long to openstreetmap
+                  locInfo.href = `https://www.openstreetmap.org/#map=19/${lat}  /${long}`;
+              });
+          }
+      }
+      
+      
+
+  </script>
+</head>
+<body>
+   <button onclick='locate();'>Get Location</button>
+   <h1 id='posStatus'></h1>
+   <a id='locInfo' target="#"></a>
+</body>
+
+</html>

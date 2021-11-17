@@ -31,7 +31,7 @@ const Order = mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true
+        required: false
     }
 },
     { timestamps: true }
