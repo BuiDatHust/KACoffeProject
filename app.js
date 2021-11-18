@@ -19,6 +19,7 @@ const productRouter = require('./routes/productRoutes')
 const orderRouter = require('./routes/orderRoutes')
 const hompageRouter = require('./routes/homepageRoute') 
 const menuRouter = require('./routes/menuRoutes')
+
 //middleware
 const notFoundMiddleware = require('./middleware/not-found')
 
@@ -30,6 +31,7 @@ app.use(fileUpload());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use('/KACoffe/v1',hompageRouter )
 app.use('/KACoffe/v1/auth', authRouter)

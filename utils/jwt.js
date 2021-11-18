@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const generateAcessToken = ({ payload }) => {
+const generateAccessToken = ({ payload }) => {
     const token = jwt.sign(payload, 'jwtSecret', {
         expiresIn: '2d'
     })
@@ -11,7 +11,7 @@ const generateAcessToken = ({ payload }) => {
 const isToken = ({ token }) => jwt.verify(token, 'jwtSecret'  );
 
 const attachTokenToRes = ({ res, user }) =>{
-    const token = generateAcessToken({ payload: user })
+    const token = generateAccessToken({ payload: user })
 
     res.cookie('token', token, {
         httpOnly: true ,
@@ -22,7 +22,7 @@ const attachTokenToRes = ({ res, user }) =>{
 }
 
 module.exports = {
-    generateAcessToken,
+    generateAccessToken,
     isToken,
     attachTokenToRes
 }

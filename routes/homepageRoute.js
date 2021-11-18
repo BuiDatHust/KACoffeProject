@@ -4,8 +4,8 @@ const router = express.Router()
 const {
     getHomepage,
     getDiscount,
-    getStories
-} = require('../controllers/hompageController')
+    getStories,
+} = require('../controllers/homePageController')
 
 router.route('/').get(getHomepage)
 
