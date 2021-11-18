@@ -9,8 +9,11 @@ const {
     getSingleUser,
     showCurrentUser,
     updateUser,
-    updateUserPassword
-} = require('../controllers/userController')
+    updateUserPassword,
+    createStory,
+    createDiscount
+} = require('../controllers/userController');
+const { route } = require('express/lib/router');
 
 
 router
@@ -22,5 +25,8 @@ router.route('/updateUser').patch(authenticateUser, updateUser);
 router.route('/updateUserPassword').patch(authenticateUser, updateUserPassword);
 
 router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
+
+router.route('/createStory').post(authenticateUser, createStory);
+router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
 
 module.exports = router;

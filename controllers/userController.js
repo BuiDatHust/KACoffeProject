@@ -1,4 +1,7 @@
 const User = require('../models/User')
+const Story = require('../models/Story')
+const Discount = require('../models/Discount')
+
 const { StatusCodes } = require('http-status-codes')
 const BadRequestError = require('../errors/badRequestError')
 const UnauthentiatedError = require('../errors/unauthenticatedError')
@@ -64,10 +67,23 @@ const updateUserPassword = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: 'Success! Password Updated.' });
 };
 
+const createStory = async (req,res) =>{
+  req.body.user = req.user.userId
+  const story = await Story.create(req.body)
+  res.status(StatusCodes.CREATED).json({ story })
+}
+
+const createDiscount = async (req,res) =>{
+  const discount = await Discount.create(req.body)
+  res.status(StatusCodes.CREATED).json({ discount })
+}
+
 module.exports = {
     getAllUsers,
     getSingleUser,
     showCurrentUser,
     updateUser,
-    updateUserPassword
+    updateUserPassword,
+    createStory,
+    createDiscount
 }

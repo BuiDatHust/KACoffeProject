@@ -45,8 +45,8 @@
             <li class="nav-item"><a href="menu.html" class="nav-link">Thực đơn</a></li>
             <li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>
             <li class="nav-item"><a href="reservation.html" class="nav-link"> Tra cứu đơn hàng</a></li>
-            <li class="nav-item"><a href="promo.html" class="nav-link">Khuyến mãi</a></li>
-            <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>  
+            <li class="nav-item"><a href="tracuu.html" class="nav-link">Khuyến mãi</a></li>
+            <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -61,6 +61,34 @@
       </div>
     </section>
 	
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+			<div class="container">
+				<div class="row d-flex">
+          <div class="col-md-5 ftco-animate img img-2" style="background-image: url(images/hot-black-coffe.jpg);"></div>
+          <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
+          	<div class="heading-section ftco-animate mb-5">
+	          	<span class="subheading">Đăng nhập</span>
+	            <h2 class="mb-4">Thông tin tài khoản</h2>
+	          </div>
+            <form action="#">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <div class="form-group">
+                    <input type="submit" value="Đăng xuất" class="btn btn-primary py-3 px-5">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+			</div>
+		</section>
 		
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -158,6 +186,8 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+
 
     <div class="modal">
         <div class="modal__overlay"></div>
@@ -166,11 +196,11 @@
            
                 
                 <!-- Register form -->
-              <!-- <div class="auth-form auth-register"> 
+              <div class="auth-form auth-register" style="display: none;">
                   <div class="container"> 
                       <div class="auth-form__header">
                           <h3 class="auth-form__heading">Đăng ký</h3>
-                          <span class="auth-form__switch">Đăng nhập</span>
+                          <span class="auth-form__switch auth-form__switch-login">Đăng nhập</span>
                       </div>
 
                       <div class="auth-form__form">
@@ -196,7 +226,7 @@
                       <div class="auth-form__controls">
                         <a href="index.html" class="btn">TRỞ LẠI</a> 
                       </a> 
-                          <button class="btn btn--primary">ĐĂNG KÝ</button>
+                          <button class="btn btn--primaryy">ĐĂNG KÝ</button>
                       </div>
 
                       <div class="auth-form__socials">
@@ -210,13 +240,15 @@
                           </a>
                       </div>
                   </div>
-                </div>  -->
+                </div> 
 
               <!-- Login form -->
-                <div class="container"> 
+              <div class="auth-form auth-login" style="display: block;">
+
+                 <div class="container"> 
                     <div class="auth-form__header">
                         <h3 class="auth-form__heading">Đăng nhập</h3>
-                        <span class="auth-form__switch-register">Đăng ký</span>
+                        <span class="auth-form__switch auth-form__switch-register">Đăng ký</span>
                     </div>
 
                     <div class="auth-form__form">
@@ -254,8 +286,8 @@
                             Kết nối với Google
                         </a>
                     </div>
-                </div>
-              </div>  -->
+                  </div>
+              </div>  
 
                 
               
