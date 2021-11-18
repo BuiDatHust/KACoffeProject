@@ -7991,7 +7991,7 @@ body {
   font-size: 16px;
   line-height: 2;
   font-weight: 400;
-  color: #999999; }
+  color: rgb(90, 90, 90); }
   body.menu-show {
     overflow: hidden;
     position: fixed;
@@ -9771,4 +9771,8 @@ textarea.form-control {
 
 .auth-form__help-forgot {
   color: var(--primary-color);
+}
+
+.input-text qty-text {
+  width = 10px
 }
