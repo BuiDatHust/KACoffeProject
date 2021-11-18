@@ -17,7 +17,8 @@ const authRouter= require('./routes/authRoutes')
 const userRouter = require('./routes/userRoutes')
 const productRouter = require('./routes/productRoutes')
 const orderRouter = require('./routes/orderRoutes')
-const homePageRouter = require('./routes/homePageRoute') 
+const hompageRouter = require('./routes/homepageRoute') 
+const menuRouter = require('./routes/menuRoutes')
 
 //middleware
 const notFoundMiddleware = require('./middleware/not-found')
@@ -31,12 +32,13 @@ app.use(fileUpload());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/KACoffee/v1', homePageRouter)
-app.use('/KACoffee/v1/auth', authRouter)
-app.use('/KACoffee/v1/user', userRouter)
-app.use('/KACoffee/v1/product', productRouter)
-app.use('/KACoffee/v1/order', orderRouter)
 
+app.use('/KACoffe/v1',hompageRouter )
+app.use('/KACoffe/v1/auth', authRouter)
+app.use('/KACoffe/v1/user', userRouter)
+app.use('/KACoffe/v1/product', productRouter)
+app.use('/KACoffe/v1/order', orderRouter)
+app.use('/KACoffe/v1/menu', menuRouter)
 
 app.use(notFoundMiddleware)
 
