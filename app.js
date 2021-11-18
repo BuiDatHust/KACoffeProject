@@ -18,7 +18,7 @@ const userRouter = require('./routes/userRoutes')
 const productRouter = require('./routes/productRoutes')
 const orderRouter = require('./routes/orderRoutes')
 const hompageRouter = require('./routes/homepageRoute') 
-
+const menuRouter = require('./routes/menuRoutes')
 //middleware
 const notFoundMiddleware = require('./middleware/not-found')
 
@@ -36,7 +36,7 @@ app.use('/KACoffe/v1/auth', authRouter)
 app.use('/KACoffe/v1/user', userRouter)
 app.use('/KACoffe/v1/product', productRouter)
 app.use('/KACoffe/v1/order', orderRouter)
-
+app.use('/KACoffe/v1/menu', menuRouter)
 
 app.use(notFoundMiddleware)
 
