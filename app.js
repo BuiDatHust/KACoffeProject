@@ -24,6 +24,9 @@ const notFoundMiddleware = require('./middleware/not-found')
 
 app.use(express.json())
 app.use(cookieParser('jwtSecret'))
+app.use(express.urlencoded({
+    extended: true
+}))
 
 app.use(express.static('./public'));
 app.use(fileUpload());

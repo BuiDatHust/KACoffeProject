@@ -11,15 +11,16 @@ const register = async (req,res) =>{
     if( emailExists ){
         throw new BadRequestError("Email Exists !!")
     }
-
-    const isFirstAccount = (await User.countDocuments({}) ) ==0
-    const role = isFirstAccount ? 'admin' : 'user'
-
+    
+    role= "user"
+    
     const user = await User.create({ name,email,password,role,phone })
     await user.save()
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res,user: tokenUser})
-    res.status(StatusCodes.CREATED).json({user: tokenUser});
+    res.status(StatusCodes.CREATED).render('index', {
+        user: tokenUser
+    });
 
 }
 
@@ -40,8 +41,11 @@ const login = async (req,res) =>{
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
-
-    res.status(StatusCodes.OK).json({user: tokenUser})
+    
+    res.status(StatusCodes.OK).render('index',{
+        user: tokenUser
+    })
+    
 }
 
 const logout = async (req, res) => {
@@ -49,7 +53,9 @@ const logout = async (req, res) => {
       httpOnly: true,
       expires: new Date(Date.now() + 500),
     });
-    res.status(StatusCodes.OK).json({ msg: 'User logged out!' });
+    res.status(StatusCodes.OK).render('index',{
+       msg: "user logged out !!"
+    });
   };
 
 module.exports = { register,login, logout }
