@@ -1,3 +1,232 @@
-body{
+body {
     background: rgb(115, 255, 0);
+}
+
+.nav-item-user {
+    justify-content: center;
+    position: relative;
+}
+
+.nav-item-user-img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.nav-item-user-name {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.nav-item-user:hover .nav-item-user-menu {
+    display: block;
+}
+
+.nav-item-user-menu {
+    position: absolute;
+    z-index: 1;
+    padding: 8px 0;
+    right: 0;
+    background-color: azure;
+    top: 65px;
+    width: 160px;
+    border-radius: 2px;
+    list-style: none;
+    box-shadow: 0 1px 3.125rem 0 rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.nav-item-user-menu::before {
+    cursor: pointer;
+    content: "";
+    position: absolute;
+    right: 29px;
+    top: -35px;
+    border-width: 18px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.nav-item-user-item {}
+
+.nav-item-user-item a {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    padding: 4px 16px;
+    display: inline-block;
+}
+
+.nav-item-user-item a:hover {
+    background-color: #fafafa;
+}
+
+.header__cart {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    padding-bottom: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.stardust-popover {
+    position: relative;
+}
+
+.header__cart:hover .header__cart-list {
+    display: block;
+}
+
+.header__cart-list {
+    position: absolute;
+    top: 63px;
+    width: 400px;
+    height: auto;
+    right: 166px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3.125rem 0 rgba(0, 0, 0, 0.2);
+    animation: fadein ease-in 0.2s;
+    cursor: default;
+    display: none;
+}
+
+.header__cart-list::after {
+    cursor: pointer;
+    content: "";
+    position: absolute;
+    right: 7px;
+    top: -33px;
+    border-width: 18px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.header__cart-list--no-cart {
+    padding: 20px 0;
+}
+
+.header__cart-list-no-cart-img {
+    margin-left: 60px;
+    width: 70%;
+    display: none;
+}
+
+.header__cart-list-no-cart-msg {
+    font-size: 18px;
+    margin-left: 105px;
+    margin-top: 5px;
+    display: none;
+}
+
+.header__cart-notice {
+    position: absolute;
+    padding: 0.5px 4px;
+    background-color: #fff;
+    color: black;
+    font-size: 0.5rem;
+    line-height: 0.7rem;
+    border-radius: 50%;
+    margin-right: 5px;
+    top: 24px;
+    right: 172px;
+}
+
+.header__cart-heading {
+    font-size: 14px;
+    font-weight: 400px;
+    color: #999;
+    margin: 8px 0 8px 10px;
+}
+
+.header__cart-list--no-car .header__cart-list-no-cart-img,
+.header__cart-list--no-car .header__cart-list-no-cart-msg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header__cart-list-item {
+    padding-left: 0;
+    list-style: none;
+}
+
+.header__cart-item {
+    display: flex;
+    align-items: center;
+}
+
+.header__cart-item:hover {
+    background-color: #F8F8F8;
+}
+
+.header__cart-img {
+    width: 42px;
+    height: 42px;
+    margin: 10px;
+    border: 1px solid #E8E8E8;
+}
+
+.header__cart-item-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header__cart-item-name {
+    font-size: 14px;
+    font-weight: 500px;
+}
+
+.header__cart-item-info {
+    margin-right: 14px;
+    width: 100%;
+}
+
+.header__cart-item-price {
+    font-size: 12px;
+    font-weight: 350px;
+    color: crimson;
+}
+
+.header__cart-item-multiply {
+    font-size: 10px;
+    margin: 0 5px;
+}
+
+.header__cart-item-qnt {
+    font-size: 11px;
+    font-weight: 400px;
+}
+
+.header__cart-item-body {
+    text-align: left;
+    justify-content: space-between;
+    display: flex;
+}
+
+.header__cart-item-description {
+    color: #757575;
+    font-size: 13px;
+    font-weight: 300px;
+}
+
+.header__cart-item-remove {
+    display: block;
+    color: #757575;
+    font-size: 15px;
+    font-weight: 400px;
+    margin-right: 14px;
+}
+
+.header__cart-item-remove:hover {
+    color: crimson;
+    cursor: pointer;
+}
+
+.header__cart-view {
+    float: right;
+    margin: 0 14px 10px 0;
 }

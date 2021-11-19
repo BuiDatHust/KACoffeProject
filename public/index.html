@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="fonts/fontawesome-free-5.15.4-web/css/all.min.css">
 
     <link rel="stylesheet" href="css/aos.css">
 
@@ -23,7 +24,7 @@
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
 
-
+    <link rel="stylesheet" href="css/test.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
@@ -42,11 +43,105 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="index.html" class="nav-link">Trang chủ</a></li>
                     <li class="nav-item"><a href="menu.html" class="nav-link">Thực đơn</a></li>
-                    <li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>
                     <li class="nav-item"><a href="reservation.html" class="nav-link"> Tra cứu đơn hàng</a></li>
                     <li class="nav-item"><a href="tracuu.html" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>
+                    <!--<li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>-->
+                    <li class="nav-item ">
+                        <div class="nav-link nav-item-user">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img">
+                            <span class="nav-item-user-name">Nhóm 2</span>
+                            <ul class="nav-item-user-menu">
+                                <li class="nav-item-user-item">
+                                    <a href="">Tài khoản</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="">Địa chỉ giao hàng</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="cart.html">Đơn hàng</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="">Đăng xuất</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
+            </div>
+            <div class="header__cart">
+                <i class="stardust-popover fas fa-cart-plus"></i>
+                <span class="header__cart-notice">3</span>
+                <!-- no-cart: header-cart-list--no-cart -->
+                <div class="header__cart-list">
+                    <img src="images/empty-cart.png" alt="" class="header__cart-list-no-cart-img">
+                    <span class="header__cart-list-no-cart-msg">
+                        Chưa có sản phẩm
+                    </span>
+                    <h4 class="header__cart-heading">
+                        Sản phẩm đã thêm
+                    </h4>
+                    <ul class="header__cart-list-item">
+                        <!-- Cart-item-->
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="cart.html" class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -109,15 +204,15 @@
                         </p>
                         <h3 class="mt-5">Đồ uống đặc biệt</h3>
                         <div class="thumb my-4 d-flex">
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="hot-latte-coffe.html" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(images/hot-latte-coffe.jpg);"></div>
                                 <h4>Latte Nóng</h4>
                             </a>
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="pink-latte-macchiato-tea.html" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(images/pink-latte-macchiato-tea.jpg);"></div>
                                 <h4>Hồng Trà Latte Macchiato</h4>
                             </a>
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="cold-grinding-ice-coffe.html" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(images/cold-grinding-ice-coffe.jpg);"></div>
                                 <h4>Cà Phê Đá Xay-Lạnh</h4>
                             </a>
@@ -185,7 +280,7 @@
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Lựa chọn nhiều</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="white-coffee.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/white-coffee.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -198,8 +293,8 @@
                             </div>
                             <p><span>Cà phê phin</span>, <span>Sữa đặc</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="cookies.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/cookies.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -212,8 +307,8 @@
                             </div>
                             <p><span>Sữa</span>, <span>Kem tươi</span>, <span>Sô-cô-la</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="pink-latte-macchiato-tea.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/pink-latte-macchiato-tea.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -226,14 +321,14 @@
                             </div>
                             <p><span>Hồng trà</span>, <span>Sữa tươi</span>, <span>Macchiato</span></p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Cà phê</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="hot-americano-coffe.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/hot-americano-coffe.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -246,8 +341,8 @@
                             </div>
                             <p><span>hạt Arabica</span>, <span>hạt Robusta</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="cold-brew-milk-coffe.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/cold-brew-milk-coffe.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -260,8 +355,8 @@
                             </div>
                             <p><span>Cà phê tự nhiên</span>, <span>Sữa tươi</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="cold-grinding-ice-coffe.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/cold-grinding-ice-coffe.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -274,14 +369,14 @@
                             </div>
                             <p><span>Cà phê phin</span>, <span>Sữa đặc</span>, <span>Kem tươi</span></p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Trà trái cây-Trà sữa</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="pink-milk-pearl-tea.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/pink-milk-pearl-tea.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -294,8 +389,8 @@
                             </div>
                             <p><span>Hồng trà</span>, <span>Sữa tươi</span>, <span>Trân châu</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="foamcheese.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/foamcheese.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -308,9 +403,9 @@
                             </div>
                             <p><span>Trà Oolong</span>, <span>Hạt sen</span>, <span>foam cheese</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(images/black-Macchiato-tea.jpg);"></div>
+                    </a>
+                    <a href="eblack-Macchiato-ta.html" class="menus d-flex ftco-animate">
+                        <div class="menu-img img" style="background-image: url(images/eblack-Macchiato-ta.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
                                 <div class="one-half">
@@ -322,7 +417,7 @@
                             </div>
                             <p><span>Trà đen</span>, <span>Macchiato</span></p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!--  -->
@@ -330,7 +425,7 @@
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Đá xay-Choco-Matcha</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="matcha.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/matcha.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -343,8 +438,8 @@
                             </div>
                             <p><span>Matcha</span>, <span>Kem</span>, <span>Sữa</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="Yogurt.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/Yogurt.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -357,8 +452,8 @@
                             </div>
                             <p><span>yogurt</span>, <span>Dưa lưới</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="orange.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/orange.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -371,14 +466,14 @@
                             </div>
                             <p><span>Cam tươi</span>, <span>Phúc bồn tử</span>, <span>Đá xay</span></p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Đồ pha chế sẵn</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="cold-coffe-milk-bottle.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/cold-coffe-milk-bottle.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -391,8 +486,8 @@
                             </div>
                             <p><span>Hộp 10 gói</span>, <span>10*22g</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="24-lon-cpsd_225680.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/24-lon-cpsd_225680.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -405,8 +500,8 @@
                             </div>
                             <p><span>Thùng 24 lon</span> - <span>Lon 180ml</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
+                    </a>
+                    <a href="Peak-Flavor-coffe.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/Peak-Flavor-coffe.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -419,14 +514,14 @@
                             </div>
                             <p><span>350g</span></p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Drinks</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
+                    <a href="drink-1.html" class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/drink-1.jpg);"></div>
                         <div class="text">
                             <div class="d-flex">
@@ -439,7 +534,7 @@
                             </div>
                             <p><span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span></p>
                         </div>
-                    </div>
+                    </a>
                     <div class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url(images/drink-2.jpg);"></div>
                         <div class="text">
@@ -682,7 +777,7 @@
                             </a>
                             <a href="#" class="thumb-menu img" style="background-image: url(images/insta-1.jpg);">
                             </a>
-                        </div>  
+                        </div>
                         <div class="thumb d-flex">
                             <a href="#" class="thumb-menu img" style="background-image: url(images/bg_7.jpg);">
                             </a>
