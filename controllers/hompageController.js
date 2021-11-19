@@ -14,8 +14,13 @@ const getDiscount = async (req,res) =>{
 }
 
 const getStories = async (req,res) =>{
-    const stories = await Story.find({})
-    res.status(StatusCodes.OK).json({ stories })
+    const stories = await Story.find({}).populate({ path: 'user', model: User, select: 'name' })
+    const page = req.query.page || 1 
+    res.status(StatusCodes.OK).render('stories', { 
+        stories: stories.slice((page - 1) * 6, page * 6), 
+        page: parseInt(page), 
+        totalPage: Math.ceil(stories.length / 6)
+    })
 }
 
 module.exports = {

@@ -34,11 +34,11 @@ app.use(fileUpload());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/KACoffe/v1',hompageRouter )
-app.use('/KACoffe/v1/auth', authRouter)
-app.use('/KACoffe/v1/user', userRouter)
-app.use('/KACoffe/v1/product', productRouter)
-app.use('/KACoffe/v1/order', orderRouter)
+app.use('/KACoffee/v1',hompageRouter )
+app.use('/KACoffee/v1/auth', authRouter)
+app.use('/KACoffee/v1/user', userRouter)
+app.use('/KACoffee/v1/product', productRouter)
+app.use('/KACoffee/v1/order', orderRouter)
 
 
 app.use(notFoundMiddleware)

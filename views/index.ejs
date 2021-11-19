@@ -1,4 +1,4 @@
-<%- include('_layouts/header') ; %>
+<%- include('_layouts/header'); -%>
 
 <section class="home-slider js-fullheight owl-carousel bg-white">
     <div class="slider-item js-fullheight">
@@ -559,12 +559,12 @@
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="" id="" class="form-control">
-                    <option value="">Số lượng</option>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4+</option>
-                  </select>
+                                        <option value="">Số lượng</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4+</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -580,4 +580,12 @@
     </div>
 </section>
 
-<%- include('_layouts/footer') ; %>
+<%- include('_layouts/footer'); -%>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        var header = document.getElementById('ftco-navbar')
+        header.classList.remove('ftco-navbar-light-2')
+        header.classList.add('ftco-navbar-light')
+    })
+</script>
