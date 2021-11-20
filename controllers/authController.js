@@ -41,7 +41,7 @@ const login = async (req,res) =>{
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
 
-    res.status(StatusCodes.OK).json({user: tokenUser})
+    res.status(StatusCodes.OK).render('index', {user: tokenUser})
 }
 
 const logout = async (req, res) => {

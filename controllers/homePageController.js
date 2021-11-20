@@ -6,7 +6,8 @@ const { StatusCodes } = require('http-status-codes')
 
 const getHomepage = async (req,res) =>{
     const product = await Product.find({})
-    res.status(StatusCodes.OK).render('index')
+    const user = req.user
+    res.status(StatusCodes.OK).render('index', { user: user})
 }
 
 const getDiscount = async (req,res) =>{
