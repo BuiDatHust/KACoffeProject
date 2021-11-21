@@ -29,7 +29,7 @@
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
-    "nodemon": "^2.0.14",
+    "nodemon": "^2.0.15",
     "path": "^0.12.7"
   }
 }

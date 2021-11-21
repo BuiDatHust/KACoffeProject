@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="fonts/fontawesome-free-5.15.4-web/css/all.min.css">
 
     <link rel="stylesheet" href="css/aos.css">
 
@@ -23,7 +24,7 @@
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
 
-
+    <link rel="stylesheet" href="css/test.css">
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
@@ -31,7 +32,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light ftco-navbar-light-2" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">KACoffee</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,11 +43,105 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="index.html" class="nav-link">Trang chủ</a></li>
                     <li class="nav-item"><a href="menu.html" class="nav-link">Thực đơn</a></li>
-                    <li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>
                     <li class="nav-item"><a href="reservation.html" class="nav-link"> Tra cứu đơn hàng</a></li>
                     <li class="nav-item"><a href="tracuu.html" class="nav-link">Khuyến mãi</a></li>
-                    <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>    
+                    <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>
+                    <!--<li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>-->
+                    <li class="nav-item ">
+                        <div class="nav-link nav-item-user">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img">
+                            <span class="nav-item-user-name">Nhóm 2</span>
+                            <ul class="nav-item-user-menu">
+                                <li class="nav-item-user-item">
+                                    <a href="account.html" class="">Tài khoản</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="">Địa chỉ giao hàng</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="cart.html">Giỏ hàng</a>
+                                </li>
+                                <li class="nav-item-user-item">
+                                    <a href="auth.html">Đăng xuất</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
+            </div>
+            <div class="header__cart">
+                <i class="stardust-popover fas fa-cart-plus"></i>
+                <span class="header__cart-notice">3</span>
+                <!-- no-cart: header-cart-list--no-cart -->
+                <div class="header__cart-list">
+                    <img src="images/empty-cart.png" alt="" class="header__cart-list-no-cart-img">
+                    <span class="header__cart-list-no-cart-msg">
+                        Chưa có sản phẩm
+                    </span>
+                    <h4 class="header__cart-heading">
+                        Sản phẩm đã thêm
+                    </h4>
+                    <ul class="header__cart-list-item">
+                        <!-- Cart-item-->
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header__cart-item">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-head">
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
+                                    <div class="header__cart-item-price-wrap">
+                                        <span class="header__cart-item-price">45000đ</span>
+                                        <span class="header__cart-item-multiply">x</span>
+                                        <span class="header__cart-item-qnt">2</span>
+                                    </div>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
+                                    <span class="header__cart-item-remove">Xóa</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="cart.html" class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
