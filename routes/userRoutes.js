@@ -26,7 +26,7 @@ router.route('/updateUserPassword').patch(authenticateUser, updateUserPassword);
 
 router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'), createStory);
+router.route('/createStory').post(authenticateUser, createStory);
 router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
 
 module.exports = router;

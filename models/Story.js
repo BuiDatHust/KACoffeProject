@@ -3,12 +3,12 @@ const mongoose= require('mongoose')
 const Story  = new mongoose.Schema({
     description: { 
         type: String,
-        minlength: 100,
+        minLength: 100,
         required: [true, "Please provide description"]
     },
     title: {
         type: String,
-        maxlength: 20,
+        maxLength: 20,
         required:[ true, "Please provide title" ]
     },
     image:{
@@ -20,7 +20,7 @@ const Story  = new mongoose.Schema({
         required: true
     }
 },
-    {timestamps: true}
+    {timestamps: true }
 )
 
 module.exports = mongoose.model("Story", Story)
