@@ -14,23 +14,25 @@ const {
     createOrder,
     updateOrder,
     buy
-  } = require('../controllers/orderController');
-  
-  router
+} = require('../controllers/orderController');
+
+router
     .route('/')
     .post(attachUser, createOrder)
-    .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+    .get(authenticateUser,
+        authorizePermission('admin'),
+        getAllOrders);
 
-  
-  router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
 
-  router.route('/buy').post(authenticateUser, buy);
-  
-  router
+router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
+
+router.route('/buy').post(authenticateUser, buy);
+
+router
     .route('/:id')
     .get(authenticateUser, getSingleOrder)
     .patch(authenticateUser, updateOrder);
-  
 
-  
-  module.exports = router;
+
+
+module.exports = router;
