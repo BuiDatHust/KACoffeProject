@@ -2,14 +2,13 @@ const mongoose = require('mongoose')
 
 const SingleOrderSchema = mongoose.Schema({
     name: { type : String, required: true },
-    Image: { type: String, required: true },
+    Image: { type: String, required: false },
     price: { type: Number, required: true },
-    address: { type: String, required: true },
     amount: { type: Number, required: true },
     product: {
         type: mongoose.Schema.ObjectId,
         ref: 'Product',
-        required: true
+        required: false
     },
     discount: {
         type: mongoose.Schema.ObjectId,
@@ -19,9 +18,10 @@ const SingleOrderSchema = mongoose.Schema({
 })
 
 const Order = mongoose.Schema({
-    subtotal: { type:String, required: true },
-    total: { type: String, required: true },
+    subtotal: { type:Number, required: true },
+    total: { type: Number, required: true },
     phone: { type: String, required: true },
+    address: { type: String, required: false },
     orderItems: [SingleOrderSchema],
     status: {
         type: String, 

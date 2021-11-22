@@ -19,13 +19,12 @@ const register = async (req,res) =>{
     await user.save()
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res,user: tokenUser})
-    res.status(StatusCodes.CREATED).json({user: tokenUser});
+    res.status(StatusCodes.CREATED).render('index',{user: tokenUser});
 
 }
 
 const login = async (req,res) =>{
     const { email,password } = req.body 
-
     if( !email || !password ) {
         throw new BadRequestError("Please provide email or password!!")
     }
@@ -40,16 +39,16 @@ const login = async (req,res) =>{
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
-
     res.status(StatusCodes.OK).render('index', {user: tokenUser})
 }
 
 const logout = async (req, res) => {
-    res.cookie('token', 'logout', {
-      httpOnly: true,
-      expires: new Date(Date.now() + 500),
-    });
-    res.status(StatusCodes.OK).json({ msg: 'User logged out!' });
+    // res.cookie('token', 'logout', {
+    //   httpOnly: true,
+    //   expires: new Date(Date.now() + 500),
+    // }); 
+    res.clearCookie('token')
+    res.status(StatusCodes.OK).redirect('/KACoffe/v1/');
   };
 
 module.exports = { register,login, logout }

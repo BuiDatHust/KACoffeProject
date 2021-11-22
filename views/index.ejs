@@ -519,24 +519,24 @@
                     <span class="subheading"></span>
                     <h2 class="mb-4">Thưởng thức tại nhà</h2>
                 </div>
-                <form action="#">
+                <form action="/KACoffe/v1/order" method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Họ tên</label>
-                                <input type="text" class="form-control" placeholder="Họ tên">
+                                <input type="text" name="name" class="form-control" placeholder="Họ tên">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">Số điện thoại</label>
-                                <input type="text" class="form-control" placeholder="Số điện thoại">
+                                <label for="" >Số điện thoại</label>
+                                <input name="phone" type="text" class="form-control" placeholder="Số điện thoại">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Điạ chỉ</label>
-                                <input type="text" class="form-control" placeholder="Địa chỉ">
+                                <input name="address" type="text" class="form-control" placeholder="Địa chỉ">
                             </div>
                         </div>
 
@@ -549,22 +549,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Đặt hàng</label>
-                                <input type="text" class="form-control" id="book_date" placeholder="Tên đồ uống">
+                                <input name="nameproduct" type="text" class="form-control" id="book_date" placeholder="Tên đồ uống">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">Số lượng</label>
+                                <label for="" name="amount">Số lượng</label>
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Số lượng</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4+</option>
-                                    </select>
+                                    <input type="number" name="amount" class="form-control">
                                 </div>
                             </div>
                         </div>

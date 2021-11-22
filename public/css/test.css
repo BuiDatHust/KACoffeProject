@@ -231,7 +231,7 @@ body {
     margin: 0 14px 10px 0;
 }
 
-.cart-cart {
+.cart {
     width: 100%;
     height: 700px;
     padding: 100px 10px 10px;
@@ -378,20 +378,3 @@ body {
     border-radius: 50%;
 }
 
-.calc_shipping_provinces {
-    height: 40px;
-    width: auto;
-}
-
-.cart {
-    width: 100%;
-    height: auto;
-    padding: 10px 10px 10px;
-    border: 1px solid #D5E5F5;
-}
-
-.cart-img-img {
-    margin-top: 100px;
-    width: 300px;
-    height: 500px;
-}

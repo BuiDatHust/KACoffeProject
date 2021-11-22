@@ -16,18 +16,7 @@ const getAllProducts = async (req, res) => {
     res.status(StatusCodes.OK).render('menu', {products: products});
 };
 
-const getSingleProduct = async (req, res) => {
-    const { id: productId } = req.params;
-  
-    // const product = await Product.findOne({ _id: productId }).populate('reviews');
-    const product = await Product.findOne({ _id: productId })
 
-    if (!product) {
-      throw new NotFoundError(`No product with id : ${productId}`);
-    }
-  
-    res.status(StatusCodes.OK).json({ product });
-};
 
 const updateProduct = async (req, res) => {
     const { id: productId } = req.params;
@@ -87,7 +76,7 @@ const uploadImage = async (req, res) => {
 module.exports = {
     createProduct,
     getAllProducts,
-    getSingleProduct,
+    // getSingleProduct,
     updateProduct,
     deleteProduct,
     uploadImage

@@ -42,17 +42,19 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="/KACoffe/v1" class="nav-link">Trang chủ</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/product" class="nav-link">Thực đơn</a></li>
+                    <li class="nav-item"><a href="/KACoffe/v1/menu" class="nav-link">Thực đơn</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/order" class="nav-link"> Tra cứu đơn hàng</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/discount" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/stories" class="nav-link">Tin tức</a></li>
+                    <% if ( !user ) { %>
                     <li class="nav-item"><a href="/KACoffe/v1/auth" class="nav-link">Đăng nhập</a></li>
+                    <% } %>
                     <% if ( user ) { %>
                     <li class="nav-item ">
                         
                         <div class="nav-link nav-item-user">
                             <img src="/images/avt.jpg" alt="" class="nav-item-user-img">
-                            <span class="nav-item-user-name">Nhóm 2</span>
+                            <span class="nav-item-user-name"><%= user.name  %></span>
                             <ul class="nav-item-user-menu">
                                 <li class="nav-item-user-item">
                                     <a href="/KACoffe/v1/user/me">Tài khoản</a>
@@ -61,10 +63,10 @@
                                     <a href="">Địa chỉ giao hàng</a>
                                 </li>
                                 <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/cart">Giỏ hàng</a>
+                                    <a href="/KACoffe/v1/order/myOrders">Giỏ hàng</a>
                                 </li>
                                 <li class="nav-item-user-item">
-                                    <a href="">Đăng xuất</a>
+                                    <a href="/KACoffe/v1/auth/logout">Đăng xuất</a>
                                 </li>
 
                             </ul>
@@ -147,7 +149,7 @@
                         </div>
                     </a>
                 </div>
-                <% } %>
+                <% }; %>
             </div>
             
         </div>
