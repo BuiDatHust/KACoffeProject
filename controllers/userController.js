@@ -33,20 +33,21 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { email, name } = req.body;
+    const { email, name,phone } = req.body;
     if (!email || !name) {
       throw new BadRequestError('Please provide all values');
     }
-    const user = await User.findOne({ _id: req.user.userId });
-  
+    const user = await User.findById(req.user.userId);
+   
     user.email = email;
     user.name = name;
-  
+    user.phone = phone;
     await user.save();
   
     const tokenUser = createTokenUser(user);
     attachTokenToRes({ res, user: tokenUser });
-    res.status(StatusCodes.OK).json({ user: tokenUser });
+
+    res.status(StatusCodes.OK).render('account', {user: tokenUser});
 };
 
 const updateUserPassword = async (req, res) => {
@@ -55,11 +56,11 @@ const updateUserPassword = async (req, res) => {
     if (!oldPassword || !newPassword) {
       throw new BadRequestError('Please provide both values');
     }
-    const user = await User.findOne({ _id: req.user.userId });
-  
+    const user = await User.findOne( {_id:req.user.userId } );
+    console.log(user)
     const isPasswordCorrect = await user.comparePassword(oldPassword);
     if (!isPasswordCorrect) {
-      throw new UnauthenticatedError('Invalid Credentials');
+      throw new UnauthentiatedError('Invalid Credentials');
     }
     user.password = newPassword;
   

@@ -21,7 +21,7 @@
                     <div class="img-circle text-center mb-3">
                         <img src="/images/avt.jpg" alt="Image" class="shadow">
                     </div>
-                    <h4 class="text-center">Nhóm 2</h4>
+                    <h4 class="text-center"><%= user.name %></h4>
                 </div>
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
@@ -42,64 +42,68 @@
                 </div>
             </div>
             <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <form action="/KACoffe/v1/user/me/update" method="POST" >
                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                     <h3 class="mb-4">Cài đặt tài khoản</h3>
                     <div class="row">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                                 <label>Họ và đệm</label>
-                                <input type="text" class="form-control" value="Khá">
+                                <input type="text" class="form-control" name="name">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tên</label>
-                                <input type="text" class="form-control" value="Bảnh">
+                                <input type="text" class="form-control" name="name" >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" class="form-control" value="khabanh@gmail.com">
+                                <input type="text" class="form-control" name="email"  >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" value="+0333333333">
+                                <input type="text" class="form-control" name="phone" >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Địa chỉ</label>
-                                <input type="text" class="form-control" value="Trại cải tạo">
+                                <input type="text" class="form-control" name="address">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nghề nghiệp</label>
                                 <input type="text" class="form-control" value="Idol giới trẻ">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Bio</label>
-                                <textarea class="form-control" rows="4">Không làm mà đòi có ăn thì chỉ có ăn **</textarea>
+                                <textarea class="form-control" rows="4">No pain no gain</textarea>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary">Cập nhật</button>
-                        <button class="btn btn-light">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        <button type="submit"  class="btn btn-light">Hủy</button>
                     </div>
                 </div>
+                </form>
+                
+                <form action="/KACoffe/v1/user/me/updateUserPassword" method="POST">
                 <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                     <h3 class="mb-4">Cài đặt mật khẩu</h3>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Mật khẩu cũ</label>
-                                <input type="password" class="form-control">
+                                <input type="password" name="oldPassword" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -107,7 +111,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Mật khẩu mới</label>
-                                <input type="password" class="form-control">
+                                <input type="password" name="newPassword" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -118,10 +122,12 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary">Cập nhật</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                         <button class="btn btn-light">Hủy</button>
                     </div>
                 </div>
+            </form>
+
                 <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                     <h3 class="mb-4">Cài đặt bảo mật</h3>
                     <div class="row">
