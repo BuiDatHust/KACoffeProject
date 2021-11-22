@@ -19,7 +19,12 @@ const {
 router
     .route('/')
     .post(attachUser, createOrder)
-    .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+    .get(authenticateUser,
+        authorizePermission('admin'),
+        getAllOrders);
+
+
+router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
 
 
 router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);

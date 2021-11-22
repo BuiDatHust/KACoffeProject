@@ -128,9 +128,7 @@ body {
     font-size: 0.5rem;
     line-height: 0.7rem;
     border-radius: 50%;
-    margin-right: 5px;
-    top: 24px;
-    right: 172px;
+    margin: -5px 14px;
 }
 
 .header__cart-heading {
