@@ -35,11 +35,12 @@ app.set('view engine', 'ejs');
 
 
 app.use('/KACoffe/v1',hompageRouter )
+app.use('/KACoffe/v1/menu', menuRouter)
 app.use('/KACoffe/v1/auth', authRouter)
 app.use('/KACoffe/v1/user', userRouter)
 app.use('/KACoffe/v1/product', productRouter)
 app.use('/KACoffe/v1/order', orderRouter)
-app.use('/KACoffe/v1/menu', menuRouter)
+
 
 app.use(notFoundMiddleware)
 

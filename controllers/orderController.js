@@ -6,8 +6,17 @@ const { BadrequestError } = require('../errors/badRequestError')
 const { NotFoundError } = require('../errors/notFoundError')
 const { Permission } = require('../utils')
 
+<<<<<<< HEAD
 const createOrder = async(req, res) => {
     const { items: cartItems } = req.body;
+=======
+const createOrder = async (req,res) =>{
+  if( req.user!==undefined ){
+  const cartItems= {
+    amount: req.body.quantity,
+    product: req.body.product
+  };
+>>>>>>> main
 
     if (!cartItems || cartItems.length < 1) {
         throw new BadRequestError('No cart items provided');
@@ -18,6 +27,7 @@ const createOrder = async(req, res) => {
     let orderItems = [];
     let subtotal = 0;
 
+<<<<<<< HEAD
     const dbUser = await User.findOne({ _id: req.user.userId })
 
     for (const item of cartItems) {
@@ -56,11 +66,105 @@ const createOrder = async(req, res) => {
     res
         .status(StatusCodes.CREATED)
         .json({ order });
+=======
+  let orderItems = [];
+  var subtotal 
+
+  const dbUser = await User.findOne({ _id: req.user.userId })
+    const dbProduct = await Product.findOne({ _id: cartItems.product })
+    if (!dbProduct) {
+      throw new Error(
+        `No product with id : ${cartItems.product}`
+      );
+    }
+    const { name, price, Image, _id } = dbProduct;
+    const singleOrderItem = {
+      amount: cartItems.amount,
+      name,
+      price,
+      Image,
+      address:cartItems.address,
+      product: _id,
+    };
+
+  var order
+  
+  const existOrder = await Order.find({ user: req.user.userId })
+  
+  if( !existOrder.length==0 ){
+    console.log("xss")
+    orderItems = [...existOrder[0].orderItems, singleOrderItem]
+
+    total = existOrder[0].total +singleOrderItem.price*singleOrderItem.amount
+    subtotal = total+ shippingFee;
+
+    const updateOrder = await Order.findByIdAndUpdate({_id:existOrder[0]._id}, 
+      { orderItems: orderItems, subtotal: subtotal, total: total})
+    order= updateOrder
+  }else{
+    total= singleOrderItem.price*singleOrderItem.amount
+    subtotal = total+shippingFee
+    orderItems = [...orderItems, singleOrderItem]
+
+  const newOrder = await Order.create({
+    orderItems,
+    total :total,
+    subtotal: subtotal,
+    shippingFee,
+    phone: dbUser.phone,
+    user: req.user.userId,
+  });
+  order= newOrder
+}
+
+if( req.user!==undefined ){
+  var orders = await Order.find({ user: req.user.userId });
+  res
+    .status(StatusCodes.CREATED)
+    .render('cart',{orders:orders[0].orderItems, subtotal: orders[0].subtotal});
+}else{
+  res
+    .status(StatusCodes.CREATED)
+    .render('index', { user:'' });
+}}else{
+  const { phone,name,amount,address,nameproduct } = req.body
+  var subtotal=0, total =0
+
+  const product = await Product.findOne({ name: nameproduct })
+  console.log(product)
+  var orderItems = [{
+    name: name,
+    price: product.price,
+    amount: amount
+  }]
+  total =product.price* amount
+  subtotal=total+ 20000
+
+  const order = await Order.create({
+    orderItems,
+    total,
+    subtotal,
+    address,
+    phone
+  })
+  res.json({yourOrder:order})
+}
+
+}
+
+const buy = async (req,res) =>{
+  console.log(req.body.address)
+  const order=await Order.findOneAndUpdate({ user: req.user.userId }, { 
+        address: req.body.address ,
+        status: "shipper đang lấy hàng"
+      })
+  res.render('index', {order:order})
+>>>>>>> main
 }
 
 const getAllOrders = async(req, res) => {
     const orders = await Order.find({});
-    res.status(StatusCodes.OK).json({ orders, count: orders.length });
+    res.status(StatusCodes.OK).render('reservation', {orders: orders , user: req.user});
 };
 
 const getSingleOrder = async(req, res) => {
@@ -75,9 +179,15 @@ const getSingleOrder = async(req, res) => {
     res.status(StatusCodes.OK).json({ order });
 };
 
+<<<<<<< HEAD
 const getCurrentUserOrders = async(req, res) => {
     const orders = await Order.find({ user: req.user.userId });
     res.status(StatusCodes.OK).json({ orders, count: orders.length });
+=======
+const getCurrentUserOrders = async (req, res) => {
+    var orders = await Order.find({ user: req.user.userId });
+    res.status(StatusCodes.OK).render('cart', { orders:orders[0].orderItems, subtotal: orders[0].subtotal });
+>>>>>>> main
 };
 
 const updateOrder = async(req, res) => {
@@ -104,5 +214,6 @@ module.exports = {
     getAllOrders,
     getSingleOrder,
     getCurrentUserOrders,
-    updateOrder
+    updateOrder,
+    buy
 }

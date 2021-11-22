@@ -3,7 +3,8 @@ const router = express.Router()
 
 const {
     authenticateUser,
-    authorizePermission
+    authorizePermission,
+    attachUser
 } = require('../middleware/authentication')
 
 const {
@@ -12,13 +13,21 @@ const {
     getCurrentUserOrders,
     createOrder,
     updateOrder,
+<<<<<<< HEAD
 } = require('../controllers/orderController');
 
 router
+=======
+    buy
+  } = require('../controllers/orderController');
+  
+  router
+>>>>>>> main
     .route('/')
-    .post(authenticateUser, createOrder)
+    .post(attachUser, createOrder)
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
+<<<<<<< HEAD
 router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
 
 router
@@ -27,3 +36,18 @@ router
     .patch(authenticateUser, updateOrder);
 
 module.exports = router;
+=======
+  
+  router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
+
+  router.route('/buy').post(authenticateUser, buy);
+  
+  router
+    .route('/:id')
+    .get(authenticateUser, getSingleOrder)
+    .patch(authenticateUser, updateOrder);
+  
+
+  
+  module.exports = router;
+>>>>>>> main

@@ -12,43 +12,36 @@
                 <th width="120">Tổng cộng</th>
                 <th width="80">Thao tác</th>
             </tr>
+            
+            <% orders.forEach( (order)=>{  %>
             <tr class="cart-item">
                 <td><input type="checkbox" checked="checked" class="cart-check" /></td>
                 <td class="cart-txt-left">
                     <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
-                    <a href="white-coffee.html" class="cart-name">Cà phê sữa đá</a></td>
-                <td><span class="cart-price">32000</span></td>
-                <td><span class="cart-reduce">-</span><span class="cart-num">1</span> <span class="cart-add">+</span> </td>
-                <td><span class="cart-subtotal">32000</span></td>
-                <td><span class="cart-del">Xóa</span></td>
+                    <a href="white-coffee.html" class="cart-name"><%= order.name  %></a></td>
+                <td><span class="cart-price"><%=  order.price  %></span></td>
+                <td><span class="cart-reduce">-</span><span class="cart-num"><%= order.amount  %></span> <span class="cart-add">+</span> </td>
+                <td><span class="cart-subtotal"> <%= order.amount*order.price %></span></td>
+                <td><span class="cart-del"><a href="/KACoffe/v1/order/delete?id=<%= order._id %>" >Xoá</a></span></td>
             </tr>
-            <tr class="cart-item">
-                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                <td class="cart-txt-left">
-                    <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="cart-txt-left-img">
-                    <a href="cold-brew-milk-coffe.html" class="cart-name">Cold Brew Sữa Tươi</a></td>
-                <td><span class="cart-price">45000</span></td>
-                <td><span class="cart-reduce">-</span><span class="cart-num">2</span> <span class="cart-add">+</span> </td>
-                <td><span class="cart-subtotal">90000</span></td>
-                <td><span class="cart-del">Xóa</span></td>
-            </tr>
-            <tr class="cart-item">
-                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                <td class="cart-txt-left">
-                    <img src="/images/cold-grinding-ice-coffe.jpg" alt="" class="cart-txt-left-img">
-                    <a href="cold-grinding-ice-coffe.html" class="cart-name">Cà Phê Đá Xay - Lạnh</a></td>
-                <td><span class="cart-price">59000</span></td>
-                <td><span class="cart-reduce">-</span><span class="cart-num">1</span> <span class="cart-add">+</span> </td>
-                <td><span class="cart-subtotal">59000</span></td>
-                <td><span class="cart-del">Xóa</span></td>
-            </tr>
-            <tr class="cart-bottom">
-                <td colspan="6">
-                    <span class="cart-bottom-span">Mua <span class="cart-total-num">4</span> Sản phẩm</span>
-                    <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price">181000</span></span>
-                    <span class="cart-bottom-btn">Đặt hàng</span>
+            <% }) %>
+            <form action="/KACoffe/v1/order/buy" method="POST">
+            <tr>
+                <td colspan="8" >
+                </br>
+                    Address : <input type="text" name="address">
                 </td>
             </tr>
+              
+            <tr class="cart-bottom">
+                <td colspan="6">
+                    <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
+                    <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %></span></span>
+                    <span class="cart-bottom-btn"><input type="submit" value="Đặt hàng" ></span>
+                </td>
+            </tr>
+        </form>
+           
         </table>
     </div>
 </div>
