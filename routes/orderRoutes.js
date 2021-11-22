@@ -13,41 +13,20 @@ const {
     getCurrentUserOrders,
     createOrder,
     updateOrder,
-<<<<<<< HEAD
+    buy
 } = require('../controllers/orderController');
 
 router
-=======
-    buy
-  } = require('../controllers/orderController');
-  
-  router
->>>>>>> main
     .route('/')
     .post(attachUser, createOrder)
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
-<<<<<<< HEAD
+
 router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
+
+router.route('/buy').post(authenticateUser, buy);
 
 router
     .route('/:id')
     .get(authenticateUser, getSingleOrder)
     .patch(authenticateUser, updateOrder);
-
-module.exports = router;
-=======
-  
-  router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
-
-  router.route('/buy').post(authenticateUser, buy);
-  
-  router
-    .route('/:id')
-    .get(authenticateUser, getSingleOrder)
-    .patch(authenticateUser, updateOrder);
-  
-
-  
-  module.exports = router;
->>>>>>> main
