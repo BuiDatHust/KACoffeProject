@@ -8,56 +8,48 @@ const getHomepage = async(req, res) => {
     const product = await Product.find({})
     var user
 
-    if( req.user===undefined ){
+    if (req.user === undefined) {
         user = 0
-    }else{
+    } else {
         user = req.user
     }
     console.log(user)
 
-    res.status(StatusCodes.OK).render('index',{ user:user })
+    res.status(StatusCodes.OK).render('index', { user: user })
 }
 
 const getDiscount = async(req, res) => {
     const discount = await Discount.find({})
     var user
 
-    if( req.user===undefined ){
+    if (req.user === undefined) {
         user = 0
-    }else{
+    } else {
         user = req.user
     }
     console.log(user)
 
-    res.status(StatusCodes.OK).render('tracuu', {discount: discount, user: user})
+    res.status(StatusCodes.OK).render('tracuu', { discount: discount, user: user })
 }
 
 const getStories = async(req, res) => {
     const stories = await Story.find({}).populate({ path: 'user', model: User, select: 'name' })
-<<<<<<< HEAD
     const page = req.query.page || 1
-    res.status(StatusCodes.OK).render('stories', {
-        stories: stories.slice((page - 1) * 6, page * 6),
-        page: parseInt(page),
-        totalPage: Math.ceil(stories.length / 6)
-=======
-    const page = req.query.page || 1 
-    
+
     var user
 
-    if( req.user===undefined ){
+    if (req.user === undefined) {
         user = 0
-    }else{
+    } else {
         user = req.user
     }
     console.log(user)
 
-    res.status(StatusCodes.OK).render('stories', { 
-        stories: stories.slice((page - 1) * 6, page * 6), 
-        page: parseInt(page), 
+    res.status(StatusCodes.OK).render('stories', {
+        stories: stories.slice((page - 1) * 6, page * 6),
+        page: parseInt(page),
         totalPage: Math.ceil(stories.length / 6),
         user: user
->>>>>>> main
     })
 }
 
