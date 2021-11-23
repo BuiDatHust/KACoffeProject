@@ -13176,6 +13176,7 @@
           font-size: 1.4rem;
           text-decoration: none;
           color: #939399;
+          cursor: pointer;
       }
       
       .auth-form__help-separate {

@@ -3,6 +3,8 @@ const {  StatusCodes } = require('http-status-codes')
 const BadRequestError = require('../errors/badRequestError')
 const UnauthentiatedError = require('../errors/unauthenticatedError')
 const { attachTokenToRes,createTokenUser } = require('../utils')
+const nodemailer = require('nodemailer')
+const randomString = require('randomstring')
 
 const register = async (req,res) =>{
     const { email,name,password,phone } = req.body;
@@ -19,7 +21,7 @@ const register = async (req,res) =>{
     await user.save()
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res,user: tokenUser})
-    res.status(StatusCodes.CREATED).render('index',{user: tokenUser});
+    res.status(StatusCodes.CREATED).render('index',{user: tokenUser, type: 2});
 
 }
 
@@ -39,7 +41,7 @@ const login = async (req,res) =>{
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
-    res.status(StatusCodes.OK).render('index', {user: tokenUser})
+    res.status(StatusCodes.OK).render('index', {user: tokenUser, type: 1})
 }
 
 const logout = async (req, res) => {
@@ -51,4 +53,41 @@ const logout = async (req, res) => {
     res.status(StatusCodes.OK).redirect('/KACoffe/v1/');
   };
 
-module.exports = { register,login, logout }
+const forgotPassword = async (req,res) => {
+    const email = req.body.email;
+    const newPassword = randomString.generate(8)
+    console.log(newPassword)
+    if(!email) {
+        throw new BadRequestError("Please provide email or password!!")
+    }
+    user = await User.findOne({ email })
+    if(!user) {
+        throw new UnauthentiatedError("Not Exist this user!!")
+    }
+    user.password = newPassword
+    await user.save()
+
+    const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD,
+        },
+    });
+    const mailOptions = {
+        from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
+        to: email,
+        subject: "Thiết lập lại mật khẩu!", 
+        html: "<b>Mật khẩu mới: </b>" + newPassword, 
+    }
+    transporter.sendMail(mailOptions, function(err,info) {
+        if (err) {
+            console.log(err)
+            return;
+        }
+        console.log("Sent: " + info.response);
+    });
+    res.status(StatusCodes.OK).redirect('/KACoffe/v1/auth')
+}
+
+module.exports = { register,login, logout, forgotPassword }
