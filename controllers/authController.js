@@ -21,7 +21,7 @@ const register = async (req,res) =>{
     await user.save()
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res,user: tokenUser})
-    res.status(StatusCodes.CREATED).render('index',{user: tokenUser, type: 2});
+    res.status(StatusCodes.CREATED).render('index',{user: tokenUser});
 
 }
 
@@ -41,7 +41,7 @@ const login = async (req,res) =>{
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
-    res.status(StatusCodes.OK).render('index', {user: tokenUser, type: 1})
+    res.status(StatusCodes.OK).render('index', {user: tokenUser})
 }
 
 const logout = async (req, res) => {
