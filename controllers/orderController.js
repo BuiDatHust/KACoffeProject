@@ -2,9 +2,23 @@ const User = require('../models/User')
 const Order= require('../models/Order')
 const Product = require('../models/Product')
 const { StatusCodes } = require('http-status-codes')
-const { BadrequestError } =require('../errors/badRequestError')
+const { BadRequestError } =require('../errors/badRequestError')
 const { NotFoundError } = require('../errors/notFoundError')
 const { Permission} = require('../utils')
+const Discount = require('../models/Discount')
+
+const evaluateScore = (user, subtotal) =>{
+  var score=user.score
+  if( subtotal>50000 && subtotal<10000 ){
+    score +=1
+  }else if( subtotal>100000 && subtotal<400000 ){
+    score +=5
+  }else{
+    score +=10
+  }
+
+  return score 
+}
 
 const createOrder = async (req,res) =>{
   if( req.user!==undefined ){
@@ -71,9 +85,15 @@ const createOrder = async (req,res) =>{
 
 if( req.user!==undefined ){
   var orders = await Order.find({ user: req.user.userId });
+
+  var userdiscount = dbUser.discount
+
+  var score = evaluateScore(dbUser, subtotal)
+  const user = await User.findByIdAndUpdate({ _id:req.user.userId }, { score: score })
+  console.log(score)
   res
     .status(StatusCodes.CREATED)
-    .render('cart',{orders:orders[0].orderItems, subtotal: orders[0].subtotal});
+    .render('cart',{orders:orders[0].orderItems, subtotal: orders[0].subtotal, discount:userdiscount});
 }else{
   res
     .status(StatusCodes.CREATED)
@@ -105,10 +125,40 @@ if( req.user!==undefined ){
 }
 
 const buy = async (req,res) =>{
-  console.log(req.body.address)
+  const thisorder = await Order.findOne({ user: req.user.userId })
+  const user = await User.findOne({ _id:req.user.userId })
+  const { magiamgia } = req.body
+  const discount = await Discount.findOne({ name: magiamgia })
+  
+  var total = thisorder.total
+
+  const category = discount.category
+  console.log(user.rank )
+  if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
+    switch (category) 
+    {
+      case "money":
+
+        total -= discount.minusPrice
+        break
+      case "rate": 
+        total = total*(1-discount.minusPrice/100)
+        break
+      case "shippingfree":
+        total-=10000
+        break
+      default:
+        break
+    } 
+}else{
+  throw new Error("Dont have enough condition")
+}
+
   const order=await Order.findOneAndUpdate({ user: req.user.userId }, { 
         address: req.body.address ,
-        status: "shipper đang lấy hàng"
+        status: "shipper đang lấy hàng",
+        subtotal: total+10000,
+        total: total
       })
   res.render('index', {order:order})
 }
@@ -132,7 +182,9 @@ const getSingleOrder = async (req, res) => {
 
 const getCurrentUserOrders = async (req, res) => {
     var orders = await Order.find({ user: req.user.userId });
-    res.status(StatusCodes.OK).render('cart', { orders:orders[0].orderItems, subtotal: orders[0].subtotal });
+    var user = await User.findOne({ _id: req.user.userId })
+
+    res.status(StatusCodes.OK).render('cart', { orders:orders[0].orderItems, subtotal: orders[0].subtotal, discount: user.discount });
 };
 
 const updateOrder = async (req, res) => {
@@ -153,6 +205,30 @@ const updateOrder = async (req, res) => {
     res.status(StatusCodes.OK).json({ order });
 };
 
+const deleteOrderItems = async (req,res) =>{
+  const { id } = req.params
+  
+  var order = await Order.findOne({ user: req.user.userId })
+  var total= order.total, subtotal=0
+  order = order.orderItems
+
+  for(var i=0 ;i<order.length; i++){
+    if( order[i]._id ==id ){
+      order.splice(i,1)
+      total -= order[i].price  * order[i].amount 
+    }
+  
+  }
+  subtotal = total+10000
+  console.log(subtotal)
+  
+  const updateOrder = await Order.findOneAndUpdate({ user: req.user.userId }, { 
+    orderItems: order, total: total, subtotal: subtotal
+  })
+  res.render('cart', { orders: order ,subtotal: subtotal})
+
+}
+
 
 module.exports ={
     createOrder,
@@ -160,5 +236,6 @@ module.exports ={
     getSingleOrder,
     getCurrentUserOrders,
     updateOrder,
-    buy
+    buy,
+    deleteOrderItems
 }

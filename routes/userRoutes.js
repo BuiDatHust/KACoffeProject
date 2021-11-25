@@ -12,7 +12,8 @@ const {
     updateUser,
     updateUserPassword,
     createStory,
-    createDiscount
+    createDiscount,
+    saveDiscount
 } = require('../controllers/userController');
 
 
@@ -26,7 +27,8 @@ router.route('/me/updateUserPassword').post(attachUser, updateUserPassword);
 
 router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, createStory);
+router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
 router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+router.route('/saveDiscount/:id').post(authenticateUser, saveDiscount)
 
 module.exports = router;

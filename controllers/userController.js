@@ -75,8 +75,30 @@ const createStory = async (req,res) =>{
 }
 
 const createDiscount = async (req,res) =>{
-  const discount = await Discount.create(req.body)
-  res.status(StatusCodes.CREATED).json({ discount })
+  const discount = await Discount.create( req.body )
+  res.json({ discount })
+}
+
+const saveDiscount = async (req,res) =>{
+  const { id } = req.params
+  const user = await User.findOne({ _id:req.user.userId })
+
+  const thisDiscount = await Discount.findOne({ _id:id })
+  const alldiscount = await Discount.find({ })
+  var discount = user.discount 
+  
+  if( discount==undefined ){
+    discount = []
+    discount[0] = thisDiscount.name
+    const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+    
+  }
+
+  discount = [...discount, thisDiscount.name]
+  const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+  
+  res.render('tracuu',{ discount: alldiscount ,user:newUser})
+  
 }
 
 module.exports = {
@@ -86,5 +108,6 @@ module.exports = {
     updateUser,
     updateUserPassword,
     createStory,
-    createDiscount
+    createDiscount,
+    saveDiscount
 }

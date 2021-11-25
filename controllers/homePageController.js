@@ -27,7 +27,6 @@ const getDiscount = async (req,res) =>{
     }else{
         user = req.user
     }
-    console.log(user)
 
     res.status(StatusCodes.OK).render('tracuu', {discount: discount, user: user})
 }
