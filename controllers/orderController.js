@@ -89,8 +89,20 @@ if( req.user!==undefined ){
   var userdiscount = dbUser.discount
 
   var score = evaluateScore(dbUser, subtotal)
-  const user = await User.findByIdAndUpdate({ _id:req.user.userId }, { score: score })
-  console.log(score)
+  var rank 
+
+  if( score>100 && score<200 ){
+    rank = "đồng"
+  }else if( score<300 && score>200 ){
+    rank = "bạc"
+  }else{
+    if( score>300 ){
+      rank= "vàng"
+    }
+  }
+
+  const user = await User.findByIdAndUpdate({ _id:req.user.userId }, { score:score , rank:rank })
+  
   res
     .status(StatusCodes.CREATED)
     .render('cart',{orders:orders[0].orderItems, subtotal: orders[0].subtotal, discount:userdiscount});
@@ -133,7 +145,7 @@ const buy = async (req,res) =>{
   var total = thisorder.total
 
   const category = discount.category
-  console.log(user.rank )
+
   if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
     switch (category) 
     {
@@ -149,7 +161,8 @@ const buy = async (req,res) =>{
         break
       default:
         break
-    } 
+    }
+     
 }else{
   throw new Error("Dont have enough condition")
 }
@@ -183,8 +196,15 @@ const getSingleOrder = async (req, res) => {
 const getCurrentUserOrders = async (req, res) => {
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId })
+    var orderItem = []
+    var subtotal = 0
 
-    res.status(StatusCodes.OK).render('cart', { orders:orders[0].orderItems, subtotal: orders[0].subtotal, discount: user.discount });
+    if( orders[0].status =="tìm shipper" ){
+      orderItem = orders[0].orderItems
+      subtotal = orders[0].subtotal
+    }
+
+    res.status(StatusCodes.OK).render('cart', { orders:orderItem, subtotal: subtotal, discount: user.discount });
 };
 
 const updateOrder = async (req, res) => {
