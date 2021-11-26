@@ -25,10 +25,11 @@
                                 <div><a href="#"><%= story.updatedAt.toString().slice(0, 15) %></a></div>
                                 <div><a href="#"><%= story.user.name %></a></div>
                             </div>
-                            <h3 class="heading"><a href="#"><%= story.title %></a></h3>
+                            <h3 class="heading"><%= story.title %></h3>
                             <p class="clearfix">
-                                <a href="#" class="float-left read">Read more</a>
-                                <a href="#" class="float-right meta-chat"><span class="icon-chat"></span> 3</a>
+                                <a href="#" data-title="<%= story.title %>" data-description="<%= story.description %>" data-toggle="modal" data-target="#description-modal">
+                                    Read More
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -62,3 +63,40 @@
 </section>
 
 <%- include('_layouts/footer'); -%>
+
+<div class="modal fade d-none" id="description-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        var title, description
+        var modal = document.querySelector('.modal')
+        var modalBody = document.querySelector('.modal-body')
+        var modalTitle = document.querySelector('.modal-title')
+        console.log(modalTitle);
+        $('#description-modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            title = button.data('title')
+            description = button.data('description')
+            modal.classList.remove('d-none')
+            modalTitle.innerHTML = `<b>${title}</b>`
+            modalBody.innerText = description
+        }); 
+    })
+</script>

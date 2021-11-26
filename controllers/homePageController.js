@@ -33,6 +33,7 @@ const getDiscount = async (req,res) =>{
 
 const getStories = async (req,res) =>{
     const stories = await Story.find({}).populate({ path: 'user', model: User, select: 'name' })
+    stories.reverse()
     const page = req.query.page || 1 
     
     var user
