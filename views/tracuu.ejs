@@ -1,41 +1,38 @@
 <%- include('_layouts/header') ; -%>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Promo</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Tìm kiếm <i class="ion-ios-arrow-forward"></i></span></p>
-            </div>
-        </div>
+<section class="ftco-section">
+    <div class="heading-menu text-center ftco-animate">
+        <h3>Mã giảm giá</h3>
     </div>
-</section>
+    <div class="container">
+        <div class="row">
 
-<section class="ftco-section ftco-no-pt ftco-no-pb">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                <div class="heading-section ftco-animate mb-5">
-                    <h2 class="mb-4">Tra cứu khuyến mãi</h2>
-                </div>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi">
+            <% discount.forEach((discount) =>{   %> 
+    <div class="col-md-6 col-lg-4 menu-wrap">
+           
+                <div class="menus d-flex ftco-animate">
+                    <div class="menu-img img" ></div>
+                    <div class="text">
+                        <div class="d-flex">
+                            <div class="one-half">
+                                <form method="POST" action="/KACoffe/v1/user/saveDiscount/<%= discount._id  %>"  >
+                                    <h3><input type="submit" value="Lưu" ></h3>
+                                </form>
+                            </div>
+                            <div class="one-forth">
+                                <span class="price"><%= discount.name %></span>
                             </div>
                         </div>
-                        <div class="col-md-12 mt-3">
-                            <div class="form-group">
-                                <input type="submit" value="Tìm kiếm" class="btn btn-primary py-3 px-5">
-                            </div>
-                        </div>
+                        <p><span>Dành cho khách hàng <%= discount.condition1 %></span></p>
+                        <p><span>Đơn hàng từ <%= discount.condition2 %></span></p>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
+            
     </div>
+    <%  }) %>
+    
+    </div>
+</div>
 </section>
 
 <%- include('_layouts/footer') ; -%>

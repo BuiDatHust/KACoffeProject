@@ -15,14 +15,19 @@
             
             <% orders.forEach( (order)=>{  %>
             <tr class="cart-item">
-                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                <td>
+                    <input type="checkbox" checked="checked" class="cart-check" name="courseIds[]" value="<%= order._id %>"/>
+                </td>
                 <td class="cart-txt-left">
                     <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
                     <a href="white-coffee.html" class="cart-name"><%= order.name  %></a></td>
                 <td><span class="cart-price"><%=  order.price  %></span></td>
                 <td><span class="cart-reduce">-</span><span class="cart-num"><%= order.amount  %></span> <span class="cart-add">+</span> </td>
                 <td><span class="cart-subtotal"> <%= order.amount*order.price %></span></td>
-                <td><span class="cart-del"><a href="/KACoffe/v1/order/delete?id=<%= order._id %>" >Xoá</a></span></td>
+                <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST" >
+                    <td><span class="cart-del"> <input type="submit" value="Xoá" ></span></td>
+                </form>
+                
             </tr>
             <% }) %>
             <form action="/KACoffe/v1/order/buy" method="POST">
@@ -30,6 +35,18 @@
                 <td colspan="8" >
                 </br>
                     Address : <input type="text" name="address">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="8" >
+                </br>
+                    Áp dụng mã giảm giá : 
+                    <select name="magiamgia" >
+                        <% discount.forEach((discount) =>{ %>
+                            <option  value="<%= discount  %>" ><%= discount  %></option>
+                        <% }) %>    
+                    </select>
                 </td>
             </tr>
               
@@ -45,5 +62,17 @@
         </table>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var courseIds 
+        var courseItemCheckbox = $('input[name="courseIds[]"]')
+
+        courseItemCheckbox.change(() =>{
+            console.log( $('input[name="courseIds[]"]:checked') )
+        })
+        
+    })
+</script>
 
 <%- include('_layouts/footer') ; -%>

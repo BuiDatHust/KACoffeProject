@@ -117,7 +117,7 @@
 
                 <div class="auth-form__aside">
                     <div class="auth-form__help">
-                        <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
+                        <span class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</span>
                         <span class="auth-form__help-separate"></span>
                         <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
                     </div>
@@ -139,10 +139,38 @@
             </div>
         </div>
         </form>
+        <!-- Forgot Password Form -->
+        <form action="/KACoffe/v1/auth/forgot-password" method="POST" >
+            <div class="auth-form auth-forgot-password" style="display: none;">
+    
+                <div class="container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Quên mật khẩu</h3>
+                        <span class="auth-form__switch auth-form__switch-login-1">Đăng nhập</span>
+                    </div>
+    
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input type="text" class="auth-form__input" name="email" placeholder="Email/SĐT">
+                        </div>
+                    </div>
 
-
-
-
+                    <div class="auth-form__controls">
+                        <a href="/KACoffe/v1" class="btn">TRỞ LẠI</a>
+                        <button type="submit" class="btn btn--primaryy">GỬI MAIL</button>
+                    </div>
+    
+                    <div class="auth-form__socials">
+                        <a href="" class="btn btn--with-icon">
+                            <i class="fab fa-facebook-square"></i> Kết nối với Facebook
+                        </a>
+                        <a href="" class="btn btn--with-icon">
+                            <i class="fab fa-google"></i> Kết nối với Google
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </form>    
     </div>
 </div>
 

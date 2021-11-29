@@ -6,14 +6,14 @@ const user = new mongoose.Schema({
     name: {type: String, required: true, maxLength: 100,},
     phone: {type: String, required: true},
     password: {type: String, required: true, minLength: 8},
-    rank: {
-        type: String,
-        enum:["gold","sliver","bronze","no ranking"],
-        default: "no ranking"
-    },
+    score: { 
+        type: Number ,
+        default: 0
+     },
+     rank:{ type:String,default:"no ranking" },
     email: {type:String, required: true},
     role: {type: String, required: true},
-    
+    discount: [ { type: String, ref:'Discount' , required:false } ]
 })
 
 user.pre('save', async function () {

@@ -33,20 +33,21 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { email, name } = req.body;
+    const { email, name,phone } = req.body;
     if (!email || !name) {
       throw new BadRequestError('Please provide all values');
     }
-    const user = await User.findOne({ _id: req.user.userId });
-  
+    const user = await User.findById(req.user.userId);
+   
     user.email = email;
     user.name = name;
-  
+    user.phone = phone;
     await user.save();
   
     const tokenUser = createTokenUser(user);
     attachTokenToRes({ res, user: tokenUser });
-    res.status(StatusCodes.OK).json({ user: tokenUser });
+
+    res.status(StatusCodes.OK).render('account', {user: tokenUser});
 };
 
 const updateUserPassword = async (req, res) => {
@@ -55,11 +56,11 @@ const updateUserPassword = async (req, res) => {
     if (!oldPassword || !newPassword) {
       throw new BadRequestError('Please provide both values');
     }
-    const user = await User.findOne({ _id: req.user.userId });
-  
+    const user = await User.findOne( {_id:req.user.userId } );
+    console.log(user)
     const isPasswordCorrect = await user.comparePassword(oldPassword);
     if (!isPasswordCorrect) {
-      throw new UnauthenticatedError('Invalid Credentials');
+      throw new UnauthentiatedError('Invalid Credentials');
     }
     user.password = newPassword;
   
@@ -74,8 +75,30 @@ const createStory = async (req,res) =>{
 }
 
 const createDiscount = async (req,res) =>{
-  const discount = await Discount.create(req.body)
-  res.status(StatusCodes.CREATED).json({ discount })
+  const discount = await Discount.create( req.body )
+  res.json({ discount })
+}
+
+const saveDiscount = async (req,res) =>{
+  const { id } = req.params
+  const user = await User.findOne({ _id:req.user.userId })
+
+  const thisDiscount = await Discount.findOne({ _id:id })
+  const alldiscount = await Discount.find({ })
+  var discount = user.discount 
+  
+  if( discount==undefined ){
+    discount = []
+    discount[0] = thisDiscount.name
+    const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+    
+  }
+
+  discount = [...discount, thisDiscount.name]
+  const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+  
+  res.render('tracuu',{ discount: alldiscount ,user:newUser})
+  
 }
 
 module.exports = {
@@ -85,5 +108,6 @@ module.exports = {
     updateUser,
     updateUserPassword,
     createStory,
-    createDiscount
+    createDiscount,
+    saveDiscount
 }
