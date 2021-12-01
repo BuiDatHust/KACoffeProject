@@ -426,11 +426,11 @@
     text-decoration: none;
     padding: 4px 16px;
     font-size: 16px;
-    transition: right linear 0.1s;
+    transition: all 0.1s linear;
 }
 
 .category-item__link :hover {
-    right: -10px;
+    margin-left: 5px;
     color: #FF3334
 }
 
