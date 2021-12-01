@@ -10721,7 +10721,7 @@ a {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
-    color: #f34949;
+    color: #000000;
 }
 
 a:hover,
@@ -11011,7 +11011,6 @@ h5,
 .ftco-navbar-light.scrolled .nav-link {
     padding-top: 0.9rem !important;
     padding-bottom: 0.9rem !important;
-    color: #ffa92d !important;
 }
 
 .ftco-navbar-light.scrolled .nav-link.active {
@@ -11031,8 +11030,10 @@ h5,
     transition: .3s all ease-out;
 }
 
-.ftco-navbar-light.scrolled .navbar-brand {
-    color: #ffa92d;
+.ftco-navbar-light.scrolled .navbar-brand {}
+
+.ftco-navbar-light.scrolled .navbar-brand :hover {
+    color: #fff;
 }
 
 .navbar-brand {
@@ -13188,6 +13189,11 @@ align-items: center;
     font-size: 1.4rem;
     text-decoration: none;
     color: #939399;
+    cursor: pointer;
+}
+
+.auth-form__help-link :hover {
+    color: var(--primary-color);
 }
 
 .auth-form__help-separate {
@@ -13197,7 +13203,9 @@ align-items: center;
     height: 22px;
 }
 
-.auth-form__help-forgot {
+.auth-form__help-forgot {}
+
+.auth-form__help-link .auth-form__help-forgot :hover {
     color: var(--primary-color);
 }
 
