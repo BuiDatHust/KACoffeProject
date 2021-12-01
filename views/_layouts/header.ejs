@@ -65,6 +65,11 @@
                                 <li class="nav-item-user-item">
                                     <a href="/KACoffe/v1/order/myOrders">Giỏ hàng</a>
                                 </li>
+                                <% if( user.role=="admin" ) { %> 
+                                <li class="nav-item-user-item">
+                                    <a href="/KACoffe/v1/admin">Quản lí cửa hàng </a>
+                                </li>
+                                <% } %>
                                 <li class="nav-item-user-item">
                                     <a href="/KACoffe/v1/auth/logout">Đăng xuất</a>
                                 </li>

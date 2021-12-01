@@ -1,0 +1,376 @@
+<%- include('_layouts/header') ; -%>
+
+<div class="products-admin" style="display: block;">
+    <div class="app__container">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__column-2">
+                    <div class="category">
+                        <div class="category__heading">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img-img">
+                            <h3 class="category__head">Admin</h3>
+                        </div>
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <span class="category-item__link">Quản lý</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link">Sản phẩm</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link discount-admin">Mã giảm giá</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link user-admin">Khách hàng</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link order-admin">Đơn hàng</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid__column-10">
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:28px;">Danh sách sản phẩm</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Sản phẩm</th>
+                                <th class="admin-header">Giá</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <img src="images/white-coffee.jpg" alt="" class="cart-txt-left-img">
+                                    <a href="white-coffee.html" class="cart-name">Cà phê sữa đá</a></td>
+                                <td><span class="cart-price">32000</span></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <img src="images/cold-brew-milk-coffe.jpg" alt="" class="cart-txt-left-img">
+                                    <a href="cold-brew-milk-coffe.html" class="cart-name">Cold Brew Sữa Tươi</a></td>
+                                <td><span class="cart-price">45000</span></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <img src="images/cold-grinding-ice-coffe.jpg" alt="" class="cart-txt-left-img">
+                                    <a href="cold-grinding-ice-coffe.html" class="cart-name">Cà Phê Đá Xay - Lạnh</a></td>
+                                <td><span class="cart-price">59000</span></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm sản phẩm</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Mã giảm giá-->
+<div class="discount-admin" style="display:none;">
+    <div class="app__container">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__column-2">
+                    <div class="category">
+                        <div class="category__heading">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img-img">
+                            <h3 class="category__head">Admin</h3>
+                        </div>
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <span class="category-item__link">Quản lý</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link products-admin">Sản phẩm</a>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link">Mã giảm giá</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link user-admin">Khách hàng</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link order-admin">Đơn hàng</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid__column-10">
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:28px;">Mã giảm giá</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Đối tượng sử dụng</th>
+                                <th class="admin-header">Code</th>
+                                <th class="admin-header">Thời gian áp dụng</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">Khách hàng kim cương</a></td>
+                                <td><span class="cart-price">7393</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">khách hàng vàng</a></td>
+                                <td><span class="cart-price">48843</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="cold-grinding-ice-coffe.html" class="cart-name">Khách hàng bạc</a></td>
+                                <td><span class="cart-price">39733</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm mã giảm giá</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Người dùng-->
+<div class="user-admin" style="display: none;">
+    <div class="app__container">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__column-2">
+                    <div class="category">
+                        <div class="category__heading">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img-img">
+                            <h3 class="category__head">Admin</h3>
+                        </div>
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <span class="category-item__link">Quản lý</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link products-admin">Sản phẩm</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link discount-admin">Mã giảm giá</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link">Khách hàng</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link order-admin">Đơn hàng</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid__column-10">
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:20px;">Người dùng kim cương</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Tài khoản</th>
+                                <th class="admin-header">Số điện thoại</th>
+                                <th class="admin-header">Số đơn hàng</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 1</a></td>
+                                <td><span class="cart-price">7393372873</span></td>
+                                <td>100</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 2</a></td>
+                                <td><span class="cart-price">782323298</span></td>
+                                <td>90</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm người dùng</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:20px;">Người dùng vàng</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Tài khoản</th>
+                                <th class="admin-header">Số điện thoại</th>
+                                <th class="admin-header">Số đơn hàng</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 1</a></td>
+                                <td><span class="cart-price">7393372873</span></td>
+                                <td>100</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 2</a></td>
+                                <td><span class="cart-price">782323298</span></td>
+                                <td>90</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm người dùng</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:20px;">Người dùng bạc</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Tài khoản</th>
+                                <th class="admin-header">Số điện thoại</th>
+                                <th class="admin-header">Số đơn hàng</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 1</a></td>
+                                <td><span class="cart-price">7393372873</span></td>
+                                <td>100</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">nhóm 2</a></td>
+                                <td><span class="cart-price">782323298</span></td>
+                                <td>90</td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm người dùng</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Đơn hàng-->
+<div class="order-admin" style="display: none;">
+    <div class="app__container">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__column-2">
+                    <div class="category">
+                        <div class="category__heading">
+                            <img src="images/avt.jpg" alt="" class="nav-item-user-img-img">
+                            <h3 class="category__head">Admin</h3>
+                        </div>
+                        <ul class="category-list">
+                            <li class="category-item category-item--active">
+                                <span class="category-item__link">Quản lý</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link products-admin">Sản phẩm</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link discount-admin">Mã giảm giá</apan>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link user-admin">Khách hàng</span>
+                            </li>
+                            <li class="category-item">
+                                <span class="category-item__link">Đơn hàng</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid__column-10">
+                    <div class="cart-cart">
+                        <span class="subheading" style="font-size:28px;">Danh sách sản phẩm</span>
+                        <table class="cart-table">
+                            <tr>
+                                <th style="width: 60px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                <th class="admin-header">Đối tượng sử dụng</th>
+                                <th class="admin-header">Code</th>
+                                <th class="admin-header">Thời gian áp dụng</th>
+                                <th class="admin-header">Thao tác</th>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">Khách hàng kim cương</a></td>
+                                <td><span class="cart-price">7393</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="" class="cart-name">khách hàng vàng</a></td>
+                                <td><span class="cart-price">48843</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-item">
+                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                <td class="cart-txt-left">
+                                    <a href="cold-grinding-ice-coffe.html" class="cart-name">Khách hàng bạc</a></td>
+                                <td><span class="cart-price">39733</span></td>
+                                <td></td>
+                                <td><span class="cart-del">Xóa</span></td>
+                            </tr>
+                            <tr class="cart-bottom">
+                                <td colspan="6">
+                                    <a href="#" class="cart-bottom-btn">Thêm sản phẩm</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('_layouts/footer') ; -%>
