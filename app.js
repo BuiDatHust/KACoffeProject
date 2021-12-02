@@ -2,12 +2,13 @@ require('dotenv').config()
 require('express-async-errors');
 const path = require('path')
 
+//option pakages
+
+const cookieParser = require('cookie-parser')
+
 const express = require('express')
 const app = express()
 
-//option pakages
-const cookieParser = require('cookie-parser')
-const fileUpload = require('express-fileupload')
 
 //connect database
 const connectDB = require('./db/connect')
@@ -28,7 +29,6 @@ app.use(express.json())
 app.use(cookieParser('jwtSecret'))
 
 app.use(express.static('./public'));
-app.use(fileUpload());
 app.use(express.urlencoded({extended:false}));
 
 app.set('views', path.join(__dirname, 'views'));

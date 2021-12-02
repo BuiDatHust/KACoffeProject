@@ -28,7 +28,7 @@
                     <h2 name="product" class="mb-4"><%= product.name %></h2>
                     
                 </div>
-                <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
+                <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
               class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
             class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
               class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
@@ -36,13 +36,34 @@
                     <p><%= product.description %></p>
                     <p><strong>Nguyên liệu:</strong></p>
                     <p><%= product.material %></p>
+                    <p><strong>Mô tả sản phẩm:</strong></p>
+                    <p><%= product.detaildescription %></p>
+                   
                 </div>
+                <!-- <p>Hình ảnh sản phầm: </p>
+                <div>
+                    <% product.Image.forEach(function(img){ %>
+                        <img src="<%= img  %>" >
+                    <% }) %>
+                </div> -->
                 <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
 
                     <div class="quantity">
                         <input type="hidden" name="product" value="<%= product._id %>">
                         <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
                         Số lượng: <input type="number" id="quantity_61968f808d09d" class="input-text qty text" name="quantity" >
+                        <div class="select-sizes">
+                            <p class="text1">Chọn kích cỡ sản phẩm</p>
+                            <div class="sizes1">
+                                <input type="checkbox" class="size-checkbox" id="xs" value="xs">
+                                <input type="checkbox" class="size-checkbox" id="s" value="s">
+                                <input type="checkbox" class="size-checkbox" id="m" value="m">
+                                <input type="checkbox" class="size-checkbox" id="l" value="l">
+                                <input type="checkbox" class="size-checkbox" id="xl" value="xl">
+                                <input type="checkbox" class="size-checkbox" id="xxl" value="xxl">
+                                <input type="checkbox" class="size-checkbox" id="xxxl" value="xxxl">
+                            </div>
+                        </div>
                         <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5">
 
                     </div>

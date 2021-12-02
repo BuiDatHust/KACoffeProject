@@ -7,8 +7,19 @@ const path = require('path')
 
 const createProduct = async (req, res) => {
     req.body.user = req.user.userId;
+    req.body.Image = [];
+
+    console.log(req.files)
+    req.files.forEach(function(img){
+      const length = img.destination.length
+      req.body.Image = [ ...req.body.Image, img.destination.slice(8,length) +'/'+ img.filename]
+    })
+    
+    
+    
     const product = await Product.create(req.body);
-    res.status(StatusCodes.CREATED).json({ product });
+
+    res.status(StatusCodes.CREATED).render('addProduct');
 };
 
 const getAllProducts = async (req, res) => {
