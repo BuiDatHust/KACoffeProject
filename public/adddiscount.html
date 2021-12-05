@@ -165,8 +165,8 @@
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="heading-section ftco-animate mb-5">
-                <span class="subheading">Thêm sản phẩm</span>
-                <h2 class="mb-4">Tạo sản phẩm mới</h2>
+                <span class="subheading">Thêm mã giảm giá</span>
+                <h2 class="mb-4">Tạo mã giảm giá mới</h2>
             </div>
 
             <!-- Form add products -->
@@ -174,15 +174,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="product-name" placeholder="Tên sản phẩm">
+                            <input type="text" id="discount-name" placeholder="Nhóm khách hàng sử dụng">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="product-price">
-                                <input type="number" id="actual-price" placeholder="Giá gốc (VNĐ)">
-                                <input type="number" id="discount-rate" placeholder="Khuyến mãi (%)">
-                                <input type="number" id="discount-money" placeholder="Khuyến mãi (VNĐ)">
+                                <input type="number" id="discount-price" placeholder="Phần trăm giảm">
+                                <input type="number" id="discount-rate" placeholder="Giảm tối đa">
+                                <input type="number" id="discount-money" placeholder="Đơn tối thiểu">
                             </div>
                         </div>
 
@@ -190,23 +190,22 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="short-des" placeholder="Miêu tả ngắn">
+                            <input type="text" id="discount-des" placeholder="Hình thức giảm">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="number" id="price" max="actual-price" placeholder="Giá bán (VNĐ)">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <textarea id="description" placeholder="Miêu tả chi tiết"></textarea>
+                            <input type="text" id="discount-code" placeholder="Mã code giảm giá">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea id="category" placeholder="Thêm danh mục (Cà phê, đá xay,... )"></textarea>
+                            <input type="date" id="discount-start" placeholder="Thời gian bắt đầu">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="date" id="discount-finish" placeholder="Thời gian kết thúc">
                         </div>
                     </div>
                 </div>
@@ -220,7 +219,7 @@
         <!-- product image -->
         <div class="product-info">
             <div class="product-image">
-                <p class="text1">Hình ảnh sản phẩm</p>
+                <p class="text1">Hình ảnh mã giảm giá</p>
             </div>
             <div class="upload-image-sec">
                 <!-- upload inputs -->
@@ -235,24 +234,13 @@
                     <input type="file" class="fileupload" id="fourth-file-upload-btn" hidden>
                     <label for="fourth-file-upload-btn" class="upload-image"></label>
                 </div>
-            </div>
-            <div class="select-sizes">
-                <p class="text1">Chọn kích cỡ sản phẩm</p>
-                <div class="sizes1">
-                    <input type="checkbox" class="size-checkbox" id="xs" value="xs">
-                    <input type="checkbox" class="size-checkbox" id="s" value="s">
-                    <input type="checkbox" class="size-checkbox" id="m" value="m">
-                    <input type="checkbox" class="size-checkbox" id="l" value="l">
-                    <input type="checkbox" class="size-checkbox" id="xl" value="xl">
-                    <input type="checkbox" class="size-checkbox" id="xxl" value="xxl">
-                    <input type="checkbox" class="size-checkbox" id="xxxl" value="xxxl">
+                <div class="buttons1" style="margin-left:208px;">
+                    <button class="btn1" id="add-btn1">Thêm mã giảm giá</button>
                 </div>
             </div>
         </div>
 
-        <div class="buttons1" style="margin-left: 70%;">
-            <button class="btn1" id="add-btn1">Thêm sản phẩm</button>
-        </div>
+
 
     </section>
 

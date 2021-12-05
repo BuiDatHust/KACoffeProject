@@ -20,7 +20,7 @@ textarea {
 
 .product-info {
     width: 100%;
-    height: 500px;
+    height: auto;
     display: grid;
     grid-template-columns: .75fr 1.25fr;
     grid-template-rows: repeat(2, 1fr);
@@ -31,7 +31,6 @@ textarea {
 .product-image {
     display: flex;
     justify-content: center;
-    align-items: center;
     background: #fff;
     background-size: cover;
     border-radius: 10px;
@@ -50,7 +49,6 @@ textarea {
 .select-sizes {
     background: #fff;
     border-radius: 10px;
-    padding: 20px;
 }
 
 .text img {
@@ -141,4 +139,8 @@ input::-webkit-inner-spin-button {
     outline: none;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.from__from {
+    width: 50%;
 }

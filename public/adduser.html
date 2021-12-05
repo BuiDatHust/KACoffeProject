@@ -165,94 +165,54 @@
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="heading-section ftco-animate mb-5">
-                <span class="subheading">Thêm sản phẩm</span>
-                <h2 class="mb-4">Tạo sản phẩm mới</h2>
+                <span class="subheading">Thêm người dùng</span>
+                <h2 class="mb-4">Thay đổi người dùng</h2>
             </div>
 
-            <!-- Form add products -->
+            <!-- Form add info-user -->
             <form action="#">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="product-name" placeholder="Tên sản phẩm">
+                            <input type="text" id="user-name" placeholder="Nhóm người dùng">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div class="product-price">
-                                <input type="number" id="actual-price" placeholder="Giá gốc (VNĐ)">
-                                <input type="number" id="discount-rate" placeholder="Khuyến mãi (%)">
-                                <input type="number" id="discount-money" placeholder="Khuyến mãi (VNĐ)">
-                            </div>
+                            <input type="text" id="user-account" placeholder="Tên người dùng">
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" id="user-phone" placeholder="Số điện thoại">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="user-address" placeholder="Địa chỉ">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="user-name" placeholder="email">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" id="user-price" placeholder="Số tiền đã mua">
+                        </div>
+                    </div>
 
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="short-des" placeholder="Miêu tả ngắn">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="number" id="price" max="actual-price" placeholder="Giá bán (VNĐ)">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <textarea id="description" placeholder="Miêu tả chi tiết"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <textarea id="category" placeholder="Thêm danh mục (Cà phê, đá xay,... )"></textarea>
-                        </div>
-                    </div>
-                </div>
             </form>
 
 
 
 
-        </div>
+            </div>
 
-        <!-- product image -->
-        <div class="product-info">
-            <div class="product-image">
-                <p class="text1">Hình ảnh sản phẩm</p>
+            <div class="buttons1" style="margin-left: 70%;">
+                <button class="btn1" id="add-btn1">Thay đổi</button>
             </div>
-            <div class="upload-image-sec">
-                <!-- upload inputs -->
-                <p class="text"><img src="images/camera.png" alt="">Tải ảnh lên (Tối đa 4 ảnh)</p>
-                <div class="upload-catalouge">
-                    <input type="file" class="fileupload" id="first-file-upload-btn" hidden>
-                    <label for="first-file-upload-btn" class="upload-image"></label>
-                    <input type="file" class="fileupload" id="second-file-upload-btn" hidden>
-                    <label for="second-file-upload-btn" class="upload-image"></label>
-                    <input type="file" class="fileupload" id="third-file-upload-btn" hidden>
-                    <label for="third-file-upload-btn" class="upload-image"></label>
-                    <input type="file" class="fileupload" id="fourth-file-upload-btn" hidden>
-                    <label for="fourth-file-upload-btn" class="upload-image"></label>
-                </div>
-            </div>
-            <div class="select-sizes">
-                <p class="text1">Chọn kích cỡ sản phẩm</p>
-                <div class="sizes1">
-                    <input type="checkbox" class="size-checkbox" id="xs" value="xs">
-                    <input type="checkbox" class="size-checkbox" id="s" value="s">
-                    <input type="checkbox" class="size-checkbox" id="m" value="m">
-                    <input type="checkbox" class="size-checkbox" id="l" value="l">
-                    <input type="checkbox" class="size-checkbox" id="xl" value="xl">
-                    <input type="checkbox" class="size-checkbox" id="xxl" value="xxl">
-                    <input type="checkbox" class="size-checkbox" id="xxxl" value="xxxl">
-                </div>
-            </div>
-        </div>
-
-        <div class="buttons1" style="margin-left: 70%;">
-            <button class="btn1" id="add-btn1">Thêm sản phẩm</button>
-        </div>
 
     </section>
 
