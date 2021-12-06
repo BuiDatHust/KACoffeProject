@@ -14,6 +14,7 @@ const {
     createOrder,
     updateOrder,
     buy,
+    getCart,
     deleteOrderItems
   } = require('../controllers/orderController');
   
@@ -24,6 +25,7 @@ const {
 
   
   router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
+  router.route('/cart').get(authenticateUser, getCart);
 
   router.route('/buy').post(authenticateUser, buy);
   

@@ -58,12 +58,15 @@
                                     <tr class="cart-item">
                                         <td class="button__check"><input type="checkbox" checked="checked" class="cart-check" /></td>
                                         <td class="cart-txt-left">
-                                            <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
-                                            <a href="white-coffee.html" class="cart-name"><%= product.name  %></a></td>
+                                            <img src="<%= product.Image[0] %>" alt="" class="cart-txt-left-img">
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>" class="cart-name"><%= product.name  %></a></td>
                                         <td><span class="cart-price"><%= product.price  %></span></td>
                                         <td>
-                                            <span class="cart-del">Xóa</span>
-                                        </br><span class="cart-del">Sửa</span>
+                                            <form action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post" >
+                                                <input type="submit" style="padding: 1px;margin: 2px;" value="Xoá" />
+                                            </form>
+                                            
+                                            <a href="/KACoffe/v1/admin/allproduct/<%= product._id  %>" >Sửa</a>
                                         </td>
                                     </tr>
                                 <% }) ; %>

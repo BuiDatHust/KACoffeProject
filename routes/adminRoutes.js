@@ -3,7 +3,7 @@ const express = require('express')
 const { getAdminPage,createProductPage } = require('../controllers/adminController')
 const { getSingleUser, createStory, createDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
-const { updateProduct,deleteProduct,createProduct } = require('../controllers/productController')
+const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
 const { getAllOrders } =require('../controllers/orderController')
 
 const router = express.Router()
@@ -35,8 +35,11 @@ router.route('/createDiscount').post(authenticateUser, authorizePermission('admi
 
 router
   .route('/allproduct/:id')
-  .patch([authenticateUser, authorizePermission('admin')], updateProduct)
-  .delete([authenticateUser, authorizePermission('admin')], deleteProduct);
+  .get(authenticateUser, authorizePermission('admin'), getupdateProductPage)
+  .post(authenticateUser, authorizePermission('admin'), updateProduct)
+router
+  .route('/allproduct/delete/:id')  
+  .post(authenticateUser, authorizePermission('admin'), deleteProduct);
 router
     .route('/createProduct')
     .get([authenticateUser, authorizePermission('admin')], createProductPage)   
