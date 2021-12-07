@@ -6,11 +6,12 @@ const {
     getDiscount,
     getStories,
 } = require('../controllers/homePageController')
+const { attachUser } = require('../middleware/authentication')
 
-router.route('/').get(getHomepage)
+router.route('/').get(attachUser,getHomepage)
 
-router.route('/discount').get(getDiscount)
+router.route('/discount').get(attachUser,getDiscount)
 
-router.route('/stories').get(getStories)
+router.route('/stories').get(attachUser,getStories)
 
 module.exports = router

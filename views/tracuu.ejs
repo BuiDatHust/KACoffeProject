@@ -1,0 +1,38 @@
+<%- include('_layouts/header') ; -%>
+
+<section class="ftco-section">
+    <div class="heading-menu text-center ftco-animate">
+        <h3>Mã giảm giá</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <% discount.forEach((discount) =>{   %> 
+    <div class="col-md-6 col-lg-4 menu-wrap">
+           
+                <div class="menus d-flex ftco-animate">
+                    <div class="menu-img img" ></div>
+                    <div class="text">
+                        <div class="d-flex">
+                            <div class="one-half">
+                                <form method="POST" action="/KACoffe/v1/user/saveDiscount/<%= discount._id  %>"  >
+                                    <h3><input type="submit" value="Lưu" ></h3>
+                                </form>
+                            </div>
+                            <div class="one-forth">
+                                <span class="price"><%= discount.name %></span>
+                            </div>
+                        </div>
+                        <p><span>Dành cho khách hàng <%= discount.condition1 %></span></p>
+                        <p><span>Đơn hàng từ <%= discount.condition2 %></span></p>
+                    </div>
+                </div>
+            
+    </div>
+    <%  }) %>
+    
+    </div>
+</div>
+</section>
+
+<%- include('_layouts/footer') ; -%>

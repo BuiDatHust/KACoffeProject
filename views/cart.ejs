@@ -1,0 +1,78 @@
+<%- include('_layouts/header') ; -%>
+
+<div class="container">
+    <div class="cart">
+        <span class="subheading" style="font-size:28px;">Giỏ hàng</span>
+        <table class="cart-table" style="margin-top: 50px;">
+            <tr>
+                <th width="60"  style="text-align: center;"><span class="cart-all">Tất cả</span></th>
+                <th width="150" style="text-align: center;">Sản phẩm</th>
+                <th width="50" style="text-align: center;">Giá</th>
+                <th width="50" style="text-align: center;">Số lượng</th>
+                <th width="100" style="text-align: center;">Tổng cộng</th>
+                <th width="60" style="text-align: center;">Thao tác</th>
+            </tr>
+            
+            <% orders.forEach( (order)=>{  %>
+            <tr class="cart-item">
+                <td>
+                    <input type="checkbox" checked="checked" class="cart-check" name="courseIds[]" value="<%= order._id %>"/>
+                </td>
+                <td class="cart-txt-left">
+                    <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
+                    <a href="white-coffee.html" class="cart-name"><%= order.name  %></a></td>
+                <td><span class="cart-price"><%=  order.price  %>đ</span></td>
+                <td><span class="cart-reduce">-</span><span class="cart-num"><%= order.amount  %></span> <span class="cart-add">+</span> </td>
+                <td><span class="cart-subtotal"> <%= order.amount*order.price %>đ</span></td>
+                <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST" >
+                    <td><span class="cart-del"> <input type="submit" value="Xoá" ></span></td>
+                </form>
+                
+            </tr>
+            <% }) %>
+            <form action="/KACoffe/v1/order/buy" method="POST">
+            <tr>
+                <td colspan="8" >
+                </br>
+                    Address : <input type="text" name="address">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="8" >
+                </br>
+                    Áp dụng mã giảm giá : 
+                    <select name="magiamgia" >
+                        <% discount.forEach((discount) =>{ %>
+                            <option  value="<%= discount  %>" ><%= discount  %></option>
+                        <% }) %>    
+                    </select>
+                </td>
+            </tr>
+              
+            <tr class="cart-bottom">
+                <td colspan="6">
+                    <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
+                    <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
+                    <span class="cart-bottom-btn"><input type="submit" value="Đặt hàng" ></span>
+                </td>
+            </tr>
+        </form>
+           
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var courseIds 
+        var courseItemCheckbox = $('input[name="courseIds[]"]')
+
+        courseItemCheckbox.change(() =>{
+            console.log( $('input[name="courseIds[]"]:checked') )
+        })
+        
+    })
+</script>
+
+<%- include('_layouts/footer') ; -%>

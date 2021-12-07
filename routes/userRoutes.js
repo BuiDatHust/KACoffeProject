@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {
     authenticateUser,
-    authorizePermission
+    authorizePermission,
+    attachUser
 }= require('../middleware/authentication')
 const {
     getAllUsers,
@@ -11,9 +12,9 @@ const {
     updateUser,
     updateUserPassword,
     createStory,
-    createDiscount
+    createDiscount,
+    saveDiscount
 } = require('../controllers/userController');
-const { route } = require('express/lib/router');
 
 
 router
@@ -21,12 +22,13 @@ router
   .get(authenticateUser, authorizePermission('admin'), getAllUsers);
 
 router.route('/me').get(authenticateUser, showCurrentUser);
-router.route('/updateUser').patch(authenticateUser, updateUser);
-router.route('/updateUserPassword').patch(authenticateUser, updateUserPassword);
+router.route('/me/update').post(attachUser, updateUser);
+router.route('/me/updateUserPassword').post(attachUser, updateUserPassword);
 
-router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
+// router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, createStory);
-router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+// router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
+// router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+router.route('/saveDiscount/:id').post(authenticateUser, saveDiscount)
 
 module.exports = router;

@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const {authenticateUser,attachUser} = require('../middleware/authentication')
 
 const {
-    getproducts,
+    getproducts, getSingleProduct,
 } = require('../controllers/menuController')
 
-router.route('/').get(getproducts)
+router.route('/:id').get(attachUser,getSingleProduct)
+router.route('/').get(attachUser,getproducts)
 
 module.exports = router
