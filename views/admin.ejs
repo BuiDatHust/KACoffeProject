@@ -144,10 +144,10 @@
                                 <% }) ; %>  
                             </table>
                         </div>
-                        <div class="cart-cart">
+                        <div class="cart-cart" style="padding-top: 30px;">
                             <span class="subheading" style="font-size:20px;">Người dùng vàng</span>
                             <table class="cart-table">
-                                <tr>
+                                <tr >
                                     <th style="width:30px;"><span class="cart-all">Tất cả</span></th>
                                     <th class="admin-header__products">Tài khoản</th>
                                     <th class="admin-header__price">Số điện thoại</th>
@@ -156,7 +156,7 @@
                                 </tr>
                                 <% users.forEach(function(user){  %>
                                     <% if( user.rank=="bạc" ) { %>
-                                <tr class="cart-item">
+                                <tr class="cart-item" >
                                     <td><input type="checkbox" checked="checked" class="cart-check" /></td>
                                     <td class="cart-txt-left">
                                         <a href="" class="cart-name"><%= user.name %></a></td>
@@ -168,7 +168,7 @@
                                 <% }) ; %>  
                             </table>
                         </div>
-                        <div class="cart-cart">
+                        <div class="cart-cart" style="padding-top: 20px;">
                             <span class="subheading" style="font-size:20px;">Người dùng bạc</span>
                             <table class="cart-table">
                                 <tr>
@@ -193,7 +193,7 @@
                             </table>
                         </div>
 
-                        <div class="cart-cart">
+                        <div class="cart-cart" style="padding-top: 20px;">
                             <span class="subheading" style="font-size:20px;">Người dùng chưa được xếp hạng</span>
                             <table class="cart-table">
                                 <tr>

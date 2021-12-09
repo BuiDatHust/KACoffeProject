@@ -224,7 +224,8 @@ const getCart = async (req,res) =>{
     console.log("cdc")
     res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
   }else{
-    res.redirect('/KACoffe/v1/order/cart');
+    console.log("scscsc")
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
   }
   
 }

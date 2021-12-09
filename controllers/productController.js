@@ -19,7 +19,7 @@ const createProduct = async (req, res) => {
     
     const product = await Product.create(req.body);
 
-    res.redirect('/KACoffe/v1/admin');;
+    res.redirect('/KACoffe/v1/admin');
 };
 
 const getAllProducts = async (req, res) => {
