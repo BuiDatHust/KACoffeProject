@@ -1,23 +1,36 @@
 const express = require('express')
 
-const { getAdminPage,createProductPage } = require('../controllers/adminController')
-const { getSingleUser, createStory, createDiscount } = require('../controllers/userController')
+const {
+    getAdminPage,
+    createProductPage,
+    createDiscountPage,
+    deleteDiscount,
+    createDiscount,
+    updateDiscountPage,
+    updateDiscount,
+    createStoryPage,
+    createStory,
+    deleteStory,
+    updateStoryPage,
+    updateStory,
+} = require('../controllers/adminController')
+const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
-const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
-const { getAllOrders } =require('../controllers/orderController')
+const { updateProduct, deleteProduct, createProduct, getupdateProductPage } = require('../controllers/productController')
+const { getAllOrders } = require('../controllers/orderController')
 
 const router = express.Router()
 
 const multer = require('multer')
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+    destination: function(req, file, cb) {
 
-      // Uploads is the Upload_folder_name
-      cb(null, "./public/uploads")
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now()+".jpg")
-  }
+        // Uploads is the Upload_folder_name
+        cb(null, "./public/uploads")
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + "-" + Date.now() + ".jpg")
+    }
 })
 
 const upload = multer({ storage: storage })
@@ -25,28 +38,48 @@ const upload = multer({ storage: storage })
 
 router
     .route('/')
-    .get([ authenticateUser,authorizePermission('admin') ], getAdminPage)
+    .get([authenticateUser, authorizePermission('admin')], getAdminPage)
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
-router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+router.route('/createStory')
+    .post(authenticateUser, authorizePermission('admin'), createStory)
+    .get(authenticateUser, authorizePermission('admin'), createStoryPage);
+router
+    .route('/allStory/:id')
+    .get(authenticateUser, authorizePermission('admin'), updateStoryPage)
+    .post(authenticateUser, authorizePermission('admin'), updateStory)
+router
+    .route('/allStory/delete/:id')
+    .post(authenticateUser, authorizePermission('admin'), deleteStory)
 
 
 router
-  .route('/allproduct/:id')
-  .get(authenticateUser, authorizePermission('admin'), getupdateProductPage)
-  .post(authenticateUser, authorizePermission('admin'), updateProduct)
+    .route('/createDiscount')
+    .get(authenticateUser, authorizePermission('admin'), createDiscountPage)
+    .post(authenticateUser, authorizePermission('admin'), createDiscount)
 router
-  .route('/allproduct/delete/:id')  
-  .post(authenticateUser, authorizePermission('admin'), deleteProduct);
+    .route('/allDiscount/:id')
+    .get(authenticateUser, authorizePermission('admin'), updateDiscountPage)
+    .post(authenticateUser, authorizePermission('admin'), updateDiscount)
+router
+    .route('/allDiscount/delete/:id')
+    .post(authenticateUser, authorizePermission('admin'), deleteDiscount)
+
+router
+    .route('/allproduct/:id')
+    .get(authenticateUser, authorizePermission('admin'), getupdateProductPage)
+    .post(authenticateUser, authorizePermission('admin'), updateProduct)
+router
+    .route('/allproduct/delete/:id')
+    .post(authenticateUser, authorizePermission('admin'), deleteProduct);
 router
     .route('/createProduct')
-    .get([authenticateUser, authorizePermission('admin')], createProductPage)   
-    .post([authenticateUser, authorizePermission('admin')],upload.array('image', 4), createProduct)
+    .get([authenticateUser, authorizePermission('admin')], createProductPage)
+    .post([authenticateUser, authorizePermission('admin')], upload.array('image', 4), createProduct)
 
 router
     .route('/allOrder')
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
-module.exports= router 
+module.exports = router
