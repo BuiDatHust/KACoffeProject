@@ -11,8 +11,6 @@ const {
     showCurrentUser,
     updateUser,
     updateUserPassword,
-    createStory,
-    createDiscount,
     saveDiscount
 } = require('../controllers/userController');
 

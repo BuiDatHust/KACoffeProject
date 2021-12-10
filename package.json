@@ -1,39 +1,39 @@
 {
-  "name": "kacoffeproject",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BuiDatHust/KACoffeProject.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BuiDatHust/KACoffeProject/issues"
-  },
-  "homepage": "https://github.com/BuiDatHust/KACoffeProject#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "chalk": "^4.1.2",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "express-async-errors": "^3.1.1",
-    "express-fileupload": "^1.2.1",
-    "http-status-codes": "^2.1.4",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.12",
-    "multer": "^1.4.3",
-    "nodemailer": "^6.7.1",
-    "nodemon": "^2.0.15",
-    "path": "^0.12.7",
-    "randomstring": "^1.2.1"
-  },
-  "devDependencies": {}
+    "name": "kacoffeproject",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BuiDatHust/KACoffeProject.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/BuiDatHust/KACoffeProject/issues"
+    },
+    "homepage": "https://github.com/BuiDatHust/KACoffeProject#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "chalk": "^4.1.2",
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "express-fileupload": "^1.2.1",
+        "http-status-codes": "^2.1.4",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.0.12",
+        "multer": "^1.4.3",
+        "nodemailer": "^6.7.1",
+        "nodemon": "^2.0.15",
+        "path": "^0.12.7",
+        "randomstring": "^1.2.1"
+    },
+    "devDependencies": {}
 }
