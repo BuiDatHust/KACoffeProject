@@ -13,7 +13,8 @@ const user = new mongoose.Schema({
      rank:{ type:String,default:"no ranking" },
     email: {type:String, required: true},
     role: {type: String, required: true},
-    discount: [ { type: String, ref:'Discount' , required:false } ]
+    discount: [ { type: String, ref:'Discount' , required:false } ],
+    notification: [ { type: String, ref: 'User' ,required: false, default:"" } ]
 })
 
 user.pre('save', async function () {

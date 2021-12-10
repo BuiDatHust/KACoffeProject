@@ -15,7 +15,8 @@ const {
     updateOrder,
     buy,
     getCart,
-    deleteOrderItems
+    deleteOrderItems,
+    requestToDeleteOrder
   } = require('../controllers/orderController');
   
   router
@@ -38,5 +39,6 @@ const {
     .route('/delete/:id')
     .post(authenticateUser,deleteOrderItems )
 
+  router.route('/sendNotification/:orderid/:userid').post(authenticateUser,requestToDeleteOrder)
   
   module.exports = router;

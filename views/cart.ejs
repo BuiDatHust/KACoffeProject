@@ -30,7 +30,7 @@
                 
             </tr>
             <% }) %>
-            <form action="/KACoffe/v1/order/buy" method="POST">
+            <form action="/KACoffe/v1/order/buy" id="formsubmit" method="POST">
             <tr>
                 <td colspan="8" >
                 </br>
@@ -43,6 +43,7 @@
                 </br>
                     Áp dụng mã giảm giá : 
                     <select name="magiamgia" >
+                        <option  value="" >Không áp dụng</option>
                         <% discount.forEach((discount) =>{ %>
                             <option  value="<%= discount  %>" ><%= discount  %></option>
                         <% }) %>    
@@ -54,7 +55,7 @@
                 <td colspan="6">
                     <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
                     <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
-                    <span class="cart-bottom-btn"><input type="submit" value="Đặt hàng" ></span>
+                    <span class="cart-bottom-btn"><input type="submit" id="dathang" value="Đặt hàng" ></span>
                 </td>
             </tr>
         </form>
@@ -64,15 +65,17 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        var courseIds 
-        var courseItemCheckbox = $('input[name="courseIds[]"]')
+    const dathang = document.getElementById('dathang')
+    const formsubmit = document.getElementById('formsubmit')
 
-        courseItemCheckbox.change(() =>{
-            console.log( $('input[name="courseIds[]"]:checked') )
-        })
+    dathang.addEventListener('click', async function(e){
+        e.preventDefault()
         
-    })
+        await swal("Đặt hàng thành công!", "Click để tiếp tục", "success")
+        formsubmit.submit();
+
+})
 </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <%- include('_layouts/footer') ; -%>

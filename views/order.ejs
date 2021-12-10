@@ -25,11 +25,26 @@
                     </select>
                     </td>
                     <td> <%=  order.status %> </td>
-                    <td>Xoá</td>
+                    <form  id="formsubmit<%= order._id %>" action="/KACoffe/v1/order/sendNotification/<%= order._id %>/<%= userid %>"" method="post">
+                        
+                    </form>
+                    <td><input  onclick="HuyDon('<%= order._id %>');" type="submit" value="Hủy Đơn Hàng"  /></td>
+                    
                 </tr>            
             <% }) %>
         </table>
+        
     </div>
 </div>
 
+<script  >
+    
+    async function HuyDon(orderid){
+        const formsubmit = document.getElementById(`formsubmit${orderid}`)  
+       await swal("Thành công","Bản đã yêu cầu hủy đơn hàng","success")
+       formsubmit.submit()
+    };
+
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%- include('_layouts/footer') ; -%>

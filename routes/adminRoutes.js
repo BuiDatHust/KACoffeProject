@@ -4,7 +4,7 @@ const { getAdminPage,createProductPage } = require('../controllers/adminControll
 const { getSingleUser, createStory, createDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
-const { getAllOrders } =require('../controllers/orderController')
+const { getAllOrders,deleteOrder } =require('../controllers/orderController')
 
 const router = express.Router()
 
@@ -48,5 +48,7 @@ router
 router
     .route('/allOrder')
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+
+router.route('/deleteOrder/:orderid').post(authenticateUser, deleteOrder)
 
 module.exports= router 

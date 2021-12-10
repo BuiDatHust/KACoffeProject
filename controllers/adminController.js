@@ -13,15 +13,16 @@ const getAdminPage = async (req,res) =>{
     const story = await Story.find({})
     const discount = await Discount.find({})
     const order = await Order.find({})
-    const user = await User.find({})
+    const users = await User.find({})
+    const user = await User.findOne({_id: req.user.userId})
 
     res.render('admin', { 
-        user: req.user, 
+        user: user, 
         products: product,
         stories: story ,
         discounts:discount,
         orders: order,
-        users: user
+        users: users,
     });
 }
 
