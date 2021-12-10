@@ -13,7 +13,8 @@ const {
     getCurrentUserOrders,
     createOrder,
     updateOrder,
-    buy
+    buy,
+    deleteOrderItems
 } = require('../controllers/orderController');
 
 router
@@ -35,4 +36,11 @@ router
     .route('/:id')
     .get(authenticateUser, getSingleOrder)
     .patch(authenticateUser, updateOrder);
-module.exports = router
+
+router
+    .route('/delete/:id')
+    .post(authenticateUser, deleteOrderItems)
+
+
+
+module.exports = router;

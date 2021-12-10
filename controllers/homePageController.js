@@ -27,13 +27,13 @@ const getDiscount = async(req, res) => {
     } else {
         user = req.user
     }
-    console.log(user)
 
     res.status(StatusCodes.OK).render('tracuu', { discount: discount, user: user })
 }
 
 const getStories = async(req, res) => {
     const stories = await Story.find({}).populate({ path: 'user', model: User, select: 'name' })
+    stories.reverse()
     const page = req.query.page || 1
 
     var user

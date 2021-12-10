@@ -583,6 +583,9 @@
       }
       
       @media (min-width: 768px) {
+          .modal-dialog{
+              min-width: 600px;
+          }
           .container {
               max-width: 720px;
           }
@@ -13176,6 +13179,7 @@
           font-size: 1.4rem;
           text-decoration: none;
           color: #939399;
+          cursor: pointer;
       }
       
       .auth-form__help-separate {
