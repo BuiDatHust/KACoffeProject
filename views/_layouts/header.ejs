@@ -47,32 +47,6 @@
                     <li class="nav-item"><a href="/KACoffe/v1/discount" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/stories" class="nav-link">Tin tức</a></li>
                     <% if ( !user ) { %>
-<<<<<<< HEAD
-                    <li class="nav-item"><a href="/KACoffe/v1/auth" class="nav-link">Đăng nhập</a></li>
-                    <% } %>
-                    <% if ( user ) { %>
-                    <li class="nav-item ">
-                        
-                        <div class="nav-link nav-item-user">
-                            <img src="/images/avt.jpg" alt="" class="nav-item-user-img">
-                            <span class="nav-item-user-name"><%= user.name  %></span>
-                            <ul class="nav-item-user-menu">
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/user/me">Tài khoản</a>
-                                </li>
-                                <li class="nav-item-user-item">
-                                    <a href="">Địa chỉ giao hàng</a>
-                                </li>
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/order/myOrders">Đơn mua</a>
-                                </li>
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/user/notification">Thông báo</a>
-                                </li>
-                                <% if( user.role=="admin" ) { %> 
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/admin">Quản lí cửa hàng </a>
-=======
                         <li class="nav-item"><a href="/KACoffe/v1/auth" class="nav-link">Đăng nhập</a></li>
                         <% } %>
                             <% if ( user ) { %>
@@ -103,7 +77,6 @@
                                         </ul>
                                     </div>
 
->>>>>>> 401b21cbf12db3d8322c92e98949309f8f4e05b3
                                 </li>
                                 <% } %>
                 </ul>
@@ -146,29 +119,11 @@
                             <div class="form-group">
                                 <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
                             </div>
-<<<<<<< HEAD
-                        </li>
-                        
-                    </ul>
-                    <a href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
-                        <div class="form-group">
-                            <input type="submit" id="xemgio" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
-                        </div>
-                    </a>
-=======
                         </a>
                     </div>
                     <% }; %>
->>>>>>> 401b21cbf12db3d8322c92e98949309f8f4e05b3
                 </div>
 
         </div>
     </nav>
-<script>
-    var xemgio = document.getElementById('xemgiohang')
-    xemgio.addEventListener('click',function(e){
-        e.preventDefault();
-        console.log("cdccdc")
-    })
-</script>
     
