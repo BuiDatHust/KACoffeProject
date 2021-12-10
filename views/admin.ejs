@@ -73,15 +73,13 @@
                                             </td>
                                         </tr>
                                         <% }) ; %>
-
-                                            <tr class="cart-bottom">
-                                                <td colspan="6">
-                                                    <a href="/KACoffe/v1/admin/createProduct" class="cart-bottom-btn">Thêm sản phẩm</a>
-                                                </td>
-                                            </tr>
+                                        <tr class="cart-bottom">
+                                            <td colspan="6">
+                                                <a href="/KACoffe/v1/admin/createProduct" class="cart-bottom-btn">Thêm sản phẩm</a>
+                                            </td>
+                                        </tr>
                                 </table>
                             </div>
-
                         </div>
 
                     </div>
@@ -98,20 +96,6 @@
                                         <th class="admin-header__header">Thao tác</th>
                                     </tr>
 
-                                    <% discounts.forEach(function(discount){  %>
-                                        <tr class="cart-item">
-                                            <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                                            <td class="cart-txt-left">
-                                                <a href="" class="cart-name">Khách hàng <%= discount.condition1  %></a></td>
-                                            <td><span class="cart-price"><%= discount.name  %></span></td>
-                                            <td></td>
-                                            <td><span class="cart-del">Xóa</span></td>
-                                        </tr>
-
-<<<<<<< HEAD
-                                        <% }) ; %>
-
-=======
                                 <% discounts.forEach(function(discount){  %>
                                     <tr class="cart-item">
                                         <td><input type="checkbox" checked="checked" class="cart-check" /></td>
@@ -125,10 +109,8 @@
                                             </form>
                                         </td>
                                     </tr>
-
                                 <% }) ; %>
-                                
-                                
+
                                 <tr class="cart-bottom">
                                     <td colspan="6">
                                         <a href="/KACoffe/v1/admin/createDiscount" class="cart-bottom-btn">Thêm mã giảm giá</a>
@@ -136,16 +118,6 @@
                                 </tr>
                             </table>
                         </div>
->>>>>>> c29d80f74b6d022cfde48eaa168790ee5f373a67
-
-                                            <tr class="cart-bottom">
-                                                <td colspan="6">
-                                                    <a href="#" class="cart-bottom-btn">Thêm mã giảm giá</a>
-                                                </td>
-                                            </tr>
-                                </table>
-                            </div>
-
                         </div>
                     </div>
                     <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="security-tab">
