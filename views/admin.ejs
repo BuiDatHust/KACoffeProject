@@ -108,8 +108,35 @@
                                             <td><span class="cart-del">Xóa</span></td>
                                         </tr>
 
+<<<<<<< HEAD
                                         <% }) ; %>
 
+=======
+                                <% discounts.forEach(function(discount){  %>
+                                    <tr class="cart-item">
+                                        <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                        <td class="cart-txt-left">
+                                            <a href="/KACoffe/v1/admin/allDiscount/<%= discount._id  %>" class="cart-name">Khách hàng <%= discount.condition1  %></a></td>
+                                        <td><span class="cart-price"><%= discount.name  %></span></td>
+                                        <td><span class="cart-time"><% if(discount.startTime) { %><%= discount.startTime.toLocaleDateString() %> - <%= discount.endTime.toLocaleDateString() %><% } %> </span></td>
+                                        <td>
+                                            <form action="/KACoffe/v1/admin/allDiscount/delete/<%= discount._id  %>" method="post" >
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                <% }) ; %>
+                                
+                                
+                                <tr class="cart-bottom">
+                                    <td colspan="6">
+                                        <a href="/KACoffe/v1/admin/createDiscount" class="cart-bottom-btn">Thêm mã giảm giá</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+>>>>>>> c29d80f74b6d022cfde48eaa168790ee5f373a67
 
                                             <tr class="cart-bottom">
                                                 <td colspan="6">
