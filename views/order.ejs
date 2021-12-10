@@ -1,0 +1,35 @@
+<%- include('_layouts/header') ; -%>
+
+<div class="container" >
+    <div class="cart">
+        <table class="cart-table" style="margin-top: 100px;" >
+            <tr>
+                
+                <th width="100" style="text-align: center;">Đơn hàng</th>
+                <th width="50" style="text-align: center;">Tổng số tiền</th>
+                <th width="50" style="text-align: center;">Số lượng</th>
+                <th width="150" style="text-align: center;">Đồ đã mua</th>
+                <th width="150" style="text-align: center;">Tình trạng</th>
+                <th width="50" style="text-align: center;">Thao tác</th>
+            </tr>
+
+            <% orders.forEach(function(order,index) {  %>
+                <tr class="cart-item">
+                    <td># <%= index %></td>
+                    <td><%= order.subtotal  %>đ  </td>
+                    <td> <%= order.orderItems.length %>  </td>
+                    <td> <select >
+                        <% order.orderItems.forEach((item) =>{ %>
+                            <option  > <%= item.name %></option>
+                            <% }) %>
+                    </select>
+                    </td>
+                    <td> <%=  order.status %> </td>
+                    <td>Xoá</td>
+                </tr>            
+            <% }) %>
+        </table>
+    </div>
+</div>
+
+<%- include('_layouts/footer') ; -%>

@@ -26,7 +26,6 @@ const createOrder = async (req,res) =>{
     amount: req.body.quantity,
     product: req.body.product
   };
-
   if (!cartItems || cartItems.length < 1) {
     throw new BadRequestError('No cart items provided');
   }
@@ -48,7 +47,7 @@ const createOrder = async (req,res) =>{
       amount: cartItems.amount,
       name,
       price,
-      Image,
+      Image:Image[0],
       address:cartItems.address,
       product: _id,
     };
@@ -56,17 +55,20 @@ const createOrder = async (req,res) =>{
   var order
   
   const existOrder = await Order.find({ user: req.user.userId })
-  
-  if( !existOrder.length==0 ){
+  const len = existOrder.length
+  if( !existOrder.length==0 && existOrder[len-1].status=='tìm shipper' ){
     console.log("xss")
-    orderItems = [...existOrder[0].orderItems, singleOrderItem]
+    
+    orderItems = [...existOrder[len-1].orderItems, singleOrderItem]
 
-    total = existOrder[0].total +singleOrderItem.price*singleOrderItem.amount
+    total = existOrder[len-1].total +singleOrderItem.price*singleOrderItem.amount
     subtotal = total+ shippingFee;
 
-    const updateOrder = await Order.findByIdAndUpdate({_id:existOrder[0]._id}, 
+    const updateOrder = await Order.findByIdAndUpdate({_id:existOrder[len-1]._id}, 
       { orderItems: orderItems, subtotal: subtotal, total: total})
     order= updateOrder
+  
+   
   }else{
     total= singleOrderItem.price*singleOrderItem.amount
     subtotal = total+shippingFee
@@ -105,7 +107,10 @@ if( req.user!==undefined ){
   
   res
     .status(StatusCodes.CREATED)
-    .render('cart',{orders:orders[0].orderItems, subtotal: orders[0].subtotal, discount:userdiscount});
+    .render('cart',{
+      orders:orders[0].orderItems, 
+      subtotal: orders[0].subtotal, 
+      discount:userdiscount});
 }else{
   res
     .status(StatusCodes.CREATED)
@@ -137,11 +142,14 @@ if( req.user!==undefined ){
 }
 
 const buy = async (req,res) =>{
-  const thisorder = await Order.findOne({ user: req.user.userId })
+  const orders = await Order.find({ user: req.user.userId })
   const user = await User.findOne({ _id:req.user.userId })
   const { magiamgia } = req.body
   const discount = await Discount.findOne({ name: magiamgia })
-  
+
+  const len= orders.length-1
+  const thisorder = orders[len]
+  console.log(thisorder)
   var total = thisorder.total
 
   const category = discount.category
@@ -167,13 +175,13 @@ const buy = async (req,res) =>{
   throw new Error("Dont have enough condition")
 }
 
-  const order=await Order.findOneAndUpdate({ user: req.user.userId }, { 
+  const order=await Order.findOneAndUpdate({ _id: thisorder._id }, { 
         address: req.body.address ,
         status: "shipper đang lấy hàng",
         subtotal: total+10000,
         total: total
       })
-  res.render('index', {order:order})
+  res.render('index', {order:order, user:user})
 }
 
 const getAllOrders = async (req, res) => {
@@ -196,16 +204,31 @@ const getSingleOrder = async (req, res) => {
 const getCurrentUserOrders = async (req, res) => {
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId })
-    var orderItem = []
-    var subtotal = 0
+    
+    orders = orders.filter((e) => {
+      return e.status!="tìm shipper"
+    } );
 
-    if( orders[0].status =="tìm shipper" ){
-      orderItem = orders[0].orderItems
-      subtotal = orders[0].subtotal
-    }
-
-    res.status(StatusCodes.OK).render('cart', { orders:orderItem, subtotal: subtotal, discount: user.discount });
+    res.status(StatusCodes.OK).render('order', { orders:orders });
 };
+
+const getCart = async (req,res) =>{
+  var orders = await Order.find({ user: req.user.userId });
+  var user = await User.findOne({ _id: req.user.userId })
+
+  orders = orders.filter((e) => {
+    return e.status=="tìm shipper"
+  } );
+
+  if( orders.length>0 ){
+    console.log("cdc")
+    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
+  }else{
+    console.log("scscsc")
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+  }
+  
+}
 
 const updateOrder = async (req, res) => {
     const { id: orderId } = req.params
@@ -257,5 +280,6 @@ module.exports ={
     getCurrentUserOrders,
     updateOrder,
     buy,
-    deleteOrderItems
+    deleteOrderItems,
+    getCart,
 }

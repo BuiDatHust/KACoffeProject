@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
-    <!-- <link rel="stylesheet" href="/css/addProduct.css"> -->
+    <link rel="stylesheet" href="/css/addProduct.css">
 </head>
 
 <body>
@@ -161,16 +161,13 @@
         </div>
     </nav>
 
-
 <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Sản phẩm</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i
-              class="ion-ios-arrow-forward"></i></a></span> <span>Thông tin sản phẩm<i
-            class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-2 bread">Thêm sản phẩm</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm sản phẩm <i class="ion-ios-arrow-forward"></i></span></p>
             </div>
         </div>
     </div>
@@ -178,60 +175,91 @@
 
 <section class="ftco-section ftco-no-pt ftco-no-pb">
     <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-5 ftco-animate img img-2 cart-img-img" style="background-image: url('<%= product.Image[0] %>');">
-            </div>
-
-
-            <form method="POST" action="/KACoffe/v1/order">
-            <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                <div class="heading-section ftco-animate mb-5">
-                    <span class="subheading">Thông tin sản phẩm</span>
-                    <h2 name="product" class="mb-4"><%= product.name %></h2>
-                    
-                </div>
-                <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
-              class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
-            class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
-              class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
-                <div class="woocommerce-product-details__short-description">
-                    <p><%= product.description %></p>
-                    <p><strong>Nguyên liệu:</strong></p>
-                    <p><%= product.material %></p>
-                    <p><strong>Mô tả sản phẩm:</strong></p>
-                    <p><%= product.detaildescription %></p>
-                   
-                </div>
-                <!-- <p>Hình ảnh sản phầm: </p>
-                <div>
-                    <% product.Image.forEach(function(img){ %>
-                        <img src="<%= img  %>" >
-                    <% }) %>
-                </div> -->
-                <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
-
-                    <div class="quantity">
-                        <input type="hidden" name="product" value="<%= product._id %>">
-                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                        Số lượng: <input type="number" id="quantity_61968f808d09d" class="input-text qty text" name="quantity" >
-                        <div class="select-sizes">
-                            <p class="text1">Chọn kích cỡ: </p>
-                            <span>
-                                <select name="size" >
-                                    <option value="s" >S</option>
-                                    <option value="m" >M</option>
-                                    <option value="l" >L</option>
-                                </select>
-                            </span>
-                        </div> </br></br>
-                        <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5"></br></br>
-                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
-                    </div>
-
-                <!-- </form> -->
-            </div>
-        </form>
+        <div class="heading-section ftco-animate mb-5">
+            <span class="subheading">Thêm sản phẩm</span>
+            <h2 class="mb-4">Tạo sản phẩm mới</h2>
         </div>
+
+        <!-- Form add products -->
+        <form action="/KACoffe/v1/admin/createProduct" method="POST"  enctype="multipart/form-data">
+        <div class="form">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="product-name" name="name" placeholder="Tên sản phẩm">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" id="short-des" name="description" placeholder="Miêu tả ngắn">
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <textarea id="description" name="detaildescription" placeholder="Miêu tả chi tiết"></textarea>
+                </div>
+            </div>
+
+            <!-- product image -->
+            
+                <div class="upload-image-sec">
+                    
+                    <p class="text"><img src="/images/camera.png" alt="">Tải ảnh lên (Tối đa 4 ảnh)</p>
+                    <div class="upload-catalouge">
+                        <input type="file" class="fileupload" name="image" id="first-file-upload-btn" hidden>
+                        <label for="first-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="fileupload" name="image" id="second-file-upload-btn" hidden>
+                        <label for="second-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="fileupload" name="image" id="third-file-upload-btn" hidden>
+                        <label for="third-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="fileupload" name="image" id="fourth-file-upload-btn" hidden>
+                        <label for="fourth-file-upload-btn" class="upload-image"></label>
+                    </div>
+                
+               
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="product-price">
+                        <input type="number" id="actual-price" name="realprice" placeholder="Giá gốc (VNĐ)">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="number" name="price" id="price" max="actual-price" placeholder="Giá bán (VNĐ)">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <p>Danh mục : </p>
+                    <!-- <input id="category" name="category" placeholder="Thêm danh mục (Cà phê, đá xay,... )"></input> -->
+                    <select name="category" id="category">
+                        <option value="Cà phê">Cà phê</option>
+                        <option value="Trà trái cây-Trà sữa">Trà trái cây-Trà sữa</option>
+                        <option value="Đá xay-Choco-Matcha">Đá xay-Choco-Matcha</option>
+                        <option value="Đồ uống nhanh">Đồ uống nhanh</option>
+                        <option value="Drinks">Drinks</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input id="category" name="material" placeholder="Nguyên liệu"></input>
+                </div>
+            </div>
+            <div class="buttons1">
+                <button class="btn1" id="add-btn1">Thêm sản phẩm</button>
+            </div>
+        </div>
+    </form>
     </div>
 </section>
 

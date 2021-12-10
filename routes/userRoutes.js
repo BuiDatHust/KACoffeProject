@@ -25,10 +25,10 @@ router.route('/me').get(authenticateUser, showCurrentUser);
 router.route('/me/update').post(attachUser, updateUser);
 router.route('/me/updateUserPassword').post(attachUser, updateUserPassword);
 
-router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
+// router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
-router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+// router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
+// router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
 router.route('/saveDiscount/:id').post(authenticateUser, saveDiscount)
 
 module.exports = router;

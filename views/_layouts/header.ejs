@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="/css/addProduct.css"> -->
 </head>
 
 <body>
@@ -43,7 +44,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="/KACoffe/v1" class="nav-link">Trang chủ</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/menu" class="nav-link">Thực đơn</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/reservation" class="nav-link"> Tra cứu đơn hàng</a></li>
+                    <li class="nav-item"><a href="/KACoffe/v1/order" class="nav-link"> Tra cứu đơn hàng</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/discount" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/stories" class="nav-link">Tin tức</a></li>
                     <% if ( !user ) { %>
@@ -63,11 +64,16 @@
                                                 <a href="">Địa chỉ giao hàng</a>
                                             </li>
                                             <li class="nav-item-user-item">
-                                                <a href="/KACoffe/v1/order/myOrders">Giỏ hàng</a>
+                                                <a href="/KACoffe/v1/order/myOrders">Đơn mua</a>
                                             </li>
-                                            <li class="nav-item-user-item">
-                                                <a href="/KACoffe/v1/auth/logout">Đăng xuất</a>
-                                            </li>
+                                            <% if( user.role=="admin" ) { %>
+                                                <li class="nav-item-user-item">
+                                                    <a href="/KACoffe/v1/admin">Quản lí cửa hàng </a>
+                                                </li>
+                                                <% } %>
+                                                    <li class="nav-item-user-item">
+                                                        <a href="/KACoffe/v1/auth/logout">Đăng xuất</a>
+                                                    </li>
 
                                         </ul>
                                     </div>
@@ -108,53 +114,16 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="header__cart-item">
-                                <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">45000đ</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-qnt">2</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Cà phê</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="header__cart-item">
-                                <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
-                                <div class="header__cart-item-info">
-                                    <div class="header__cart-item-head">
-                                        <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
-                                        <div class="header__cart-item-price-wrap">
-                                            <span class="header__cart-item-price">45000đ</span>
-                                            <span class="header__cart-item-multiply">x</span>
-                                            <span class="header__cart-item-qnt">2</span>
-                                        </div>
-                                    </div>
-                                    <div class="header__cart-item-body">
-                                        <span class="header__cart-item-description">Phân loại: Cà phê</span>
-                                        <span class="header__cart-item-remove">Xóa</span>
-                                    </div>
-                                </div>
-                            </li>
+
                         </ul>
-                        <a href="cart.html" class="col-md-12 mt-3">
+                        <a href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
                             <div class="form-group">
                                 <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
                             </div>
-                            </li>
-                            </ul>
-                            <a href="/KACoffe/v1/order/myOrders" class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
-                                </div>
-                            </a>
+                        </a>
                     </div>
-
+                    <% }; %>
                 </div>
+
+        </div>
     </nav>
