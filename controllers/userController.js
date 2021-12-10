@@ -84,7 +84,6 @@ const saveDiscount = async (req,res) =>{
   const user = await User.findOne({ _id:req.user.userId })
 
   const thisDiscount = await Discount.findOne({ _id:id })
-  const alldiscount = await Discount.find({ })
   var discount = user.discount 
   
   if( discount==undefined ){
@@ -97,7 +96,7 @@ const saveDiscount = async (req,res) =>{
   discount = [...discount, thisDiscount.name]
   const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
   
-  res.render('tracuu',{ discount: alldiscount ,user:newUser})
+  res.redirect('/KACoffe/v1/discount');
   
 }
 

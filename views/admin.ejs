@@ -1,0 +1,263 @@
+<%- include('_layouts/header') ; -%>
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">Profile</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Quản lý cửa hàng <i class="ion-ios-arrow-forward"></i></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 my-5">
+    <div class="container">
+        <h1 class="mb-5">Quản lý cửa hàng</h1>
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+            <div class="profile-tab-nav border-right">
+                <div class="p-4">
+                    <div class="img-circle text-center mb-3">
+                        <img src="/images/avt.jpg" alt="Image" class="shadow">
+                    </div>
+                    <h4 class="text-center">Admin</h4>
+                </div>
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="products-tab" data-toggle="pill" href="#products" role="tab" aria-controls="products" aria-selected="true"> Sản phẩm
+                    </a>
+                    <a class="nav-link" id="discount-tab" data-toggle="pill" href="#discount" role="tab" aria-controls="discount" aria-selected="false">
+                         Mã giảm giá
+                    </a>
+                    <a class="nav-link" id="user-tab" data-toggle="pill" href="#user" role="tab" aria-controls="user" aria-selected="false">
+                         Người dùng
+                    </a>
+                    <a class="nav-link" id="order-tab" data-toggle="pill" href="#order" role="tab" aria-controls="order" aria-selected="false">
+          Đơn hàng
+                    </a>
+                    <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+                         Tin tức
+                    </a>
+                </div>
+            </div>
+            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="products" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="grid__column-10">
+                        <div class="cart-cart">
+                            <span class="subheading" style="font-size:28px;">Danh sách sản phẩm</span>
+                            <table class="cart-table">
+                                
+                                <tr>
+                                    <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Sản phẩm</th>
+                                    <th class="admin-header__price">Giá</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% products.forEach(function(product){  %>
+                                
+                                    <tr class="cart-item">
+                                        <td class="button__check"><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                        <td class="cart-txt-left">
+                                            <img src="<%= product.Image[0] %>" alt="" class="cart-txt-left-img">
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>" class="cart-name"><%= product.name  %></a></td>
+                                        <td><span class="cart-price"><%= product.price  %></span></td>
+                                        <td>
+                                            <form action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post" >
+                                                <input type="submit" style="padding: 1px;margin: 2px;" value="Xoá" />
+                                            </form>
+                                            
+                                            <a href="/KACoffe/v1/admin/allproduct/<%= product._id  %>" >Sửa</a>
+                                        </td>
+                                    </tr>
+                                <% }) ; %>
+
+                                <tr class="cart-bottom">
+                                    <td colspan="6">
+                                        <a href="/KACoffe/v1/admin/createProduct" class="cart-bottom-btn">Thêm sản phẩm</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="discount" role="tabpanel" aria-labelledby="password-tab">
+                    <div class="grid__column-10">
+                        <div class="cart-cart">
+                            <span class="subheading" style="font-size:28px;">Mã giảm giá</span>
+                            <table class="cart-table">
+                                <tr>
+                                    <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Đối tượng sử dụng</th>
+                                    <th class="admin-header__price">Tên mã</th>
+                                    <th class="admin-header__time">Thời gian áp dụng</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+
+                                <% discounts.forEach(function(discount){  %>
+                                    <tr class="cart-item">
+                                        <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                        <td class="cart-txt-left">
+                                            <a href="" class="cart-name">Khách hàng <%= discount.condition1  %></a></td>
+                                        <td><span class="cart-price"><%= discount.name  %></span></td>
+                                        <td></td>
+                                        <td><span class="cart-del">Xóa</span></td>
+                                    </tr>
+
+                                <% }) ; %>
+                                
+                                
+                                <tr class="cart-bottom">
+                                    <td colspan="6">
+                                        <a href="#" class="cart-bottom-btn">Thêm mã giảm giá</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="security-tab">
+                    <div class="grid__column-10">
+                        <div class="cart-cart">
+                            <span class="subheading" style="font-size:20px;">Người dùng kim cương</span>
+                            <table class="cart-table">
+                                <tr>
+                                    <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Tài khoản</th>
+                                    <th class="admin-header__price">Số điện thoại</th>
+                                    <th class="admin-header__price">Điểm số</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% users.forEach(function(user){  %>
+                                    <% if( user.rank=="vàng" ) { %>
+                                    <tr class="cart-item">
+                                        <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                        <td class="cart-txt-left">
+                                            <a href="" class="cart-name"><%= user.name %></a></td>
+                                        <td><span class="cart-price"><%= user.phone %></span></td>
+                                        <td><%= user.score %></td>
+                                        <td><span class="cart-del">Xóa</span></td>
+                                    </tr>
+                                    <% } ; %>
+                                <% }) ; %>  
+                            </table>
+                        </div>
+                        <div class="cart-cart" style="padding-top: 30px;">
+                            <span class="subheading" style="font-size:20px;">Người dùng vàng</span>
+                            <table class="cart-table">
+                                <tr >
+                                    <th style="width:30px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Tài khoản</th>
+                                    <th class="admin-header__price">Số điện thoại</th>
+                                    <th class="admin-header__price">Điểm số</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% users.forEach(function(user){  %>
+                                    <% if( user.rank=="bạc" ) { %>
+                                <tr class="cart-item" >
+                                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                    <td class="cart-txt-left">
+                                        <a href="" class="cart-name"><%= user.name %></a></td>
+                                    <td><span class="cart-price"><%= user.phone %></span></td>
+                                    <td><%= user.score %></td>
+                                    <td><span class="cart-del">Xóa</span></td>
+                                </tr>
+                                    <% } ; %>
+                                <% }) ; %>  
+                            </table>
+                        </div>
+                        <div class="cart-cart" style="padding-top: 20px;">
+                            <span class="subheading" style="font-size:20px;">Người dùng bạc</span>
+                            <table class="cart-table">
+                                <tr>
+                                    <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Tài khoản</th>
+                                    <th class="admin-header__price">Số điện thoại</th>
+                                    <th class="admin-header__price">Điểm số</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% users.forEach(function(user){  %>
+                                    <% if( user.rank=="bạc" ) { %>
+                                <tr class="cart-item">
+                                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                    <td class="cart-txt-left">
+                                        <a href="" class="cart-name"><%= user.name %></a></td>
+                                    <td><span class="cart-price"><%= user.phone %></span></td>
+                                    <td><%= user.score %></td>
+                                    <td><span class="cart-del">Xóa</span></td>
+                                </tr>
+                                    <% } ; %>
+                                <% }) ; %>  
+                            </table>
+                        </div>
+
+                        <div class="cart-cart" style="padding-top: 20px;">
+                            <span class="subheading" style="font-size:20px;">Người dùng chưa được xếp hạng</span>
+                            <table class="cart-table">
+                                <tr>
+                                    <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Tài khoản</th>
+                                    <th class="admin-header__price">Số điện thoại</th>
+                                    <th class="admin-header__price">Điểm số</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% users.forEach(function(user){  %>
+                                    <% if( user.rank=="no ranking" ) { %>
+                                <tr class="cart-item">
+                                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                    <td class="cart-txt-left">
+                                        <a href="" class="cart-name"><%= user.name %></a></td>
+                                    <td><span class="cart-price"><%= user.phone %></span></td>
+                                    <td><%= user.score %></td>
+                                    <td><span class="cart-del">Xóa</span></td>
+                                </tr>
+                                    <% } ; %>
+                                <% }) ; %>  
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="notification-tab">
+                    <div class="grid__column-10">
+                        <div class="cart-cart">
+                            <span class="subheading" style="font-size:28px;">Đơn hàng</span>
+                            <table class="cart-table">
+                                <tr>
+                                    <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                    <th class="admin-header__products">Mã số đơn</th>
+                                    <th class="admin-header__price">Giá</th>
+                                    <th class="admin-header__price">Số lượng</th>
+                                    <th class="admin-header__price">Tình trạng</th>
+                                    <th class="admin-header__header">Thao tác</th>
+                                </tr>
+                                <% orders.forEach(function(order,index){  %>
+                                <tr class="cart-item">
+                                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                    <td class="cart-txt-left">
+                                        <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
+                                        <a href="white-coffee.html" class="cart-name">#<%= index %> </a></td>
+                                    <td><span class="cart-price"><%= order.total %></span></td>
+                                    <td><span class="cart-price"><%= order.orderItems.length %></span></td>
+                                    <td><span class="cart-price"><%= order.status %></span></td>
+                                    <td><span class="cart-del">Xóa</span></br><span class="cart-del">Cập nhật</span></td>
+                                </tr>
+                                <% }) ; %>  
+                                <tr class="cart-bottom">
+                                    <td colspan="6">
+                                        <a href="#" class="cart-bottom-btn">Thêm đơn hàng</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('_layouts/footer') ; -%>

@@ -14,23 +14,18 @@ const {
     createOrder,
     updateOrder,
     buy,
+    getCart,
     deleteOrderItems
 } = require('../controllers/orderController');
 
 router
     .route('/')
     .post(attachUser, createOrder)
-    .get(authenticateUser,
-        authorizePermission('admin'),
-        getAllOrders);
+    // .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
 
 router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
-
-
-router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
-
-router.route('/buy').post(authenticateUser, buy);
+router.route('/cart').get(authenticateUser, getCart);
 
 router
     .route('/:id')

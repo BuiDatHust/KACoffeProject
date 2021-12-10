@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -28,6 +29,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/addProduct.css">
+
 </head>
 
 <body>
@@ -36,8 +39,8 @@
         <div class="container">
             <a class="navbar-brand" href="index.html">KACoffee</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+        <span class="oi oi-menu"></span> Menu
+      </button>
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
@@ -77,22 +80,22 @@
                 <div class="header__cart-list">
                     <img src="images/empty-cart.png" alt="" class="header__cart-list-no-cart-img">
                     <span class="header__cart-list-no-cart-msg">
-                        Chưa có sản phẩm
-                    </span>
+                      Chưa có sản phẩm
+                  </span>
                     <h4 class="header__cart-heading">
                         Sản phẩm đã thêm
                     </h4>
                     <ul class="header__cart-list-item">
                         <!-- Cart-item-->
                         <li class="header__cart-item">
-                            <img src="images/white-coffee.jpg" alt="" class="header__cart-img">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
                             <div class="header__cart-item-info">
                                 <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Cà Phê Sữa Đá</h5>
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
                                     <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">32000đ</span>
+                                        <span class="header__cart-item-price">45000đ</span>
                                         <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">1</span>
+                                        <span class="header__cart-item-qnt">2</span>
                                     </div>
                                 </div>
                                 <div class="header__cart-item-body">
@@ -119,14 +122,14 @@
                             </div>
                         </li>
                         <li class="header__cart-item">
-                            <img src="images/cold-grinding-ice-coffe.jpg" alt="" class="header__cart-img">
+                            <img src="images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
                             <div class="header__cart-item-info">
                                 <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Cà Phê Đá Xay - Lạnh</h5>
+                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
                                     <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">59000đ</span>
+                                        <span class="header__cart-item-price">45000đ</span>
                                         <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">1</span>
+                                        <span class="header__cart-item-qnt">2</span>
                                     </div>
                                 </div>
                                 <div class="header__cart-item-body">
@@ -146,65 +149,101 @@
         </div>
     </nav>
     <!-- END nav -->
-    <div class="container">
-        <div class="cart-cart">
-            <span class="subheading" style="font-size:28px;">Giỏ hàng</span>
-            <table class="cart-table">
-                <tr>
-                    <th width="60"><span class="cart-all">Tất cả</span></th>
-                    <th>Sản phẩm</th>
-                    <th width="120">Giá</th>
-                    <th width="100">Số lượng</th>
-                    <th width="120">Tổng cộng</th>
-                    <th width="80">Thao tác</th>
-                </tr>
-                <tr class="cart-item">
-                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                    <td class="cart-txt-left">
-                        <img src="images/white-coffee.jpg" alt="" class="cart-txt-left-img">
-                        <a href="white-coffee.html" class="cart-name">Cà phê sữa đá</a></td>
-                    <td><span class="cart-price">32000</span></td>
-                    <td><span class="cart-reduce">-</span>
-                        <input class="cart-num" type="text" value="1">
-                        <span class="cart-add">+</span> </td>
-                    <td><span class="cart-subtotal">32000</span></td>
-                    <td><span class="cart-del">Xóa</span></td>
-                </tr>
-                <tr class="cart-item">
-                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                    <td class="cart-txt-left">
-                        <img src="images/cold-brew-milk-coffe.jpg" alt="" class="cart-txt-left-img">
-                        <a href="cold-brew-milk-coffe.html" class="cart-name">Cold Brew Sữa Tươi</a></td>
-                    <td><span class="cart-price">45000</span></td>
-                    <td><span class="cart-reduce">-</span>
-                        <input class="cart-num" type="text" value="1">
-                        <span class="cart-add">+</span> </td>
-                    <td><span class="cart-subtotal">90000</span></td>
-                    <td><span class="cart-del">Xóa</span></td>
-                </tr>
-                <tr class="cart-item">
-                    <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                    <td class="cart-txt-left">
-                        <img src="images/cold-grinding-ice-coffe.jpg" alt="" class="cart-txt-left-img">
-                        <a href="cold-grinding-ice-coffe.html" class="cart-name">Cà Phê Đá Xay - Lạnh</a></td>
-                    <td><span class="cart-price">59000</span></td>
-                    <td><span class="cart-reduce">-</span>
-                        <input class="cart-num" type="text" value="1">
-                        <span class="cart-add">+</span> </td>
-                    <td><span class="cart-subtotal">59000</span></td>
-                    <td><span class="cart-del">Xóa</span></td>
-                </tr>
-                <tr class="cart-bottom">
-                    <td colspan="6">
-                        <span class="cart-bottom-span">Mua <span class="cart-total-num">4</span> Sản phẩm</span>
-                        <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price">181000</span></span>
-                        <span class="cart-bottom-btn">Đặt hàng</span>
-                    </td>
-                </tr>
-            </table>
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Thêm sản phẩm</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm sản phẩm <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- footer -->
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="heading-section ftco-animate mb-5">
+                <span class="subheading">Thêm mã giảm giá</span>
+                <h2 class="mb-4">Tạo mã giảm giá mới</h2>
+            </div>
+
+            <!-- Form add products -->
+            <form action="#">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="discount-name" placeholder="Nhóm khách hàng sử dụng">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="product-price">
+                                <input type="number" id="discount-price" placeholder="Phần trăm giảm">
+                                <input type="number" id="discount-rate" placeholder="Giảm tối đa">
+                                <input type="number" id="discount-money" placeholder="Đơn tối thiểu">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="discount-des" placeholder="Hình thức giảm">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="discount-code" placeholder="Mã code giảm giá">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="date" id="discount-start" placeholder="Thời gian bắt đầu">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="date" id="discount-finish" placeholder="Thời gian kết thúc">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+
+        </div>
+
+        <!-- product image -->
+        <div class="product-info">
+            <div class="product-image">
+                <p class="text1">Hình ảnh mã giảm giá</p>
+            </div>
+            <div class="upload-image-sec">
+                <!-- upload inputs -->
+                <p class="text"><img src="images/camera.png" alt="">Tải ảnh lên (Tối đa 4 ảnh)</p>
+                <div class="upload-catalouge">
+                    <input type="file" class="fileupload" id="first-file-upload-btn" hidden>
+                    <label for="first-file-upload-btn" class="upload-image"></label>
+                    <input type="file" class="fileupload" id="second-file-upload-btn" hidden>
+                    <label for="second-file-upload-btn" class="upload-image"></label>
+                    <input type="file" class="fileupload" id="third-file-upload-btn" hidden>
+                    <label for="third-file-upload-btn" class="upload-image"></label>
+                    <input type="file" class="fileupload" id="fourth-file-upload-btn" hidden>
+                    <label for="fourth-file-upload-btn" class="upload-image"></label>
+                </div>
+                <div class="buttons1" style="margin-left:208px;">
+                    <button class="btn1" id="add-btn1">Thêm mã giảm giá</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row mb-5">
@@ -235,7 +274,7 @@
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Newsletter</h2>
+                        <h2 class="ftco-heading-2">Gửi lời nhắn nhủ</h2>
                         <p>Far far away, behind the word mountains, far from the countries.</p>
                         <form action="#" class="subscribe-form">
                             <div class="form-group">
@@ -275,7 +314,7 @@
                         Copyright &copy;
                         <script>
                             document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Group 8</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
@@ -302,7 +341,10 @@
     <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/jquery.timepicker.min.js"></script>
     <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
+
 </body>
 
 </html>
