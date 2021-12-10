@@ -6,5 +6,7 @@ const Discount = new mongoose.Schema({
     category: { type: String, enum: ["shippingfee", "money", "rate"] },
     condition1: { type: String, required: true },
     condition2: { type: Number, required: true },
+    startTime: { type: Date, required: true },
+    endTime: { type: Date, required: true }
 })
 module.exports = mongoose.model('Discount', Discount);

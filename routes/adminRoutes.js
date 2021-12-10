@@ -1,7 +1,20 @@
 const express = require('express')
 
-const { getAdminPage, createProductPage } = require('../controllers/adminController')
-const { getSingleUser, createStory, createDiscount } = require('../controllers/userController')
+const {
+    getAdminPage,
+    createProductPage,
+    createDiscountPage,
+    deleteDiscount,
+    createDiscount,
+    updateDiscountPage,
+    updateDiscount,
+    createStoryPage,
+    createStory,
+    deleteStory,
+    updateStoryPage,
+    updateStory,
+} = require('../controllers/adminController')
+const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct, deleteProduct, createProduct, getupdateProductPage } = require('../controllers/productController')
 const { getAllOrders } = require('../controllers/orderController')
@@ -29,9 +42,29 @@ router
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'), createStory);
-router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+router.route('/createStory')
+    .post(authenticateUser, authorizePermission('admin'), createStory)
+    .get(authenticateUser, authorizePermission('admin'), createStoryPage);
+router
+    .route('/allStory/:id')
+    .get(authenticateUser, authorizePermission('admin'), updateStoryPage)
+    .post(authenticateUser, authorizePermission('admin'), updateStory)
+router
+    .route('/allStory/delete/:id')
+    .post(authenticateUser, authorizePermission('admin'), deleteStory)
 
+
+router
+    .route('/createDiscount')
+    .get(authenticateUser, authorizePermission('admin'), createDiscountPage)
+    .post(authenticateUser, authorizePermission('admin'), createDiscount)
+router
+    .route('/allDiscount/:id')
+    .get(authenticateUser, authorizePermission('admin'), updateDiscountPage)
+    .post(authenticateUser, authorizePermission('admin'), updateDiscount)
+router
+    .route('/allDiscount/delete/:id')
+    .post(authenticateUser, authorizePermission('admin'), deleteDiscount)
 
 router
     .route('/allproduct/:id')

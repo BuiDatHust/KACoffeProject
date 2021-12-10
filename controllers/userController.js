@@ -68,17 +68,6 @@ const updateUserPassword = async(req, res) => {
     res.status(StatusCodes.OK).json({ msg: 'Success! Password Updated.' });
 };
 
-const createStory = async(req, res) => {
-    req.body.user = req.user.userId
-    const story = await Story.create(req.body)
-    res.status(StatusCodes.CREATED).json({ story })
-}
-
-const createDiscount = async(req, res) => {
-    const discount = await Discount.create(req.body)
-    res.json({ discount })
-}
-
 const saveDiscount = async(req, res) => {
     const { id } = req.params
     const user = await User.findOne({ _id: req.user.userId })
@@ -90,7 +79,6 @@ const saveDiscount = async(req, res) => {
         discount = []
         discount[0] = thisDiscount.name
         const newUser = await User.findByIdAndUpdate({ _id: req.user.userId }, { discount: discount })
-
     }
 
     discount = [...discount, thisDiscount.name]
@@ -106,7 +94,5 @@ module.exports = {
     showCurrentUser,
     updateUser,
     updateUserPassword,
-    createStory,
-    createDiscount,
     saveDiscount
 }
