@@ -190,16 +190,20 @@
                             <li>Tác động tích cực đến hệ tiêu hóa và miễn dịch</li>
                         </ul>
                     </div>
-                    <form class="cart" action="../reservation.html" method="" enctype="multipart/form-data">
+                    
 
                         <div class="quantity">
 
                             <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity">
-                            <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5">
-
+                            <input onclick="ShowSuccessAlert()"  type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5">
+                            
+                            
                         </div>
-
-                    </form>
+                        
+                        <div id="toastAlertN">
+        
+                        </div>
+                    
                 </div>
 
             </div>
@@ -311,6 +315,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="../js/google-map.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/Alert.js"></script>
 
 </body>
 
