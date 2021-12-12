@@ -9,11 +9,21 @@ const createProductPage =async (req,res) =>{
 }
 
 const createDiscountPage = async (req,res) => {
-    res.render('addDiscount', { user: req.user })
+    res.render('addDiscount', { user: req.user, discount: 0, warning: undefined })
 }
   
 const createDiscount = async (req,res) => {
-    const discount = await Discount.create( req.body )
+    const newDiscount = req.body
+    if (newDiscount.startTime >= newDiscount.endTime) {
+        res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Thời gian không hợp lệ!" })
+        return
+    }
+    const discount = await Discount.create( newDiscount )
+    if (discount.endTime < Date.now()) {
+        discount.remove()
+        res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Mã giảm giá đã hết hạn!" })
+        return
+    }
     res.redirect('/KACoffe/v1/admin')
 }
 
@@ -76,6 +86,12 @@ const getAdminPage = async (req,res) =>{
     story.reverse()
     discount.reverse()
     order.reverse()
+
+    discount.forEach(discount => {
+        if (discount.endTime < Date.now()) {
+            discount.remove()
+        }
+    })
 
     res.render('admin', { 
         user: user, 

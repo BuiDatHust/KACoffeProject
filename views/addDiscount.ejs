@@ -19,16 +19,16 @@
             <span class="subheading">Thêm mã giảm giá</span>
             <h2 class="mb-4">Tạo mã giảm giá mới</h2>
         </div>
-        <form action="/KACoffe/v1/admin/createDiscount" method="POST">
+        <form id="discountForm" action="/KACoffe/v1/admin/createDiscount" method="POST">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Tên mã giảm giá">
+                        <input id="name" type="text" name="name" placeholder="Tên mã giảm giá" value="<%= discount.name %>">
                     </div>
                 </div>
             
                 <div class="col-md-6">
                     <div class="form-group">    
-                        <select name="condition1" id="condition1" onchange="changeUserHandle()">
+                        <select id="condition1" name="condition1">
                             <option value="">-- Chọn khách hàng --</option>
                             <option value="thường">Khách hàng thường</option>
                             <option value="đồng">Khách hàng đồng</option>
@@ -40,7 +40,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="category" id="category" onchange="changeCategoryHandle()">
+                        <select id="category" name="category" onchange="changeCategoryHandle()">
                             <option value="">-- Hình thức giảm --</option>
                             <option value="shippingfee">Giảm tiền ship</option>
                             <option value="money">Giảm giá tiền</option>
@@ -51,32 +51,39 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="number" name="minusPrice" id="minusPrice" placeholder="Phần trăm giảm hoặc giá giảm">
+                        <input id="minusPrice" type="number" name="minusPrice" id="minusPrice" placeholder="Phần trăm giảm hoặc giá giảm" value="<%= discount.minusPrice %>">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="number" name="condition2" placeholder="Đơn tối thiểu">    
+                        <input id="condition2" type="number" name="condition2" placeholder="Đơn tối thiểu" value="<%= discount.condition2 %>">    
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <p style="color:red"><%= warning %></p>
+                </div>
+
                 <div class="row-ml-1 d-flex">
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>Ngày bắt đầu</p>
-                            <input type="date" name="startTime">
+                            <input id="startTime" type="datetime-local" name="startTime">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>Ngày kết thúc</p>
-                            <input type="date" name="endTime">
+                            <input id="endTime" type="datetime-local" name="endTime">
                         </div>
                     </div>
                 </div>
-                
+                <div class="col-md-6">
+                    <p id="warning" style="color:red"></p>
+                </div>
             <div class="col-md-6 buttons1">
-                <button class="btn1" id="add-btn1" disabled>Thêm mã giảm giá</button>
+                <button class="btn1" id="add-btn1">Thêm mã giảm giá</button>
             </div>
         </form>
     </div>
@@ -86,19 +93,21 @@
 <%- include('_layouts/footer'); -%>
 
 <script>
-    var addBtn = document.getElementById('add-btn1')
-    var condition1Select = document.getElementById('condition1')
     var categorySelect = document.getElementById('category')
     var minusPriceElement = document.getElementById('minusPrice')
+    var submitBtn = document.getElementById('add-btn1')
+    var allInput = document.querySelectorAll('form[id="discountForm"] input')
+    var warning = document.getElementById('warning')
 
-    function changeUserHandle() {
-        const select = condition1Select.value
-        if (select != '') {
-            addBtn.removeAttribute('disabled')
-        } else {
-            addBtn.setAttribute('disabled', 'disabled')
-        }
+    submitBtn.onclick = (e) => {
+        allInput.forEach(input => {
+            if (input.value == '') {
+                e.preventDefault();
+                warning.innerText = 'Bạn chưa điền hết các thông tin!'
+            }
+        })
     }
+
     function changeCategoryHandle() {
         const select = categorySelect.value
         if (select == "shippingfee") {

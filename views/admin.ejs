@@ -91,9 +91,9 @@
                                 <table class="cart-table">
                                     <tr>
                                         <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
-                                        <th class="admin-header__products">Đối tượng sử dụng</th>
+                                        <th class="admin-header__products" style="width:100px">Đối tượng sử dụng</th>
                                         <th class="admin-header__price">Tên mã</th>
-                                        <th class="admin-header__time">Thời gian áp dụng</th>
+                                        <th class="admin-header__time" style="width:140px">Thời gian áp dụng</th>
                                         <th class="admin-header__header">Thao tác</th>
                                     </tr>
 
@@ -103,7 +103,7 @@
                                             <td class="cart-txt-left">
                                                 <a href="/KACoffe/v1/admin/allDiscount/<%= discount._id  %>" class="cart-name">Khách hàng <%= discount.condition1  %></a></td>
                                             <td><span class="cart-price"><%= discount.name  %></span></td>
-                                            <td><span class="cart-time"><% if(discount.startTime) { %><%= discount.startTime.toLocaleDateString() %> - <%= discount.endTime.toLocaleDateString() %><% } %> </span></td>
+                                            <td><span class="cart-time"><% if(discount.startTime) { %><%= discount.startTime.toLocaleString('en-GB') %> - <%= discount.endTime.toLocaleString('en-GB') %><% } %> </span></td>
                                             <td>
                                                 <form id="discountSubmit<%= discount._id %>" action="/KACoffe/v1/admin/allDiscount/delete/<%= discount._id  %>" method="post">
                                                     <button onclick="event.preventDefault();DeleteDiscount('<%= discount._id %>');" class="btn btn-danger">Xóa</button>
