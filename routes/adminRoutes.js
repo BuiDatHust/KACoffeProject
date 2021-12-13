@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory } = require('../controllers/adminController')
+const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory, updateRoleUserAsAdmin } = require('../controllers/adminController')
 const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
@@ -29,8 +29,13 @@ router
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
+<<<<<<< HEAD
 router.route('/createStory').post([authenticateUser, authorizePermission('admin')],upload.single('image'), createStory);
 
+=======
+router.route('/createStory').post(authenticateUser, authorizePermission('admin'), createStory);
+router.route('/updateUserAsAdmin/:id').post(authenticateUser, authorizePermission('admin'), updateRoleUserAsAdmin)
+>>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
 router
   .route('/createDiscount')
   .get(authenticateUser, authorizePermission('admin'), createDiscountPage)

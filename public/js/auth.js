@@ -40,3 +40,11 @@ document.addEventListener("DOMContentLoaded", function() {
         authForgot.style.display = "none";
     })
 }, false)   
+function checkValue(){
+    const TK = document.getElementById('TK').value;
+    const MK = document.getElementById('MK').value;
+    const NLMK = document.getElementById('NLMK').value;
+    if(TK ==""||MK == ""|| NLMK == ""){
+        ShowErrorAlert();
+    }
+}   
