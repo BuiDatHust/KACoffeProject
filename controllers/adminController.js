@@ -1,3 +1,4 @@
+const { NotFoundError } = require("../errors");
 const Discount = require("../models/Discount");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
@@ -64,7 +65,19 @@ const deleteDiscount = async (req, res) => {
     await discount.remove();
     res.redirect('/KACoffe/v1/admin');
 }
-
+const updateRoleUserAsAdmin = async(req, res) => {
+    const {id : userId} = req.params
+    const user = await User.findOne({_id: userId});
+    const update1 = user
+    update1.role = 'admin'
+    if(!user){
+        throw new NotFoundError(`No user with id: ${userId}`);
+    }
+    await User.findOneAndUpdate({_id: userId}, update1, {
+        new : true
+    })
+    res.redirect('/KACoffe/v1/admin');
+}
 const createStoryPage = async (req, res) => {
     
 }
@@ -114,4 +127,5 @@ module.exports = {
     updateDiscountPage,
     updateDiscount,
     createStory,
+    updateRoleUserAsAdmin,
 }
