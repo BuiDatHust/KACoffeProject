@@ -29,7 +29,7 @@ router
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'), createStory);
+router.route('/createStory').post([authenticateUser, authorizePermission('admin')],upload.single('image'), createStory);
 
 router
   .route('/createDiscount')

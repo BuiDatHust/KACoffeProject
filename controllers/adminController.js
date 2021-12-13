@@ -61,8 +61,12 @@ const createStoryPage = async (req, res) => {
 
 const createStory = async (req,res) => {
     req.body.user = req.user.userId
+    console.log(req.file)
+    const length = req.file.destination.length
+    req.body.image =  req.file.destination.slice(8,length) +'/'+ req.file.filename ;
+    
     const story = await Story.create(req.body)
-    res.status(StatusCodes.CREATED).json({ story })
+    res.redirect('/KACoffe/v1/admin')
 }
 
 const getAdminPage = async (req,res) =>{
