@@ -146,7 +146,11 @@
                                                 <td>
                                                     <%= user.score %>
                                                 </td>
-                                                <td><span class="cart-del">Xóa</span></td>
+                                                <td>
+                                                    <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                    <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" class="btn btn-warning">Cập nhật là admin</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <% } ; %>
                                                 <% }) ; %>
@@ -175,7 +179,11 @@
                                                 <td>
                                                     <%= user.score %>
                                                 </td>
-                                                <td><span class="cart-del">Xóa</span></td>
+                                                <td>
+                                                    <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                        <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" class="btn btn-warning">Cập nhật là admin</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <% } ; %>
                                                 <% }) ; %>
@@ -204,7 +212,11 @@
                                                 <td>
                                                     <%= user.score %>
                                                 </td>
-                                                <td><span class="cart-del">Xóa</span></td>
+                                                <td>
+                                                    <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                        <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" class="btn btn-warning">Cập nhật là admin</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <% } ; %>
                                                 <% }) ; %>
@@ -234,7 +246,11 @@
                                                 <td>
                                                     <%= user.score %>
                                                 </td>
-                                                <td><span class="cart-del">Xóa</span></td>
+                                                <td>
+                                                    <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                        <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" class="btn btn-warning">Cập nhật là admin</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <% } ; %>
                                                 <% }) ; %>
@@ -360,6 +376,28 @@
                             'success'
                         )
                         discountSubmit.submit()
+                    }
+                })
+        }
+        async function UpdateRoleUser(userId) {
+            const usersubmit = document.getElementById(`userSubmit${userId}`)
+            await Swal.fire({
+                    title: 'Bạn có chắc cập nhật?',
+                    text: "Bạn không thể quay lại kết quả",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có !'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Thành công!',
+                            'Cập nhật thành công',
+                            'success'
+                        )
+                        usersubmit.submit()
                     }
                 })
         }
