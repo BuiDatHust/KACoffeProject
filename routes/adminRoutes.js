@@ -1,10 +1,10 @@
 const express = require('express')
 
-const { getAdminPage,createProductPage } = require('../controllers/adminController')
-const { getSingleUser, createStory, createDiscount } = require('../controllers/userController')
+const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory } = require('../controllers/adminController')
+const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
-const { getAllOrders } =require('../controllers/orderController')
+const { getAllOrders,deleteOrder } =require('../controllers/orderController')
 
 const router = express.Router()
 
@@ -29,9 +29,19 @@ router
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
-router.route('/createStory').post(authenticateUser, authorizePermission('admin'),createStory);
-router.route('/createDiscount').post(authenticateUser, authorizePermission('admin'), createDiscount);
+router.route('/createStory').post(authenticateUser, authorizePermission('admin'), createStory);
 
+router
+  .route('/createDiscount')
+  .get(authenticateUser, authorizePermission('admin'), createDiscountPage)
+  .post(authenticateUser, authorizePermission('admin'), createDiscount)
+router
+  .route('/allDiscount/:id')
+  .get(authenticateUser, authorizePermission('admin'), updateDiscountPage)
+  .post(authenticateUser, authorizePermission('admin'), updateDiscount)
+router
+  .route('/allDiscount/delete/:id')
+  .post(authenticateUser, authorizePermission('admin'), deleteDiscount)
 
 router
   .route('/allproduct/:id')
@@ -48,5 +58,7 @@ router
 router
     .route('/allOrder')
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+
+router.route('/deleteOrder/:orderid').post(authenticateUser, deleteOrder)
 
 module.exports= router 

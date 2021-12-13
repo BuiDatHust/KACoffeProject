@@ -20,6 +20,11 @@ const getHomepage = async (req,res) =>{
 
 const getDiscount = async (req,res) =>{
     const discount = await Discount.find({})
+    discount.forEach(discount => {
+        if (discount.endTime < Date.now()) {
+            discount.remove()
+        }
+    })
     var user
 
     if( req.user===undefined ){

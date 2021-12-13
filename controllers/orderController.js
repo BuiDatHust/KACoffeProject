@@ -142,6 +142,7 @@ if( req.user!==undefined ){
 }
 
 const buy = async (req,res) =>{
+  
   const orders = await Order.find({ user: req.user.userId })
   const user = await User.findOne({ _id:req.user.userId })
   const { magiamgia } = req.body
@@ -149,11 +150,10 @@ const buy = async (req,res) =>{
 
   const len= orders.length-1
   const thisorder = orders[len]
-  console.log(thisorder)
   var total = thisorder.total
 
+  if( discount){
   const category = discount.category
-
   if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
     switch (category) 
     {
@@ -170,9 +170,16 @@ const buy = async (req,res) =>{
       default:
         break
     }
+    let userDiscount = user.discount
+    userDiscount = userDiscount.filter((e) =>{
+      return e!=magiamgia
+    })
+    console.log(userDiscount)
+    await User.findOneAndUpdate({_id:req.user.userId}, {discount: userDiscount})
      
 }else{
   throw new Error("Dont have enough condition")
+}
 }
 
   const order=await Order.findOneAndUpdate({ _id: thisorder._id }, { 
@@ -181,7 +188,8 @@ const buy = async (req,res) =>{
         subtotal: total+10000,
         total: total
       })
-  res.render('index', {order:order, user:user})
+  // res.render('index', {order:order, user:user})
+      res.redirect('/KaCoffe/v1/order/cart')
 }
 
 const getAllOrders = async (req, res) => {
@@ -209,7 +217,7 @@ const getCurrentUserOrders = async (req, res) => {
       return e.status!="tìm shipper"
     } );
 
-    res.status(StatusCodes.OK).render('order', { orders:orders });
+    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id });
 };
 
 const getCart = async (req,res) =>{
@@ -224,7 +232,8 @@ const getCart = async (req,res) =>{
     console.log("cdc")
     res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
   }else{
-    res.redirect('/KACoffe/v1/order/cart');
+    console.log("scscsc")
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
   }
   
 }
@@ -271,6 +280,46 @@ const deleteOrderItems = async (req,res) =>{
 
 }
 
+const deleteOrder = async(req,res) =>{
+    const { orderid } = req.params
+
+    let order =await Order.findOne({ _id: orderid })
+
+    let user = await User.findOne({ _id: order.user })
+    
+    let noti = user.notification
+    noti = [...noti , `Bạn đã hủy đơn hàng mã #${orderid} thành công`]
+    await User.findByIdAndUpdate({ _id: order.user }, { notification: noti })
+
+    await Order.findOneAndDelete({ _id: orderid })
+    res.redirect('/KACoffe/v1/admin')
+}
+
+const requestToDeleteOrder = async (req,res) =>{
+  const { orderid,userid } = req.params 
+  console.log(req.params)
+  
+  console.log({ userid,orderid })
+  console.log(req.body)
+
+  let user = await User.findOne({_id: userid})
+  let order = await Order.find({})
+  
+  let index
+  order.forEach((e,i) =>{
+    if( e._id==orderid ) {
+      console.log(e._id)
+      index= i 
+    }
+  })
+
+  let noti = user.notification
+  noti = [...noti , `Khách hàng ${user.name} yêu cầu hủy đơn hàng số #${index}`]
+
+  await User.findOneAndUpdate({role:'admin'}, {notification: noti} )
+  res.redirect('/KACoffe/v1/order/myOrders')
+} 
+
 
 module.exports ={
     createOrder,
@@ -281,4 +330,6 @@ module.exports ={
     buy,
     deleteOrderItems,
     getCart,
+    requestToDeleteOrder,
+    deleteOrder
 }

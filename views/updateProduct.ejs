@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="/css/addProduct.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
@@ -180,7 +181,7 @@
         </div>
 
         <!-- Form add products -->
-        <form action="/KACoffe/v1/admin/allproduct/<%= productid %>" method="POST" >
+        <form id="updatesubmit" action="/KACoffe/v1/admin/allproduct/<%= productid %>" method="POST" >
         <div class="form">
             <div class="col-md-6">
                 <div class="form-group">
@@ -226,11 +227,32 @@
                 </div>
             </div>
             <div class="buttons1">
-                <input type="submit" value="Cập nhật sản phẩm" />
+                <input type="submit" onclick="event.preventDefault(); capnhat('<%= productid %>');" value="Cập nhật sản phẩm" />
             </div>
         </div>
     </form>
     </div>
 </section>
+<script>
+    async function capnhat(productid){
+        const updatesubmit= document.getElementById("updatesubmit")
+        
+        await Swal.fire({
+  title: 'Do you want to save the changes?',
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonText: 'Save',
+  denyButtonText: `Don't save`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('Saved!', '', 'success')
+    updatesubmit.submit()
+  } 
+})
 
+
+    }
+</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <%- include('_layouts/footer') ; -%>
