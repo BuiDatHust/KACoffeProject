@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-
-    <%- include('_layouts/header') ; -%>
-
-=======
 <%- include('_layouts/header') ; -%>
     <link rel="stylesheet" href="sweetalert2.min.css">
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
+    <link rel="stylesheet" href="/css/statistic.css">
     <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
@@ -44,10 +39,14 @@
                         <a class="nav-link" id="stories-tab" data-toggle="pill" href="#stories" role="tab" aria-controls="stories" aria-selected="false">
                          Tin tức
                     </a>
-<<<<<<< HEAD
-=======
 
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
+                </a>
+
+                <a class="nav-link" id="statistic-tab" data-toggle="pill" href="#statistic" role="tab" aria-controls="statistic" aria-selected="false">
+                Thống kê
+                </a>
+            </a>
+                    
                     </div>
                 </div>
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
@@ -268,6 +267,7 @@
 
                         </div>
                     </div>
+
                     <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="notification-tab">
                         <div class="grid__column-10">
                             <div class="cart-cart">
@@ -309,63 +309,34 @@
                                             </tr>
                                 </table>
                             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
                         </div>
                     </div>
-                    <form method="post" action="/KACoffe/v1/admin/createStory" enctype="multipart/form-data" > 
+                     
                     <div class="tab-pane fade" id="stories" role="tabpanel" aria-labelledby="stories-tab">
+                        <form method="post" action="/KACoffe/v1/admin/createStory" enctype="multipart/form-data" ></form>
                         <div class="grid__column-10">
-<<<<<<< HEAD
-                            <div class="form">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Tiêu đề</label>
-                                        <input type="text" id="stories-name" name="title" placeholder="">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Miêu tả ngắn</label>
-                                        <input type="text" id="short-des" name="description" placeholder="">
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Miêu tả chi tiết</label>
-                                        <textarea id="description" name="detaildescription" placeholder=""></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- stories image -->
-
-                                <div class="upload-image-sec">
-
-                                    <p class="text"><img src="/images/camera.png" alt="">Tải ảnh lên</p>
-                                    <div class="upload-catalouge">
-                                        <input type="file" class="fileupload" name="image" id="first-file-upload-btn" hidden>
-                                        <label for="first-file-upload-btn" class="upload-image"></label>
-                                    </div>
-=======
                             <div class="cart-cart">
                                 <span class="subheading" style="font-size:28px;">Tin tức</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Thứ tự</span></th>
                                         <th class="admin-header__products">Tiêu đề tin tức</th>
                                         <th class="admin-header__time">Ngày tạo tin tức</th>
                                         <th class="admin-header__header">Thao tác</th>
                                     </tr>
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
 
                                     <!-- insert code here -->
-
+                                    <% stories.forEach(function(e,i) {  %>
+                                    <tr>
+                                        <td style="width: 30px; margin-left: 8px;"><span class="cart-all"><%= i  %></span></td>
+                                        <td class="admin-header__products"><%= e.title  %></td>
+                                        <td class="admin-header__time"><%= e.createdAt.toLocaleDateString("en-US") %>-<%= e.createdAt.toLocaleString([], {
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }) %> </td>
+                                        <td class="admin-header__header"><a href="/KACoffe/v1/admin/updateStory/<%= e._id %>"> Sửa </a>   </td>
+                                    </tr>
+                                    <% }) %>
                                     <tr class="cart-bottom">
                                         <td colspan="6">
                                             <a href="/KACoffe/v1/admin/createStories" class="cart-bottom-btn">Thêm tin tức</a>
@@ -373,27 +344,66 @@
                                     </tr>
                                 </table>
                             </div>
-<<<<<<< HEAD
-
                         </div>
-                        <div>
-                            <td colspan="6">
-                                <input type="submit" class="cart-bottom-btn" value="Thêm tin tức" >
-                            </td>
-                            <button class="btn btn-light">Hủy</button>
-=======
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7
-                        </div>
+                    </form>
                     </div>
+               
+
+                    <div class="tab-pane fade" id="statistic" role="tabpanel" aria-labelledby="statistic-tab">
+                        <span class="subheading" style="font-size:30px;">Thống kê bán hàng</span> </br></br></br>
+
+                        <div class="row-card" style="display: grid;grid-template-columns: 1fr 1fr 1fr;" >
+
+                        <div class="card text-white bg-primary mb-3" style="max-width: 15rem">
+                            <div class="card-header">Tổng doanh thu</div>
+                            <div class="card-body">
+                              <h5 class="card-title"><%= chart.avenue %> triệu đồng</h5>
+                              <p class="card-text">Tăng 20%</p>
+                            </div>
+                        </div>
+
+                        <div class="card text-white bg-secondary mb-3" style="max-width: 15rem">
+                            <div class="card-header">Khách hàng mới</div>
+                            <div class="card-body">
+                              <h5 class="card-title"><%= chart.newcustomer %> customers</h5>
+                              <p class="card-text">Tăng 30%</p>
+                            </div>
+                        </div>
+
+                        <div class="card text-white bg-success mb-3" style="max-width: 15rem">
+                            <div class="card-header">Tổng đơn</div>
+                            <div class="card-body">
+                              <h5 class="card-title"><%= chart.sumorder %></h5>
+                              <p class="card-text">Giảm nhẹ</p>
+                            </div>
+                        </div>    
+                    </div>
+                            
+                        </br>
+
+                            <figure class="highcharts-figure1">
+                                <div id="container1"></div>
+                                <p class="highcharts-description">
+                                  
+                                </p>
+                            </figure>
+                        </br>
+                            <figure class="highcharts-figure2">
+                                <div id="container2"></div>
+                                <p class="highcharts-description">
+                                  <div   class="rate" > <%= rate %> </div>
+                                </p>
+                            
+                       
+                    </div>
+                    
                 </div>
-            </form>
+
+                
+            </div>
+            
             </div>
         </div>
-<<<<<<< HEAD
-    </section>
-
-    <%- include('_layouts/footer') ; -%>
-=======
 
         </div>
         </div>
@@ -469,5 +479,10 @@
         }
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+    <script src="/js/statistic.js"></script>
     <%- include('_layouts/footer') ; -%>
->>>>>>> a936aad4da6bf26e909e69b2189e9e5d6d6d77c7

@@ -4,6 +4,7 @@ const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Story = require("../models/Story");
 const User = require("../models/User");
+var ObjectId = require('mongodb').ObjectID;
 
 const createProductPage =async (req,res) =>{
     res.render('addProduct', { user: req.user })
@@ -79,7 +80,11 @@ const updateRoleUserAsAdmin = async(req, res) => {
     res.redirect('/KACoffe/v1/admin');
 }
 const createStoryPage = async (req, res) => {
-    
+    res.render('addStories', { user: req.user })
+}
+
+const getUpdateStoryPage = async (req,res) =>{
+    res.render('updateStories', { user: req.user })
 }
 
 const createStory = async (req,res) => {
@@ -89,6 +94,14 @@ const createStory = async (req,res) => {
     req.body.image =  req.file.destination.slice(8,length) +'/'+ req.file.filename ;
     
     const story = await Story.create(req.body)
+    res.redirect('/KACoffe/v1/admin')
+}
+
+const updateStory =async (req,res) =>{
+    const {id:storyId}= req.params 
+    const { name,description,detaildescription } = req.body
+
+    const story =await Story.findOneAndUpdate({ _id: storyId }, { name: name, description:description,detaildescription: detaildescription })
     res.redirect('/KACoffe/v1/admin')
 }
 
@@ -104,11 +117,67 @@ const getAdminPage = async (req,res) =>{
     discount.reverse()
     order.reverse()
 
+    let rate =[0,0,0,0,0,0]
+    let avenue=0,sumorder=0 ,newcustomer=0 ,sum=0
+
+    const orderItem = order.map((e)=>{
+        return e.orderItems
+    })
+    
+    orderItem.forEach( (e)=>{
+        e.forEach(async (f) =>{
+            console.log(f)
+            const product = await Product.findOne({_id: f.product})
+            
+            if( product.category=="Nổi bật" ){
+                rate[0]+= 1 
+            }else if( product.category=="Cà phê"){
+                console.log('cdcdc')
+                rate[1]+=1
+            }else if( product.category=="Trà trái cây-Trà sữa"){
+                rate[2]+=1
+            }else if( product.category=='Đá xay-Choco-Matcha'){
+                rate[3]+=1
+            }else if( product.category=="Đồ uống nhanh" ){
+                rate[4]+=1
+            }else {
+                rate[5] +=1
+            }
+            sum+=1
+        })
+    })
+    console.log(rate)
+    // for(var i of rate){
+    //     i = i/sum
+    // }
+
+   
+    
+    order.forEach(function(e){
+        if( e.createdAt.getFullYear() >=2021){
+            avenue += e.subtotal;
+            sumorder+=1 ;
+
+            if( e.user==undefined ){
+                newcustomer+=1
+            }
+        }
+        
+    })
+
+    users.forEach(function(e){
+        if( e.createdAt.getFullYear() >=2021 ){
+            newcustomer+=1
+        }
+    })
+
+    console.log(avenue,sumorder,newcustomer)
     discount.forEach(discount => {
         if (discount.endTime < Date.now()) {
             discount.remove()
         }
     })
+    avenue= +(avenue/1000000).toFixed(2)
 
     res.render('admin', { 
         user: user, 
@@ -117,6 +186,8 @@ const getAdminPage = async (req,res) =>{
         discounts:discount,
         orders: order,
         users: users,
+        chart: { avenue,sumorder,newcustomer },
+        rate:rate.join(" ")
     });
 }
 
@@ -132,4 +203,6 @@ module.exports = {
     updateDiscount,
     createStory,
     updateRoleUserAsAdmin,
+    getUpdateStoryPage,
+    updateStory
 }

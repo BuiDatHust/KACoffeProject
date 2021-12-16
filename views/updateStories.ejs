@@ -1,0 +1,57 @@
+<%- include('_layouts/header'); -%>
+    <link rel="stylesheet" href="/css/addProduct.css">
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Cập nhật tin tức</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffe/v1">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm tin tức<i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="heading-section ftco-animate mb-5">
+                
+                <h2 class="mb-4">Cập nhật tin tức </h2>
+            </div>
+            <form  method="POST">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tiêu đề</label>
+                        <input type="text" id="stories-name" name="name" placeholder="">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Miêu tả ngắn</label>
+                        <input type="text" id="short-des" name="description" placeholder="">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Miêu tả chi tiết</label>
+                        <textarea id="description" name="detaildescription" placeholder=""></textarea>
+                    </div>
+                </div>
+
+            
+        </div>
+
+        </div>
+
+        <div class="buttons1" style="margin-left: 190px;">
+            <input class="btn1" type="submit" value="Cập nhật" id="add-btn1" />
+        </div>
+        </form>
+        </div>
+        </div>
+    </section>
+
+    <%- include('_layouts/footer'); -%>

@@ -6,6 +6,7 @@ const { BadRequestError } =require('../errors/badRequestError')
 const { NotFoundError } = require('../errors/notFoundError')
 const { Permission} = require('../utils')
 const Discount = require('../models/Discount')
+var nodeMailer = require('nodemailer');
 
 const evaluateScore = (user, subtotal) =>{
   var score=user.score
@@ -24,7 +25,8 @@ const createOrder = async (req,res) =>{
   if( req.user!==undefined ){
   const cartItems= {
     amount: req.body.quantity,
-    product: req.body.product
+    product: req.body.product,
+    email: req.body.email
   };
   if (!cartItems || cartItems.length < 1) {
     throw new BadRequestError('No cart items provided');
@@ -112,33 +114,61 @@ if( req.user!==undefined ){
       subtotal: orders[0].subtotal, 
       discount:userdiscount});
 }else{
-  res
-    .status(StatusCodes.CREATED)
-    .render('index', { user:'' });
-}}else{
-  const { phone,name,amount,address,nameproduct } = req.body
-  var subtotal=0, total =0
+  
 
-  const product = await Product.findOne({ name: nameproduct })
-  console.log(product)
-  var orderItems = [{
-    name: name,
-    price: product.price,
-    amount: amount
-  }]
-  total =product.price* amount
-  subtotal=total+ 20000
-
-  const order = await Order.create({
-    orderItems,
-    total,
-    subtotal,
-    address,
-    phone
-  })
-  res.json({yourOrder:order})
+    
+}}
 }
 
+const buyNotLogin = async (req,res) =>{
+  
+var { phone,name,amount,address,nameproduct,email } = req.body
+var subtotal=0, total =0
+
+const product = await Product.findOne({ name: nameproduct })
+console.log(product)
+orderItems = [{
+name: name,
+price: product.price,
+amount: amount
+}]
+total =product.price* amount
+subtotal=total+ 20000
+
+const transporter = nodeMailer.createTransport({
+  service: 'hotmail',
+  auth: {
+      user:process.env.EMAIL,
+      pass: process.env.PASSWORD,
+  },
+});
+const mailOptions = {
+  from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
+  to: req.body.emai,
+  subject: "Chúc mừng bạn có đơn hàng đầu tiên", 
+  html: "<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi" , 
+}
+transporter.sendMail(mailOptions, function(err,info) {
+  if (err) {
+      console.log(err)
+      return;
+  }
+  console.log("Sent: " + info.response);
+});
+
+const order = await Order.create({
+status: "shipper đang lấy hàng",
+orderItems,
+total,
+subtotal,
+address,
+phone
+})
+
+
+res
+.status(StatusCodes.CREATED)
+.render('index', { user:'' });
 }
 
 const buy = async (req,res) =>{
@@ -331,5 +361,6 @@ module.exports ={
     deleteOrderItems,
     getCart,
     requestToDeleteOrder,
-    deleteOrder
+    deleteOrder,
+    buyNotLogin
 }

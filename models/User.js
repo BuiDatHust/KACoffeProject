@@ -15,6 +15,8 @@ const user = new mongoose.Schema({
     role: {type: String, required: true},
     discount: [ { type: String, ref:'Discount' , required:false } ],
     notification: [ { type: String, ref: 'User' ,required: false, default:"" } ]
+},{
+    timestamps: true
 })
 
 user.pre('save', async function () {
