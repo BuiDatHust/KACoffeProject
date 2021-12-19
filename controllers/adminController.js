@@ -89,9 +89,9 @@ const getUpdateStoryPage = async (req,res) =>{
 
 const createStory = async (req,res) => {
     req.body.user = req.user.userId
-    console.log(req.file)
-    const length = req.file.destination.length
-    req.body.image =  req.file.destination.slice(8,length) +'/'+ req.file.filename ;
+    console.log(req.files)
+    const length = req.files.destination.length
+    req.body.image =  req.files.destination.slice(8,length) +'/'+ req.files.filename ;
     
     const story = await Story.create(req.body)
     res.redirect('/KACoffe/v1/admin')
@@ -99,19 +99,26 @@ const createStory = async (req,res) => {
 
 const updateStory =async (req,res) =>{
     const {id:storyId}= req.params 
-    const { name,description,detaildescription } = req.body
+    const { title,description,detaildescription } = req.body
 
-    const story =await Story.findOneAndUpdate({ _id: storyId }, { name: name, description:description,detaildescription: detaildescription })
+    const story =await Story.findByIdAndUpdate(storyId, { title: title, description:description,detaildescription: detaildescription })
     res.redirect('/KACoffe/v1/admin')
 }
 
-const getAdminPage = async (req,res) =>{
+const deleteStory = async (req,res) =>{
+    const story = await Story.findByIdAndDelete(req.params.id)
+    console.log(story)
+    res.redirect('/KACoffe/v1/admin')
+}
+
+let getInfoAdmin = async( req,res)=>{
     const product = await Product.find({})
     const story = await Story.find({})
     const discount = await Discount.find({})
-    const order = await Order.find({})
     const users = await User.find({})
     const user = await User.findOne({_id: req.user.userId})
+    var order =await Order.find({})
+    const count= await Order.count({})
 
     story.reverse()
     discount.reverse()
@@ -119,39 +126,6 @@ const getAdminPage = async (req,res) =>{
 
     let rate =[0,0,0,0,0,0]
     let avenue=0,sumorder=0 ,newcustomer=0 ,sum=0
-
-    const orderItem = order.map((e)=>{
-        return e.orderItems
-    })
-    
-    orderItem.forEach( (e)=>{
-        e.forEach(async (f) =>{
-            console.log(f)
-            const product = await Product.findOne({_id: f.product})
-            
-            if( product.category=="Nổi bật" ){
-                rate[0]+= 1 
-            }else if( product.category=="Cà phê"){
-                console.log('cdcdc')
-                rate[1]+=1
-            }else if( product.category=="Trà trái cây-Trà sữa"){
-                rate[2]+=1
-            }else if( product.category=='Đá xay-Choco-Matcha'){
-                rate[3]+=1
-            }else if( product.category=="Đồ uống nhanh" ){
-                rate[4]+=1
-            }else {
-                rate[5] +=1
-            }
-            sum+=1
-        })
-    })
-    console.log(rate)
-    // for(var i of rate){
-    //     i = i/sum
-    // }
-
-   
     
     order.forEach(function(e){
         if( e.createdAt.getFullYear() >=2021){
@@ -179,16 +153,55 @@ const getAdminPage = async (req,res) =>{
     })
     avenue= +(avenue/1000000).toFixed(2)
 
-    res.render('admin', { 
-        user: user, 
+    return {
+        pages: Math.ceil(count/10),
+        user: user,
         products: product,
         stories: story ,
         discounts:discount,
-        orders: order,
         users: users,
         chart: { avenue,sumorder,newcustomer },
         rate:rate.join(" ")
-    });
+    }
+}
+
+const getAdminPage = async (req,res) =>{
+    let info = await getInfoAdmin(req,res)
+
+    var perPage = 10
+    var page = 1
+
+    const orderpage = await Order.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    info.orders= orderpage
+    info.page=1
+
+    res.render('admin',info );
+}
+
+const getAdminOrderPage = async (req,res) =>{
+    let info = await getInfoAdmin(req,res)
+
+    var page = req.params.page
+    var perPage = 10
+
+    const orderpage = await Order.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    info.orders= orderpage
+    info.page=page
+
+    res.render('admin',info)
+}
+
+const updateOrder = async(req,res)=>{
+    const {id} = req.params ;
+    const status= req.body.capnhat ;
+    console.log(status)
+
+    await User.findByIdAndUpdate(id, { status: status })
+    res.redirect('/KACoffe/v1/admin')
 }
 
 
@@ -204,5 +217,8 @@ module.exports = {
     createStory,
     updateRoleUserAsAdmin,
     getUpdateStoryPage,
-    updateStory
+    updateStory,
+    deleteStory,
+    updateOrder,
+    getAdminOrderPage,
 }

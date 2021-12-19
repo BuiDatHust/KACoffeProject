@@ -6,6 +6,11 @@ const Story  = new mongoose.Schema({
         minLength: 100,
         required: [true, "Please provide description"]
     },
+    detaildescription: { 
+        type: String,
+        minLength: 100,
+        required: [true, "Please provide detaildescription"]
+    },
     title: {
         type: String,
         maxLength: 20,

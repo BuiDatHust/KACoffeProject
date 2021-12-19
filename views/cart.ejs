@@ -45,7 +45,7 @@
                     <select name="magiamgia" >
                         <option  value="" >Không áp dụng</option>
                         <% discount.forEach((discount) =>{ %>
-                            <option  value="<%= discount  %>" ><%= discount  %></option>
+                        <option  value="<%= discount  %>" ><%= discount  %></option>
                         <% }) %>    
                     </select>
                 </td>
@@ -55,7 +55,7 @@
                 <td colspan="6">
                     <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
                     <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
-                    <span class="cart-bottom-btn"><input type="submit" id="dathang" value="Đặt hàng" ></span>
+                    <input type="submit" id="dathang" value="Đặt hàng" >
                 </td>
             </tr>
         </form>

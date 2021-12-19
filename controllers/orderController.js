@@ -257,13 +257,13 @@ const getCart = async (req,res) =>{
   orders = orders.filter((e) => {
     return e.status=="tìm shipper"
   } );
-
-  if( orders.length>0 ){
+  console.log(orders)
+  if( orders.length > 0 ){
     console.log("cdc")
-    res.renderPjax('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
+    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
   }else{
     console.log("scscsc")
-    res.renderPjax('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
   }
   
 }

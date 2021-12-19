@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory, updateRoleUserAsAdmin, createStoryPage, getUpdateStoryPage, updateStory } = require('../controllers/adminController')
+const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory, updateRoleUserAsAdmin, createStoryPage, getUpdateStoryPage, updateStory, deleteStory, updateOrder, getAdminOrderPage } = require('../controllers/adminController')
 const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
@@ -26,6 +26,9 @@ const upload = multer({ storage: storage })
 router
     .route('/')
     .get([ authenticateUser,authorizePermission('admin') ], getAdminPage)
+router
+    .route('/adminorder/:page')
+    .get([ authenticateUser,authorizePermission('admin') ], getAdminOrderPage)
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
@@ -55,9 +58,11 @@ router
     .get([authenticateUser, authorizePermission('admin')], createProductPage)   
     .post([authenticateUser, authorizePermission('admin')],upload.array('image', 4), createProduct)
 
+router.route('/deleteStory/:id')
+    .post([authenticateUser, authorizePermission('admin')], deleteStory)
 router.route('/createStories')
     .get([authenticateUser, authorizePermission('admin')],createStoryPage)
-    .post([authenticateUser, authorizePermission('admin')],upload.single('image'),createStory)
+    .post([authenticateUser, authorizePermission('admin')],upload.single('img'),createStory)
 router.route('/updateStory/:id')
     .get([authenticateUser, authorizePermission('admin')],getUpdateStoryPage)
     .post([authenticateUser, authorizePermission('admin')],upload.single('image'),updateStory)
@@ -65,6 +70,8 @@ router.route('/updateStory/:id')
 router
     .route('/allOrder')
     .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+router.route('/updateOrder/:id')
+    .post(authenticateUser, authorizePermission('admin'), updateOrder)
 
 router.route('/deleteOrder/:orderid').post(authenticateUser, deleteOrder)
 
