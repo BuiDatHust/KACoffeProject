@@ -4,7 +4,7 @@ const Discount = require('../models/Discount')
 // CommonJS
 const Swal = require('sweetalert2')
 
-const { StatusCodes } = require('http-status-codes')
+const { StatusCodes, PROXY_AUTHENTICATION_REQUIRED } = require('http-status-codes')
 const BadRequestError = require('../errors/badRequestError')
 const UnauthentiatedError = require('../errors/unauthenticatedError')
 const NotFoundError = require('../errors/notFoundError')
@@ -48,6 +48,8 @@ const updateUser = async (req, res) => {
     await user.save();
   
     const tokenUser = createTokenUser(user);
+    tokenUser.email=email
+    tokenUser.phone = phone
     attachTokenToRes({ res, user: tokenUser });
 
     res.status(StatusCodes.OK).render('account', {user: tokenUser});
