@@ -11,7 +11,10 @@ const register = async (req,res) =>{
 
     const emailExists= await User.findOne({ email })
     if( emailExists ){
-        throw new BadRequestError("Email Exists !!")
+        res.render('auth/register', { 
+            user: req.user, 
+            warning: 'Email đã được sử dụng, vui lòng thử email khác!' })
+        return
     }
 
     const isFirstAccount = (await User.countDocuments({}) ) ==0
@@ -28,16 +31,19 @@ const register = async (req,res) =>{
 const login = async (req,res) =>{
     const { email,password } = req.body 
     if( !email || !password ) {
-        throw new BadRequestError("Please provide email or password!!")
+        res.render('auth/login', { user: req.user, warning: 'Vui lòng nhập email hoặc mật khẩu!' })
+        return
     }
 
     user = await User.findOne({email}) 
     if( !user ) {
-        throw new UnauthentiatedError("Not Exist this user!!")
+        res.render('auth/login', { user: req.user, warning: 'Tài khoản không tồn tại!' })
+        return
     }
     const isPasswordCorrect = await user.comparePassword(password)
     if( !isPasswordCorrect ) {
-        throw new UnauthentiatedError("Not Exist this user!!")
+        res.render('auth/login', { user: req.user, warning: 'Mật khẩu không đúng!' })
+        return
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
@@ -58,11 +64,13 @@ const forgotPassword = async (req,res) => {
     const newPassword = randomString.generate(8)
     console.log(newPassword)
     if(!email) {
-        throw new BadRequestError("Please provide email or password!!")
+        res.render('auth/forgot-password', { user: req.user, warning: 'Vui lòng nhập email!' })
+        return
     }
     user = await User.findOne({ email })
     if(!user) {
-        throw new UnauthentiatedError("Not Exist this user!!")
+        res.render('auth/forgot-password', { user: req.user, warning: 'Không tồn tại tài khoản với email này!' })
+        return
     }
     user.password = newPassword
     await user.save()
