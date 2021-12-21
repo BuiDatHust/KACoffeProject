@@ -136,10 +136,11 @@
 // })
 var statistic = document.getElementById('statistic-tab')
 
-async function Thongke(money, guess) {
+async function Thongke(time, money, guess) {
 
     let m = money.split(",");
     let g = guess.split(",");
+    let t = time.split(",");
     let mm = [];
     let gg = [];
 
@@ -160,9 +161,7 @@ async function Thongke(money, guess) {
         },
 
         xAxis: [{
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-            ],
+            categories: t,
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
