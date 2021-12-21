@@ -157,17 +157,45 @@ let getInfoAdmin = async(req, res) => {
     avenue = +(avenue / 1000000).toFixed(2)
 
     // chart 1
+    let time = [];
     let money = [];
     let guess = [];
+    let today = new Date();
+    let weekNow = today.getDate() / 7;
+    let monthNow = today.getMonth() + 1;
+    let yearNow = today.getFullYear();
+    for (let i = 0; i <= 11; i++) {
+        time.push("week " + weekNow + " - " + monthNow + " - " + yearNow);
+        if (weekNow == 1) {
+            weekNow = 4;
+            if (monthNow == 1) {
+                monthNow = 12;
+                yearNow--;
+            } else {
+                monthNow--;
+            }
+        } else {
+            weekNow--;
+        }
+    }
+    time.reverse();
+    console.log(time);
+
     for (let i = 0; i <= 11; i++) {
         money.push(0);
         guess.push(0);
     }
     order.forEach(function(e) {
-        console.log(e.createdAt.getMonth())
-        money[e.createdAt.getMonth()] += e.subtotal;
-        if (e.user == undefined) {
-            guess[e.createdAt.getMonth()]++;
+        weekNow = e.createdAt.getDate() / 7;
+        monthNow = e.createdAt.getMonth() + 1;
+        yearNow = e.createdAt.getFullYear();
+        let orderDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
+        for (let i = 0; i <= 11; i++) {
+            if (time[i].localeCompare(orderDate) == 0) {
+                money[i] += e.subtotal;
+                guess[i]++;
+                break;
+            }
         }
     })
     for (let i = 0; i <= 11; i++) {
@@ -182,7 +210,7 @@ let getInfoAdmin = async(req, res) => {
         discounts: discount,
         users: users,
         chart: { avenue, sumorder, newcustomer },
-        chart1: { money, guess },
+        chart1: { time, money, guess },
         rate: rate.join(" ")
     }
 }
