@@ -40,13 +40,13 @@
                          Tin tức
                     </a>
 
-                </a>
+                        </a>
 
-                <a class="nav-link" id="statistic-tab" data-toggle="pill" href="#statistic" role="tab" aria-controls="statistic" aria-selected="false">
+                        <a class="nav-link" onclick="event.preventDefault();Thongke('<%= chart1.money %>', '<%= chart1.guess %>');" id="statistic-tab" data-toggle="pill" href="#statistic" role="tab" aria-controls="statistic" aria-selected="false">
                 Thống kê
                 </a>
-            </a>
-                    
+                        </a>
+
                     </div>
                 </div>
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
@@ -75,10 +75,10 @@
                                             <td><span class="cart-price"><%= product.price  %></span></td>
                                             <td>
                                                 <form action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post">
-                                                    <input id="xoa" type="submit"  value="Xoá" />
+                                                    <input id="xoa" type="submit" value="Xoá" />
                                                 </form>
                                                 <form action="/KACoffe/v1/admin/allproduct/<%= product._id  %>" method="get">
-                                                <input id="sua" type="submit" value="Sửa" />
+                                                    <input id="sua" type="submit" value="Sửa" />
                                                 </form>
                                             </td>
                                         </tr>
@@ -115,7 +115,7 @@
                                             <td><span class="cart-time"><% if(discount.startTime) { %><%= discount.startTime.toLocaleString('en-GB') %> - <%= discount.endTime.toLocaleString('en-GB') %><% } %> </span></td>
                                             <td>
                                                 <form id="discountSubmit<%= discount._id %>" action="/KACoffe/v1/admin/allDiscount/delete/<%= discount._id  %>" method="post">
-                                                    <button id="xoa" onclick="event.preventDefault();DeleteDiscount('<%= discount._id %>');" >Xóa</button>
+                                                    <button id="xoa" onclick="event.preventDefault();DeleteDiscount('<%= discount._id %>');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -157,7 +157,7 @@
                                                 </td>
                                                 <td>
                                                     <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                    <button id="sua" onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" >Thêm quyền Admin</button>
+                                                        <button id="sua" onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');">Thêm quyền Admin</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -288,26 +288,26 @@
                                             <td class="cart-txt-left">
                                                 <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
                                                 <% if( page>1 ) { %>
-                                                <a href="white-coffee.html" class="cart-name">#<%= index+(page-1)*10   %> </a></td>
-                                                <% }else{ %>
-                                                <a href="white-coffee.html" class="cart-name">#<%= index  %> </a></td>  
-                                                <% } %> 
-                                            <td><span class="cart-price"><%= order.total %></span></td>
-                                            <td><span class="cart-price"><%= order.orderItems.length %></span></td>
-                                            <td><span class="cart-price"><%= order.status %></span></td>
-                                            <td>
+                                                    <a href="white-coffee.html" class="cart-name">#<%= index+(page-1)*10   %> </a></td>
+                                            <% }else{ %>
+                                                <a href="white-coffee.html" class="cart-name">#<%= index  %> </a></td>
+                                                <% } %>
+                                                    <td><span class="cart-price"><%= order.total %></span></td>
+                                                    <td><span class="cart-price"><%= order.orderItems.length %></span></td>
+                                                    <td><span class="cart-price"><%= order.status %></span></td>
+                                                    <td>
 
-                                                <form id="ordersubmit<%= order._id %>" method="post" action="/KACoffe/v1/admin/deleteOrder/<%= order._id %>">
+                                                        <form id="ordersubmit<%= order._id %>" method="post" action="/KACoffe/v1/admin/deleteOrder/<%= order._id %>">
 
-                                                    <input id="xoa" onclick="event.preventDefault();XoaDon('<%= order._id %>');" type="submit" value="Xóa" />
-                                                </form>
-                                                <form id="updateorder<%= order._id %>" method="post" action="/KACoffe/v1/admin/updateOrder/<%= order._id %>">
-                                                    <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
-                                                    <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>');" value="Cập nhật" type="submit" />
-                                                </form>
-                                            
-                                            </td>
-                                            </td>
+                                                            <input id="xoa" onclick="event.preventDefault();XoaDon('<%= order._id %>');" type="submit" value="Xóa" />
+                                                        </form>
+                                                        <form id="updateorder<%= order._id %>" method="post" action="/KACoffe/v1/admin/updateOrder/<%= order._id %>">
+                                                            <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
+                                                            <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>');" value="Cập nhật" type="submit" />
+                                                        </form>
+
+                                                    </td>
+                                                    </td>
 
                                         </tr>
                                         <% }) ; %>
@@ -321,29 +321,29 @@
 
                                 <nav aria-label="...">
                                     <ul class="pagination">
-                                      <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                      </li>
-                                      <% for( let i=0; i<pages; i++ ){  %>
-                                      <li class="page-item">
-                                          <form method="get" action="/KACoffe/v1/admin/adminorder/<%= i+1 %>" >
-                                          <input type="submit" value="<%= i+1 %>" class="page-link"  />
-                                          </form>
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
                                         </li>
-                                      <%  } %>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
+                                        <% for( let i=0; i<pages; i++ ){  %>
+                                            <li class="page-item">
+                                                <form method="get" action="/KACoffe/v1/admin/adminorder/<%= i+1 %>">
+                                                    <input type="submit" value="<%= i+1 %>" class="page-link" />
+                                                </form>
+                                            </li>
+                                            <%  } %>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
                                     </ul>
-                                  </nav>
-                    
+                                </nav>
+
 
                             </div>
                         </div>
                     </div>
-                     
+
                     <div class="tab-pane fade" id="stories" role="tabpanel" aria-labelledby="stories-tab">
-                        
+
                         <div class="grid__column-10">
                             <div class="cart-cart">
                                 <span class="subheading" style="font-size:28px;">Tin tức</span>
@@ -357,89 +357,102 @@
 
                                     <!-- insert code here -->
                                     <% stories.forEach(function(e,i) {  %>
-                                    <tr>
-                                        <td style="width: 30px; margin-left: 8px;"><span class="cart-all"><%= i  %></span></td>
-                                        <td class="admin-header__products"><%= e.title  %></td>
-                                        <td class="admin-header__time"><%= e.createdAt.toLocaleDateString("en-US") %>-<%= e.createdAt.toLocaleString([], {
+                                        <tr>
+                                            <td style="width: 30px; margin-left: 8px;"><span class="cart-all"><%= i  %></span></td>
+                                            <td class="admin-header__products">
+                                                <%= e.title  %>
+                                            </td>
+                                            <td class="admin-header__time">
+                                                <%= e.createdAt.toLocaleDateString("en-US") %>-
+                                                    <%= e.createdAt.toLocaleString([], {
                                             hour: '2-digit',
                                             minute: '2-digit'
-                                        }) %> </td>
-                                        <td class="admin-header__header">
-                                            <form method="get" action="/KACoffe/v1/admin/updateStory/<%= e._id %>" >
-                                            <input id="sua" type="submit" value="Sửa" />  
-                                            </form>
-                                            <form method="post" action="/KACoffe/v1/admin/deleteStory/<%= e._id %>" >
-                                            <input id="xoa" type="submit" value="Xoá" />
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                                    <tr class="cart-bottom">
-                                        <td colspan="6">
-                                            <a href="/KACoffe/v1/admin/createStories" class="cart-bottom-btn">Thêm tin tức</a>
-                                        </td>
-                                    </tr>
+                                        }) %>
+                                            </td>
+                                            <td class="admin-header__header">
+                                                <form method="get" action="/KACoffe/v1/admin/updateStory/<%= e._id %>">
+                                                    <input id="sua" type="submit" value="Sửa" />
+                                                </form>
+                                                <form method="post" action="/KACoffe/v1/admin/deleteStory/<%= e._id %>">
+                                                    <input id="xoa" type="submit" value="Xoá" />
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <tr class="cart-bottom">
+                                                <td colspan="6">
+                                                    <a href="/KACoffe/v1/admin/createStories" class="cart-bottom-btn">Thêm tin tức</a>
+                                                </td>
+                                            </tr>
                                 </table>
                             </div>
                         </div>
-                    <!-- </form> -->
+                        <!-- </form> -->
                     </div>
-               
+
 
                     <div class="tab-pane fade" id="statistic" role="tabpanel" aria-labelledby="statistic-tab">
-                        <span class="subheading" style="font-size:30px;">Thống kê bán hàng</span> </br></br></br>
+                        <span class="subheading" style="font-size:30px;">Thống kê bán hàng</span> </br>
+                        </br>
+                        </br>
 
-                        <div class="row-card" style="display: grid;grid-template-columns: 1fr 1fr 1fr;" >
+                        <div class="row-card" style="display: grid;grid-template-columns: 1fr 1fr 1fr;">
 
-                        <div class="card text-white bg-primary mb-3" style="max-width: 15rem">
-                            <div class="card-header">Tổng doanh thu</div>
-                            <div class="card-body">
-                              <h5 class="card-title"><%= chart.avenue %> triệu đồng</h5>
-                              <p class="card-text">Tăng 20%</p>
+                            <div class="card text-white bg-primary mb-3" style="max-width: 15rem">
+                                <div class="card-header">Tổng doanh thu</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= chart.avenue %> triệu đồng</h5>
+                                    <p class="card-text">Tăng 20%</p>
+                                </div>
+                            </div>
+
+                            <div class="card text-white bg-secondary mb-3" style="max-width: 15rem">
+                                <div class="card-header">Khách hàng mới</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= chart.newcustomer %> customers</h5>
+                                    <p class="card-text">Tăng 30%</p>
+                                </div>
+                            </div>
+
+                            <div class="card text-white bg-success mb-3" style="max-width: 15rem">
+                                <div class="card-header">Tổng đơn</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= chart.sumorder %>
+                                    </h5>
+                                    <p class="card-text">Giảm nhẹ</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card text-white bg-secondary mb-3" style="max-width: 15rem">
-                            <div class="card-header">Khách hàng mới</div>
-                            <div class="card-body">
-                              <h5 class="card-title"><%= chart.newcustomer %> customers</h5>
-                              <p class="card-text">Tăng 30%</p>
-                            </div>
-                        </div>
-
-                        <div class="card text-white bg-success mb-3" style="max-width: 15rem">
-                            <div class="card-header">Tổng đơn</div>
-                            <div class="card-body">
-                              <h5 class="card-title"><%= chart.sumorder %></h5>
-                              <p class="card-text">Giảm nhẹ</p>
-                            </div>
-                        </div>    
-                    </div>
-                            
                         </br>
 
-                            <figure class="highcharts-figure1">
-                                <div id="container1"></div>
-                                <p class="highcharts-description">
-                                  
-                                </p>
-                            </figure>
+                        <figure class="highcharts-figure1">
+                            <div id="container1"></div>
+                            <p class="highcharts-description">
+
+                            </p>
+                        </figure>
                         </br>
-                            <figure class="highcharts-figure2">
-                                <div id="container2"></div>
-                                <p class="highcharts-description">
-                                  <div   class="rate" > <%= rate %> </div>
-                                </p>
-                            
-                       
+                        <figure class="highcharts-figure2">
+                            <div id="container2"></div>
+                            <p class="highcharts-description">
+                                <div class="rate">
+                                    <%= rate %>
+                                </div>
+                            </p>
+
+
                     </div>
-                    
+
                 </div>
 
-                
+
             </div>
-            
-            </div>
+
+        </div>
         </div>
 
         </div>
@@ -471,36 +484,36 @@
                 })
         }
 
-        async function capnhatdon(id){
-            const updateorder = document.getElementById(`updateorder${id}`) 
-            const updatevalue = document.getElementById(`capnhat${id}`) 
+        async function capnhatdon(id) {
+            const updateorder = document.getElementById(`updateorder${id}`)
+            const updatevalue = document.getElementById(`capnhat${id}`)
 
             await Swal.fire({
-            title: 'Cập nhật tình trạng đơn hàng',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Cập nhật',
-            showLoaderOnConfirm: true,
-            preConfirm: (value) => {
-                return async () =>{
-                    updatevalue.val(value) 
-                    await updateorder.submit() 
-                    return "cdcdcc"   
-                } 
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-            })
-            .then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                title: "Cập nhật thành công result",
-                imageUrl: "",
+                    title: 'Cập nhật tình trạng đơn hàng',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Cập nhật',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (value) => {
+                        return async() => {
+                            updatevalue.val(value)
+                            await updateorder.submit()
+                            return "cdcdcc"
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
                 })
-            }
-            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Cập nhật thành công result",
+                            imageUrl: "",
+                        })
+                    }
+                })
         }
 
         async function DeleteDiscount(discountId) {
@@ -554,6 +567,6 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    
+
     <script src="/js/statistic.js"></script>
     <%- include('_layouts/footer') ; -%>
