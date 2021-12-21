@@ -1,0 +1,20 @@
+<p class="zoom-area1"><b>Lỗi!</b> <%= error  %> </p>
+<link rel="stylesheet" href="/css/404error.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<section class="error-container">
+
+    <span class="four"><span class="screen-reader-text"><%= status[0]  %></span></span>
+    <span class="zero"><span class="screen-reader-text"><%= status[1]  %></span></span>
+    <span class="four"><span class="screen-reader-text"><%= status[2]  %></span></span>
+</section>
+<div class="link-container">
+    <a id="back" target="_blank" href="" class="btn btn-primary py-3 px-5">Trở về</a>
+</div>
+<script>
+    var back = document.getElementById('back')
+    back.addEventListener('click', (e)=>{
+        e.preventDefault();
+        window.history.back();
+    })
+</script>

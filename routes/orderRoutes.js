@@ -16,7 +16,8 @@ const {
     buy,
     getCart,
     deleteOrderItems,
-    requestToDeleteOrder
+    requestToDeleteOrder,
+    buyNotLogin
   } = require('../controllers/orderController');
   
   router
@@ -24,6 +25,9 @@ const {
     .post(attachUser, createOrder)
     // .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
+    router
+      .route('/orderNotLogin')
+      .post(attachUser,buyNotLogin)
   
   router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
   router.route('/cart').get(authenticateUser, getCart);

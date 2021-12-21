@@ -1,8 +1,10 @@
 const User = require('../models/User')
 const Story = require('../models/Story')
 const Discount = require('../models/Discount')
+// CommonJS
+const Swal = require('sweetalert2')
 
-const { StatusCodes } = require('http-status-codes')
+const { StatusCodes, PROXY_AUTHENTICATION_REQUIRED } = require('http-status-codes')
 const BadRequestError = require('../errors/badRequestError')
 const UnauthentiatedError = require('../errors/unauthenticatedError')
 const NotFoundError = require('../errors/notFoundError')
@@ -29,7 +31,8 @@ const getSingleUser = async (req, res) => {
   };
 
 const showCurrentUser = async (req, res) => {
-    res.status(StatusCodes.OK).render('account', {user: req.user});
+    const user = await User.findOne({ _id: req.user.userId })
+    res.status(StatusCodes.OK).render('account', {user: user});
 };
 
 const updateUser = async (req, res) => {
@@ -45,6 +48,8 @@ const updateUser = async (req, res) => {
     await user.save();
   
     const tokenUser = createTokenUser(user);
+    tokenUser.email=email
+    tokenUser.phone = phone
     attachTokenToRes({ res, user: tokenUser });
 
     res.status(StatusCodes.OK).render('account', {user: tokenUser});
@@ -73,16 +78,27 @@ const saveDiscount = async (req,res) =>{
   const user = await User.findOne({ _id:req.user.userId })
 
   const thisDiscount = await Discount.findOne({ _id:id })
-  var discount = user.discount 
+  var discount = user.discount
   
   if( discount==undefined ){
     discount = []
     discount[0] = thisDiscount.name
     const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+  }else{
+    let today = new Date();
+
+    if( discount.includes(thisDiscount.name) ){
+     res.render('error',{error: "Bạn đã có discount này",status:[5,0,0]})
+     return ;
+    }else if( today>thisDiscount.endTime || today<thisDiscount.startTime ){
+      res.render('error',{error: "Quá hạn sử dụng discount này",status:[5,0,0]})
+     return ;
+    }
+    discount = [...discount, thisDiscount.name]
+    const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
   }
 
-  discount = [...discount, thisDiscount.name]
-  const newUser = await User.findByIdAndUpdate({ _id:req.user.userId }, {discount: discount})
+  
   
   res.redirect('/KACoffe/v1/discount');    
   

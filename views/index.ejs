@@ -519,7 +519,7 @@
                     <span class="subheading"></span>
                     <h2 class="mb-4">Thưởng thức tại nhà</h2>
                 </div>
-                <form action="/KACoffe/v1/order" method="POST">
+                <form action="/KACoffe/v1/order/orderNotLogin" method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -544,6 +544,13 @@
                             <div class="form-group">
                                 <label for="">Ghi chú</label>
                                 <input type="text" class="form-control" id="book_date" placeholder="Lưu ý cho quán">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" name="emai" class="form-control" id="book_date" placeholder="Email..">
                             </div>
                         </div>
                         <div class="col-md-6">

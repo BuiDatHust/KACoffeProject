@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <h1 class="mb-2 bread">Thêm tin tức</h1>
+                    <h1 class="mb-2 bread">Cập nhật tin tức</h1>
                     <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffe/v1">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm tin tức<i class="ion-ios-arrow-forward"></i></span></p>
                 </div>
             </div>
@@ -16,14 +16,14 @@
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="heading-section ftco-animate mb-5">
-                <span class="subheading">Thêm tin tức</span>
-                <h2 class="mb-4">Tạo tin tức mới</h2>
+                
+                <h2 class="mb-4">Cập nhật tin tức </h2>
             </div>
-            <form action="/KACoffe/v1/admin/createStories" method="POST">
+            <form  method="POST">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Tiêu đề</label>
-                        <input type="text" id="stories-name" name="name" placeholder="">
+                        <input type="text" id="stories-name" name="title" placeholder="">
                     </div>
                 </div>
 
@@ -41,21 +41,13 @@
                     </div>
                 </div>
 
-                <!-- stories image -->
-
-                <div class="upload-image-sec">
-                    <p class="text"><img src="/images/camera.png" alt="">Tải ảnh lên</p>
-                    <div class="upload-catalouge">
-                        <input type="file" class="fileupload" name="img" id="first-file-upload-btn" hidden>
-                        <label for="first-file-upload-btn" class="upload-image"></label>
-                    </div>
-                </div>
+            
         </div>
 
         </div>
 
         <div class="buttons1" style="margin-left: 190px;">
-            <button class="btn1" id="add-btn1">Thêm tin tức</button>
+            <input class="btn1" type="submit" value="Cập nhật" id="add-btn1" />
         </div>
         </form>
         </div>

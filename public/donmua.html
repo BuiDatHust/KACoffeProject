@@ -46,14 +46,14 @@
                     <li class="nav-item"><a href="reservation.html" class="nav-link"> Tra cứu đơn hàng</a></li>
                     <li class="nav-item"><a href="tracuu.html" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="stories.html" class="nav-link">Tin tức</a></li>
-                    <!-- <li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li> -->
+                    <!--<li class="nav-item"><a href="auth.html" class="nav-link">Đăng nhập</a></li>-->
                     <li class="nav-item ">
                         <div class="nav-link nav-item-user">
                             <img src="images/avt.jpg" alt="" class="nav-item-user-img">
                             <span class="nav-item-user-name">Nhóm 2</span>
                             <ul class="nav-item-user-menu">
                                 <li class="nav-item-user-item">
-                                    <a href="account.html" class="nav-link">Tài khoản</a>
+                                    <a href="account.html" class="">Tài khoản</a>
                                 </li>
                                 <li class="nav-item-user-item">
                                     <a href="">Địa chỉ giao hàng</a>
@@ -146,45 +146,37 @@
         </div>
     </nav>
     <!-- END nav -->
+    <div class="container">
+        <div class="cart">
+            <table class="cart-table" style="margin-top: 100px;">
+                <tr>
 
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_5.jpg');" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row no-gutters slider-text align-items-center justify-content-center">
-            </div>
+                    <th width="100" style="text-align: center;">Mã đơn hàng</th>
+                    <th width="50" style="text-align: center;">Tổng số tiền</th>
+                    <th width="50" style="text-align: center;">Số lượng</th>
+                    <th width="150" style="text-align: center;">Số điện thoại</th>
+                    <th width="150" style="text-align: center;">Địa chỉ</th>
+                    <th width="150" style="text-align: center;">Tình trạng</th>
+                    <th width="50" style="text-align: center;">Thao tác</th>
+                </tr>
+                <tr class="cart-item">
+                    <td class="cart-txt-left">
+                        <a href="detailorder.html" class="cart-name1" style="padding-left: 30px;">md123</a></td>
+                    <td>2222222đ </td>
+                    <td> 5 </td>
+                    <td>268744487</td>
+                    <td>Hà nội</td>
+                    <td> Đang lấy hàng </td>
+
+                    <td><input onclick="HuyDon('<%= order._id %>');" type="submit" value="Hủy Đơn Hàng" /></td>
+
+                </tr>
+            </table>
+
         </div>
-    </section>
+    </div>
 
-    <section class="ftco-section ftco-no-pt ftco-no-pb">
-        <div class="container">
-            <div class="row d-flex">
-                <div class="col-md-5 ftco-animate img img-2" style="background-image: url(images/hot-black-coffe.jpg);"></div>
-                <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                    <div class="heading-section ftco-animate mb-5">
-                        <span class="subheading">Đăng nhập</span>
-                        <h2 class="mb-4">Thông tin tài khoản</h2>
-                    </div>
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""></label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <input type="submit" value="Đăng xuất" class="btn btn-primary py-3 px-5">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+    <!-- Footer-->
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row mb-5">
@@ -229,19 +221,19 @@
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Instagram</h2>
                         <div class="thumb d-sm-flex">
+                            <a href="#" class="thumb-menu img" style="background-image: url(images/about.jpg);">
+                            </a>
+                            <a href="#" class="thumb-menu img" style="background-image: url(images/bg_2.jpg);">
+                            </a>
                             <a href="#" class="thumb-menu img" style="background-image: url(images/insta-1.jpg);">
-                            </a>
-                            <a href="#" class="thumb-menu img" style="background-image: url(images/insta-2.jpg);">
-                            </a>
-                            <a href="#" class="thumb-menu img" style="background-image: url(images/insta-3.jpg);">
                             </a>
                         </div>
                         <div class="thumb d-flex">
-                            <a href="#" class="thumb-menu img" style="background-image: url(images/insta-4.jpg);">
+                            <a href="#" class="thumb-menu img" style="background-image: url(images/bg_7.jpg);">
                             </a>
                             <a href="#" class="thumb-menu img" style="background-image: url(images/insta-5.jpg);">
                             </a>
-                            <a href="#" class="thumb-menu img" style="background-image: url(images/insta-6.jpg);">
+                            <a href="#" class="thumb-menu img" style="background-image: url(images/cold-coffe-milk-bottle.jpg);">
                             </a>
                         </div>
                     </div>
@@ -285,114 +277,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/Alert.js"></script>
-
-
-    <div class="modal">
-        <div class="modal__overlay"></div>
-
-        <div class="modal__body">
-
-
-            <!-- Register form -->
-            <div class="auth-form auth-register" style="display: none;">
-                <div class="container">
-                    <div class="auth-form__header">
-                        <h3 class="auth-form__heading">Đăng ký</h3>
-                        <span class="auth-form__switch auth-form__switch-login">Đăng nhập</span>
-                    </div>
-
-                    <div class="auth-form__form">
-                        <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" placeholder="Email/SĐT">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
-                        </div>
-                        <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu">
-                        </div>
-                    </div>
-
-                    <div class="auth-form__aside">
-                        <p class="auth-form__policy-text">
-                            Bằng việc đăng ký, bạn đã đồng ý với KACoffee về
-                            <a href="" class="auth-form__policy-link">Điều khoản dịch vụ</a> &
-                            <a href="" class="auth-form__policy-link">Chính sách bảo mật</a>
-                        </p>
-                    </div>
-
-                    <div class="auth-form__controls">
-                        <a href="index.html" class="btn">TRỞ LẠI</a>
-                        </a>
-                        <button class="btn btn--primaryy">ĐĂNG KÝ</button>
-                    </div>
-
-                    <div class="auth-form__socials">
-                        <a href="" class="btn btn--with-icon">
-                            <i class="fab fa-facebook-square"></i> Kết nối với Facebook
-                        </a>
-                        <a href="" class="btn btn--with-icon">
-                            <i class="fab fa-google"></i> Kết nối với Google
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="toastAlertN"></div>
-            <!-- Login form -->
-            <div class="auth-form auth-login" style="display: block;">
-
-                <div class="container">
-                    <div class="auth-form__header">
-                        <h3 class="auth-form__heading">Đăng nhập</h3>
-                        <span class="auth-form__switch auth-form__switch-register">Đăng ký</span>
-                    </div>
-
-                    <div class="auth-form__form">
-                        <div class="auth-form__group">
-                            <input id="TK" type="text" class="auth-form__input" placeholder="Email/SĐT">
-                        </div>
-                        <div class="auth-form__group">
-                            <input id="MK" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
-                        </div>
-                        <div class="auth-form__group">
-                            <input id="NLMK" type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu">
-                        </div>
-                    </div>
-
-                    <div class="auth-form__aside">
-                        <div class="auth-form__help">
-                            <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
-                            <span class="auth-form__help-separate"></span>
-                            <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
-                        </div>
-                    </div>
-
-                    <div class="auth-form__controls">
-                        <a href="index.html" class="btn">TRỞ LẠI</a>
-                        <button onclick="checkValue()" class="btn btn--primaryy">ĐĂNG NHẬP</button>
-                    </div>
-
-                    <div class="auth-form__socials">
-                        <a href="" class="btn btn--with-icon">
-                            <i class="fab fa-facebook-square"></i> Kết nối với Facebook
-                        </a>
-                        <a href="" class="btn btn--with-icon">
-                            <i class="fab fa-google"></i> Kết nối với Google
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-        </div>
-    </div>
-
-
 
 </body>
 

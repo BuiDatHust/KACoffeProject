@@ -6,16 +6,17 @@ const { StatusCodes } = require('http-status-codes')
 
 const getHomepage = async (req,res) =>{
     const product = await Product.find({})
+    
     var user
 
     if( req.user===undefined ){
         user = 0
     }else{
         user = req.user
+        
     }
-    console.log(user)
 
-    res.status(StatusCodes.OK).render('index',{ user:user })
+    res.status(StatusCodes.OK).renderPjax('index',{ user:user })
 }
 
 const getDiscount = async (req,res) =>{
@@ -33,7 +34,7 @@ const getDiscount = async (req,res) =>{
         user = req.user
     }
 
-    res.status(StatusCodes.OK).render('tracuu', {discount: discount, user: user})
+    res.status(StatusCodes.OK).render('tracuu', {discount: discount, user: user, error: ''})
 }
 
 const getStories = async (req,res) =>{
@@ -57,8 +58,16 @@ const getStories = async (req,res) =>{
         user: user
     })
 }
+
+const getNotification = async (req,res) =>{
+    const user = await User.findOne({ _id: req.user.userId })
+
+    res.render('notification', { noti: user.notification})
+}
+
 module.exports = {
     getHomepage,
     getDiscount,
-    getStories
+    getStories,
+    getNotification
 }

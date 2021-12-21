@@ -15,7 +15,7 @@ const attachTokenToRes = ({ res, user }) =>{
 
     res.cookie('token', token, {
         httpOnly: true ,
-        expires: new Date(Date.now()+ 360000),
+        expires: new Date(Date.now()+ 86400000),
         // secure: true,
         signed: true,
     })

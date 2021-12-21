@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('express-async-errors');
+var pjax = require('express-pjax');
 const path = require('path')
 
 //option pakages
@@ -31,6 +32,7 @@ app.use(cookieParser('jwtSecret'))
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:false}));
 
+app.use(pjax())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

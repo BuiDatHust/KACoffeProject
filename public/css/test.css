@@ -227,7 +227,7 @@
 .cart {
     width: 100%;
     height: auto;
-    padding: 10px 10px 10px;
+    padding: 20px 10px 300px;
     border: 1px solid #D5E5F5;
 }
 
@@ -286,6 +286,12 @@
     padding: 11px;
 }
 
+.cart-item .cart-txt-email {
+    text-align: right;
+    display: flex;
+    width: 180px;
+}
+
 .cart-name {
     color: #333333;
     font-weight: bold;
@@ -295,6 +301,10 @@
 .cart-subtotal {
     color: #FF3334;
     font-weight: bold;
+}
+
+.cart-add-reduce {
+    flex-direction: column;
 }
 
 .cart-reduce,

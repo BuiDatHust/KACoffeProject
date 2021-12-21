@@ -20,7 +20,7 @@ router
   .get(authenticateUser, authorizePermission('admin'), getAllUsers);
 
 router.route('/me').get(authenticateUser, showCurrentUser);
-router.route('/me/update').post(attachUser, updateUser);
+router.route('/me/update').post(authenticateUser, updateUser);
 router.route('/me/updateUserPassword').post(attachUser, updateUserPassword);
 
 // router.route('/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
