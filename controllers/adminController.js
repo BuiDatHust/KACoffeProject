@@ -163,6 +163,7 @@ let getInfoAdmin = async(req, res) => {
     let today = new Date();
     console.log(today)
     let weekNow = (today.getDate() / 7 + 1).toFixed(0);
+    if (weekNow > 4) weekNow = 4;
     let monthNow = today.getMonth() + 1;
     let yearNow = today.getFullYear();
     for (let i = 0; i <= 11; i++) {
@@ -188,6 +189,7 @@ let getInfoAdmin = async(req, res) => {
     }
     order.forEach(function(e) {
         weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+        if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
         let orderDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
@@ -203,6 +205,7 @@ let getInfoAdmin = async(req, res) => {
     })
     users.forEach(function(e) {
         weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+        if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
         let usersDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
