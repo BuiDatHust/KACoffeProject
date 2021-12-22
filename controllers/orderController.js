@@ -123,38 +123,40 @@ if( req.user!==undefined ){
 
 const buyNotLogin = async (req,res) =>{
   
-var { phone,name,amount,address,nameproduct,email } = req.body
-var subtotal=0, total =0
+  var { phone,name,amount,address,nameproduct,email,size } = req.body
+  var subtotal=0, total =0
+  console.log(req.body)
 
-const product = await Product.findOne({ name: nameproduct })
-console.log(product)
-orderItems = [{
-name: name,
-price: product.price,
-amount: amount
-}]
-total =product.price* amount
-subtotal=total+ 20000
+  const product = await Product.findOne({ name: nameproduct })
+  console.log(product)
+  orderItems = [{
+  name: name,
+  price: product.price,
+  amount: amount,
+  size:size
+  }]
+  total =product.price* amount
+  subtotal=total+ 20000
 
-const transporter = nodeMailer.createTransport({
-  service: 'hotmail',
-  auth: {
-      user:process.env.EMAIL,
-      pass: process.env.PASSWORD,
-  },
-});
-const mailOptions = {
-  from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
-  to: req.body.emai,
-  subject: "Chúc mừng bạn có đơn hàng đầu tiên", 
-  html: "<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi" , 
-}
-transporter.sendMail(mailOptions, function(err,info) {
-  if (err) {
-      console.log(err)
-      return;
+  const transporter = nodeMailer.createTransport({
+    service: 'hotmail',
+    auth: {
+        user:process.env.EMAIL,
+        pass: process.env.PASSWORD,
+    },
+  });
+  const mailOptions = {
+    from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
+    to: req.body.emai,
+    subject: "Chúc mừng bạn có đơn hàng đầu tiên", 
+    html: "<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi" , 
   }
-  console.log("Sent: " + info.response);
+  transporter.sendMail(mailOptions, function(err,info) {
+    if (err) {
+        console.log(err)
+        return;
+    }
+    console.log("Sent: " + info.response);
 });
 
 const order = await Order.create({
@@ -290,14 +292,20 @@ const updateOrder = async (req, res) => {
 const deleteOrderItems = async (req,res) =>{
   const { id } = req.params
   
-  var order = await Order.findOne({ user: req.user.userId })
-  var total= order.total, subtotal=0
-  order = order.orderItems
+  var order = await Order.find({ user: req.user.userId })
 
-  for(var i=0 ;i<order.length; i++){
-    if( order[i]._id ==id ){
-      order.splice(i,1)
-      total -= order[i].price  * order[i].amount 
+  order = order.filter((e) =>{
+    return e.status=="tìm shipper"
+  })
+  var total= order[0].total, subtotal=0
+  var orderItem = order[0].orderItems 
+  console.log(orderItem)
+
+  for(var i=0 ;i<orderItem.length; i++){
+    if( orderItem[i]._id ==id ){
+      total -= orderItem[i].price  * orderItem[i].amount
+      orderItem.splice(i,1)
+       
     }
   
   }
@@ -305,9 +313,10 @@ const deleteOrderItems = async (req,res) =>{
   console.log(subtotal)
   
   const updateOrder = await Order.findOneAndUpdate({ user: req.user.userId }, { 
-    orderItems: order, total: total, subtotal: subtotal
+    orderItems: [...orderItem], total: total, subtotal: subtotal
   })
-  res.render('cart', { orders: order ,subtotal: subtotal})
+  // res.render('cart', { orders: orderItem ,subtotal: subtotal})
+  res.redirect('/KACoffe/v1/order/cart')
 
 }
 
