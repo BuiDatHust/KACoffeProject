@@ -29,12 +29,12 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="/css/addProduct.css">
-    
-    <link rel="stylesheet" href="/css/button.css" >
+
+    <link rel="stylesheet" href="/css/button.css">
 </head>
 
 <body>
-    
+
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="/KACoffee/v1">KACoffee</a>
@@ -52,16 +52,6 @@
                         <li class="nav-item"><a href="/KACoffe/v1/auth" class="nav-link">Đăng nhập</a></li>
                         <% } %>
                             <% if ( user ) { %>
-                               <li class="nav-item">
-                                   <div class="nav-link nav-item-user">
-                                    
-                                        <a href="/KACoffe/v1/notification" >
-                                            <i class="fas fa-bell" ></i>
-                                        </a>
-                                    
-                                   </div>
-                                    
-                               </li>
                                 <li class="nav-item ">
 
                                     <div class="nav-link nav-item-user">
@@ -90,22 +80,31 @@
                                     </div>
 
                                 </li>
+                                <li class="nav-item">
+                                    <div class="nav-link nav-item-user">
+
+                                        <a href="/KACoffe/v1/notification">
+                                            <i class="far fa-bell"></i>
+                                        </a>
+
+                                    </div>
+
+                                </li>
                                 <% } %>
                 </ul>
             </div>
             <% if ( user ) { %>
-                
-                <div class="header__cart" >
-                    
-                        <a href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
-                            <div class="form-group">
-                                <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
-                            </div>
-                        </a>
-                    </div>
-                    <% }; %>
+
+                <div class="header__cart">
+
+                    <a href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
+                        </div>
+                    </a>
                 </div>
+                <% }; %>
+        </div>
 
         </div>
     </nav>
-    
