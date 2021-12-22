@@ -6,15 +6,15 @@ const Story = require("../models/Story");
 const User = require("../models/User");
 var ObjectId = require('mongodb').ObjectID;
 
-const createProductPage = async(req, res) => {
+const createProductPage = async (req, res) => {
     res.render('addProduct', { user: req.user })
 }
 
-const createDiscountPage = async(req, res) => {
+const createDiscountPage = async (req, res) => {
     res.render('addDiscount', { user: req.user, discount: 0, warning: undefined })
 }
 
-const createDiscount = async(req, res) => {
+const createDiscount = async (req, res) => {
     const newDiscount = req.body
     if (newDiscount.startTime >= newDiscount.endTime) {
         res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Thời gian không hợp lệ!" })
@@ -29,13 +29,13 @@ const createDiscount = async(req, res) => {
     res.redirect('/KACoffe/v1/admin')
 }
 
-const updateDiscountPage = async(req, res) => {
+const updateDiscountPage = async (req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
     res.render('updateDiscount', { user: req.user, discount: discount })
 }
 
-const updateDiscount = async(req, res) => {
+const updateDiscount = async (req, res) => {
     const { id: discountId } = req.params
     var update = req.body;
     var updateForm = {};
@@ -55,7 +55,7 @@ const updateDiscount = async(req, res) => {
     res.redirect('/KACoffe/v1/admin')
 }
 
-const deleteDiscount = async(req, res) => {
+const deleteDiscount = async (req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
 
@@ -66,7 +66,7 @@ const deleteDiscount = async(req, res) => {
     await discount.remove();
     res.redirect('/KACoffe/v1/admin');
 }
-const updateRoleUserAsAdmin = async(req, res) => {
+const updateRoleUserAsAdmin = async (req, res) => {
     const { id: userId } = req.params
     const user = await User.findOne({ _id: userId });
     const update1 = user
@@ -79,15 +79,15 @@ const updateRoleUserAsAdmin = async(req, res) => {
     })
     res.redirect('/KACoffe/v1/admin');
 }
-const createStoryPage = async(req, res) => {
+const createStoryPage = async (req, res) => {
     res.render('addStories', { user: req.user })
 }
 
-const getUpdateStoryPage = async(req, res) => {
+const getUpdateStoryPage = async (req, res) => {
     res.render('updateStories', { user: req.user })
 }
 
-const createStory = async(req, res) => {
+const createStory = async (req, res) => {
     req.body.user = req.user.userId
     console.log(req.files)
     const length = req.files.destination.length
@@ -97,7 +97,7 @@ const createStory = async(req, res) => {
     res.redirect('/KACoffe/v1/admin')
 }
 
-const updateStory = async(req, res) => {
+const updateStory = async (req, res) => {
     const { id: storyId } = req.params
     const { title, description, detaildescription } = req.body
 
@@ -105,13 +105,13 @@ const updateStory = async(req, res) => {
     res.redirect('/KACoffe/v1/admin')
 }
 
-const deleteStory = async(req, res) => {
+const deleteStory = async (req, res) => {
     const story = await Story.findByIdAndDelete(req.params.id)
     console.log(story)
     res.redirect('/KACoffe/v1/admin')
 }
 
-let getInfoAdmin = async(req, res) => {
+let getInfoAdmin = async (req, res) => {
     const product = await Product.find({})
     const story = await Story.find({})
     const discount = await Discount.find({})
@@ -130,7 +130,7 @@ let getInfoAdmin = async(req, res) => {
         newcustomer = 0,
         sum = 0
 
-    order.forEach(function(e) {
+    order.forEach(function (e) {
         if (e.createdAt.getFullYear() >= 2021) {
             avenue += e.subtotal;
             sumorder += 1;
@@ -142,7 +142,7 @@ let getInfoAdmin = async(req, res) => {
 
     })
 
-    users.forEach(function(e) {
+    users.forEach(function (e) {
         if (e.createdAt.getFullYear() >= 2021) {
             newcustomer += 1
         }
@@ -187,9 +187,11 @@ let getInfoAdmin = async(req, res) => {
         money.push(0);
         guess.push(0);
     }
+
     order.forEach(function(e) {
         weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
         if (weekNow > 4) weekNow = 4;
+
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
         let orderDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
@@ -222,6 +224,45 @@ let getInfoAdmin = async(req, res) => {
     console.log(money)
     console.log(guess)
 
+    //chart2
+    let amount = [0, 0, 0, 0, 0];
+    const ods = await Order.find({})
+        .populate({
+            path: 'orderItems',
+            populate: {
+                path: 'product',
+                model: Product,
+                select: 'category'
+            }
+        })
+    ods.forEach(order => {
+        if (order.status == 'shipper đang lấy hàng') {
+            order.orderItems.forEach(orderitem => {
+                const category = orderitem.product.category;
+                if (category == 'Cà phê') {
+                    amount[0] += Number(orderitem.amount)
+                } else if (category == 'Trà trái cây-Trà sữa') {
+                    amount[1] += 1 * orderitem.amount
+                } else if (category == 'Đá xay-Choco-Matcha') {
+                    amount[2] += Number(orderitem.amount)
+                } else if (category == 'Đồ uống nhanh') {
+                    amount[3] += Number(orderitem.amount)
+                } else if (category == 'Drinks') {
+                    amount[4] += Number(orderitem.amount)
+                }
+            })
+        }
+    })
+    var total1 = 0;
+    console.log(amount)
+    amount.forEach(e => {
+        total1 += e;
+    })
+    let percent = [0, 0, 0, 0, 0];
+    for (let i = 0; i < 5; i++) {
+        percent[i] = (amount[i] * 100 / total1).toFixed(2);
+    }
+    console.log(percent)
     return {
         pages: Math.ceil(count / 10),
         user: user,
@@ -231,11 +272,12 @@ let getInfoAdmin = async(req, res) => {
         users: users,
         chart: { avenue, sumorder, newcustomer },
         chart1: { time, money, guess },
-        rate: rate.join(" ")
+        rate: rate.join(" "),
+        data1: percent
     }
 }
 
-const getAdminPage = async(req, res) => {
+const getAdminPage = async (req, res) => {
     let info = await getInfoAdmin(req, res)
 
     var perPage = 10
@@ -250,7 +292,7 @@ const getAdminPage = async(req, res) => {
     res.render('admin', info);
 }
 
-const getAdminOrderPage = async(req, res) => {
+const getAdminOrderPage = async (req, res) => {
     let info = await getInfoAdmin(req, res)
 
     var page = req.params.page
@@ -265,7 +307,7 @@ const getAdminOrderPage = async(req, res) => {
     res.render('admin', info)
 }
 
-const updateOrder = async(req, res) => {
+const updateOrder = async (req, res) => {
     const { id } = req.params;
     const status = req.body.capnhat;
     console.log(status)
