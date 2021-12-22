@@ -154,6 +154,8 @@ const getAdminOrderPage = async(req, res) => {
     const count = await Order.count({status : {$ne : 'tìm shipper'}})   
     const pages = Math.ceil(count / perPage)
 
+    console.log(count);
+
     const orders = await Order.find({status : {$ne : 'tìm shipper'}})
         .sort({ _id: -1 })
         .skip((perPage * page) - perPage)

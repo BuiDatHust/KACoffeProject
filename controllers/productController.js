@@ -51,10 +51,13 @@ const updateProduct = async (req, res) => {
   
     res.redirect('/KACoffe/v1/admin');
 };
-const getupdateProductPage =  (req,res) =>{
+const getupdateProductPage = async (req,res) =>{
   const id = req.params.id ;
-  console.log(id)
-  res.render('updateProduct', {productid:id})
+  const product = await Product.findById(id)
+
+  console.log(product);
+
+  res.render('updateProduct', {user: req.user, productid:id, product: product})
 }
 
 const deleteProduct = async (req, res) => {
