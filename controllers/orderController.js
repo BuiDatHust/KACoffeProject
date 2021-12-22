@@ -358,7 +358,7 @@ const getDetailOrder = async (req,res) =>{
   console.log(order)
 
   res.render('detailorder',
-  { orderid: order.id.slice(0,8), orderItems: order.orderItems, subtotal: order.subtotal, address:order.address,status: order.status })
+  { user: req.user, orderid: order.id.slice(18, 24), orderItems: order.orderItems, subtotal: order.subtotal, address:order.address,status: order.status })
 }
 
 const checkAccount = async (req,res) =>{
