@@ -2,23 +2,25 @@
 #sua{
   background-color: #62529c;
   border: none;
-  width: 50px;
+  width: 60px;
   color: #fff;
   padding: 1px 2px;
   text-decoration: none;
   margin: 1px 2px;
   cursor: pointer;
+  padding: 2px;
 }
 
 #xoa{
   background-color: #f30606;
   border: none;
-  width: 50px;
+  width: 60px;
   color: rgb(15, 2, 2);
   padding: 1px 2px;
   text-decoration: none;
   margin: 1px 2px;
   cursor: pointer;
+  padding: 2px;
 }
 
 #dathang{
