@@ -144,3 +144,9 @@ input::-webkit-inner-spin-button {
 .from__from {
     width: 50%;
 }
+
+.product-price2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
