@@ -136,8 +136,9 @@
 // })
 var statistic = document.getElementById('statistic-tab')
 
-async function Thongke(time, money, guess) {
-
+async function Thongke(time, money, guess, data1) {
+    console.log(data1)
+    let datachart2 = data1.split(",") 
     let m = money.split(",");
     let g = guess.split(",");
     let t = time.split(",");
@@ -260,25 +261,22 @@ async function Thongke(time, money, guess) {
             name: 'Brands',
             colorByPoint: true,
             data: [{
-                name: 'Nổi bật',
-                y: 35,
+                name: 'Cà phê',
+                y: Number(datachart2[0]),
                 sliced: true,
                 selected: true
             }, {
-                name: 'Cà phê',
-                y: 15
-            }, {
                 name: 'Trà trái cây-Trà sữa',
-                y: 14
+                y: Number(datachart2[1])
             }, {
                 name: 'Đá xay-Choco-Matcha',
-                y: 17
+                y: Number(datachart2[2])
             }, {
                 name: 'Đồ uống nhanh',
-                y: 10
+                y: Number(datachart2[3])
             }, {
                 name: 'Drinks',
-                y: 9
+                y: Number(datachart2[4])
             }]
         }]
     });
