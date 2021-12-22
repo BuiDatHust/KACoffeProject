@@ -6,15 +6,15 @@ const Story = require("../models/Story");
 const User = require("../models/User");
 var ObjectId = require('mongodb').ObjectID;
 
-const createProductPage = async(req, res) => {
+const createProductPage = async (req, res) => {
     res.render('addProduct', { user: req.user })
 }
 
-const createDiscountPage = async(req, res) => {
+const createDiscountPage = async (req, res) => {
     res.render('addDiscount', { user: req.user, discount: 0, warning: undefined })
 }
 
-const createDiscount = async(req, res) => {
+const createDiscount = async (req, res) => {
     const newDiscount = req.body
     if (newDiscount.startTime >= newDiscount.endTime) {
         res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Thời gian không hợp lệ!" })
@@ -26,16 +26,16 @@ const createDiscount = async(req, res) => {
         res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Mã giảm giá đã hết hạn!" })
         return
     }
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/discount')
 }
 
-const updateDiscountPage = async(req, res) => {
+const updateDiscountPage = async (req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
     res.render('updateDiscount', { user: req.user, discount: discount })
 }
 
-const updateDiscount = async(req, res) => {
+const updateDiscount = async (req, res) => {
     const { id: discountId } = req.params
     var update = req.body;
     var updateForm = {};
@@ -52,10 +52,10 @@ const updateDiscount = async(req, res) => {
         throw new NotFoundError(`No discount with id : ${discountId}`);
     }
 
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/discount')
 }
 
-const deleteDiscount = async(req, res) => {
+const deleteDiscount = async (req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
 
@@ -64,9 +64,9 @@ const deleteDiscount = async(req, res) => {
     }
 
     await discount.remove();
-    res.redirect('/KACoffe/v1/admin');
+    res.redirect('/KACoffe/v1/admin/discount');
 }
-const updateRoleUserAsAdmin = async(req, res) => {
+const updateRoleUserAsAdmin = async (req, res) => {
     const { id: userId } = req.params
     const user = await User.findOne({ _id: userId });
     const update1 = user
@@ -77,95 +77,166 @@ const updateRoleUserAsAdmin = async(req, res) => {
     await User.findOneAndUpdate({ _id: userId }, update1, {
         new: true
     })
-    res.redirect('/KACoffe/v1/admin');
+    res.redirect('/KACoffe/v1/admin/user');
 }
-const createStoryPage = async(req, res) => {
+const createStoryPage = async (req, res) => {
     res.render('addStories', { user: req.user })
 }
 
-const getUpdateStoryPage = async(req, res) => {
+const getUpdateStoryPage = async (req, res) => {
     res.render('updateStories', { user: req.user })
 }
 
-const createStory = async(req, res) => {
+const createStory = async (req, res) => {
     req.body.user = req.user.userId
     console.log(req.files)
     const length = req.files.destination.length
     req.body.image = req.files.destination.slice(8, length) + '/' + req.files.filename;
 
     const story = await Story.create(req.body)
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/stories')
 }
 
-const updateStory = async(req, res) => {
+const updateStory = async (req, res) => {
     const { id: storyId } = req.params
     const { title, description, detaildescription } = req.body
 
     const story = await Story.findByIdAndUpdate(storyId, { title: title, description: description, detaildescription: detaildescription })
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/stories')
 }
 
-const deleteStory = async(req, res) => {
+const deleteStory = async (req, res) => {
     const story = await Story.findByIdAndDelete(req.params.id)
     console.log(story)
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/stories')
 }
 
-let getInfoAdmin = async(req, res) => {
-    const product = await Product.find({})
-    const story = await Story.find({})
-    const discount = await Discount.find({})
-    const users = await User.find({})
-    const user = await User.findOne({ _id: req.user.userId })
-    var order = await Order.find({})
-    const count = await Order.count({})
+const getAdminPage = async(req, res) => {
+    const page = req.query.page || 1
+    const perPage = 10
+    const count = await Product.count({})
+    const pages = Math.ceil(count / perPage)
 
-    story.reverse()
-    discount.reverse()
-    order.reverse()
+    const products = await Product.find({})
+        .sort({ _id: -1 })
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+    
+    res.render('admin/products', {
+        user: req.user,
+        products: products,
+        page: page,
+        pages: pages
+    })
+}
+
+const getAdminDiscountPage = async (req, res) => {
+    const discounts = await Discount.find({}).sort({ _id: -1 })
+
+    res.render('admin/discount', {
+        user: req.user,
+        discounts: discounts
+    })
+}
+
+const getAdminUserPage = async (req, res) => {
+    const users = await User.find({}).sort({ score: -1})
+
+    res.render('admin/user', {
+        user: req.user,
+        users: users
+    })
+}
+
+const getAdminOrderPage = async(req, res) => {
+    const perPage = 10
+    const page = req.query.page || 1
+    const count = await Order.count({status : {$ne : 'tìm shipper'}})   
+    const pages = Math.ceil(count / perPage)
+
+    const orders = await Order.find({status : {$ne : 'tìm shipper'}})
+        .sort({ _id: -1 })
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+
+    res.render('admin/order', { 
+        user: req.user,
+        orders: orders,
+        page: page,
+        pages: pages
+    })
+}
+
+const getAdminStoriesPage = async(req, res) => {
+    const stories = await Story.find({}).sort({ _id: -1 })
+
+    res.render('admin/stories', {
+        user: req.user,
+        stories: stories
+    })
+}
+
+const getAdminStatisticPage = async (req, res) => {
+    const users = await User.find({})
+    const orders = await Order.find({ status : {$ne : 'tìm shipper'} })
+        .sort({ _id: -1 })
+        .populate({
+            path: 'orderItems',
+            populate: {
+                path: 'product',
+                model: Product,
+                select: 'category'
+            }
+        })
 
     let rate = [0, 0, 0, 0, 0, 0]
     let avenue = 0,
         sumorder = 0,
         newcustomer = 0,
-        sum = 0
+        sum = 0,
+        oldAvenue = 0,
+        oldSumOrder = 0,
+        oldCustomer = 0
 
-    order.forEach(function(e) {
-        if (e.createdAt.getFullYear() >= 2021) {
-            avenue += e.subtotal;
-            sumorder += 1;
-
-            if (e.user == undefined) {
-                newcustomer += 1
-            }
-        }
-
-    })
-
-    users.forEach(function(e) {
-        if (e.createdAt.getFullYear() >= 2021) {
-            newcustomer += 1
-        }
-    })
-
-    console.log(avenue, sumorder, newcustomer)
-    discount.forEach(discount => {
-        if (discount.endTime < Date.now()) {
-            discount.remove()
-        }
-    })
-    avenue = +(avenue / 1000000).toFixed(2)
-
-    // chart 1
     let time = [];
     let money = [];
     let guess = [];
     let today = new Date();
-    console.log(today)
-    let weekNow = (today.getDate() / 7 + 1).toFixed(0);
+    let weekNow = Math.ceil(today.getDate() / 7)
     if (weekNow > 4) weekNow = 4;
     let monthNow = today.getMonth() + 1;
     let yearNow = today.getFullYear();
+
+    // Thống kê
+    orders.forEach(function(e) {
+        console.log(e.createdAt.getMonth());
+        if (e.createdAt.getMonth() == (monthNow - 1)) {
+            avenue += e.subtotal;
+            sumorder += 1;
+            if (e.user == undefined) {
+                newcustomer += 1
+            }
+        }
+        else if (e.createAt.getMonth() == (monthNow - 2)) {
+            oldAvenue += e.subtotal;
+            oldSumOrder += 1;
+            if (e.user == undefined) {
+                oldCustomer += 1
+            }
+        }
+    })
+    users.forEach(function(e) {
+        if (e.createdAt.getMonth() == (monthNow - 1)) {
+            newcustomer += 1
+        }
+        else if (e.createdAt.getMonth() == (monthNow - 2)) {
+            oldCustomer += 1
+        }
+    })
+    avenue = +(avenue / 1000000).toFixed(2)
+    oldAvenue = +(oldAvenue / 1000000).toFixed(2)
+
+    // chart 1
     for (let i = 0; i <= 11; i++) {
         time.push("week " + weekNow + " - " + monthNow + " - " + yearNow);
         if (weekNow == 1) {
@@ -181,14 +252,13 @@ let getInfoAdmin = async(req, res) => {
         }
     }
     time.reverse();
-    console.log(time);
 
     for (let i = 0; i <= 11; i++) {
         money.push(0);
         guess.push(0);
     }
-    order.forEach(function(e) {
-        weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+    orders.forEach(function(e) {
+        weekNow = Math.ceil(e.createdAt.getDate() / 7);
         if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
@@ -203,8 +273,9 @@ let getInfoAdmin = async(req, res) => {
             }
         }
     })
+
     users.forEach(function(e) {
-        weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+        weekNow = Math.ceil(e.createdAt.getDate() / 7);
         if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
@@ -216,64 +287,62 @@ let getInfoAdmin = async(req, res) => {
             }
         }
     })
+
     for (let i = 0; i <= 11; i++) {
         money[i] = (money[i] / 1000000).toFixed(2)
     }
-    console.log(money)
-    console.log(guess)
 
-    return {
-        pages: Math.ceil(count / 10),
-        user: user,
-        products: product,
-        stories: story,
-        discounts: discount,
-        users: users,
-        chart: { avenue, sumorder, newcustomer },
-        chart1: { time, money, guess },
-        rate: rate.join(" ")
+    //chart2
+    let amount = [0, 0, 0, 0, 0];
+    yearNow = today.getFullYear()
+    monthNow = today.getMonth()
+
+    orders.forEach(order => {
+        if (order.createdAt.getFullYear() == yearNow && order.createdAt.getMonth() == monthNow) {
+            order.orderItems.forEach(orderitem => {
+                const category = orderitem.product.category;
+                if (category == 'Cà phê') {
+                    amount[0] += Number(orderitem.amount)
+                } else if (category == 'Trà trái cây-Trà sữa') {
+                    amount[1] += 1 * orderitem.amount
+                } else if (category == 'Đá xay-Choco-Matcha') {
+                    amount[2] += Number(orderitem.amount)
+                } else if (category == 'Đồ uống nhanh') {
+                    amount[3] += Number(orderitem.amount)
+                } else if (category == 'Drinks') {
+                    amount[4] += Number(orderitem.amount)
+                }
+            })
+        }
+    })
+
+    var total1 = 0;
+    amount.forEach(e => {
+        total1 += e;
+    })
+
+    let percent = [0, 0, 0, 0, 0];
+    for (let i = 0; i < 5; i++) {
+        percent[i] = (amount[i] * 100 / total1).toFixed(2);
     }
-}
 
-const getAdminPage = async(req, res) => {
-    let info = await getInfoAdmin(req, res)
-
-    var perPage = 10
-    var page = 1
-
-    const orderpage = await Order.find({})
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-    info.orders = orderpage
-    info.page = 1
-
-    res.render('admin', info);
-}
-
-const getAdminOrderPage = async(req, res) => {
-    let info = await getInfoAdmin(req, res)
-
-    var page = req.params.page
-    var perPage = 10
-
-    const orderpage = await Order.find({})
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-    info.orders = orderpage
-    info.page = page
-
-    res.render('admin', info)
+    res.render('admin/statistic', {
+        user: req.user,
+        oldStatistic: { oldAvenue, oldSumOrder, oldCustomer },
+        statistic: { avenue, sumorder, newcustomer },
+        chart1: { time, money, guess },
+        rate: rate.join(" "),
+        chart2: percent
+    })
 }
 
 const updateOrder = async(req, res) => {
     const { id } = req.params;
     const status = req.body.capnhat;
-    console.log(status)
 
-    await User.findByIdAndUpdate(id, { status: status })
-    res.redirect('/KACoffe/v1/admin')
+    await Order.findByIdAndUpdate(id, { status: status })
+    res.redirect('/KACoffe/v1/admin/order')
 }
-
 
 module.exports = {
     getAdminPage,
@@ -290,5 +359,9 @@ module.exports = {
     updateStory,
     deleteStory,
     updateOrder,
+    getAdminDiscountPage,
+    getAdminUserPage,
     getAdminOrderPage,
+    getAdminStoriesPage,
+    getAdminStatisticPage
 }

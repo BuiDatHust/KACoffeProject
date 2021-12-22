@@ -1,6 +1,11 @@
 const express = require('express')
 
-const { getAdminPage, createProductPage, createDiscountPage, deleteDiscount, createDiscount, updateDiscountPage, updateDiscount, createStory, updateRoleUserAsAdmin, createStoryPage, getUpdateStoryPage, updateStory, deleteStory, updateOrder, getAdminOrderPage } = require('../controllers/adminController')
+const { getAdminPage, createProductPage, createDiscountPage, 
+  deleteDiscount, createDiscount, updateDiscountPage, 
+  updateDiscount, createStory, updateRoleUserAsAdmin, 
+  createStoryPage, getUpdateStoryPage, updateStory, 
+  deleteStory, updateOrder, getAdminDiscountPage, 
+  getAdminUserPage, getAdminOrderPage, getAdminStoriesPage, getAdminStatisticPage } = require('../controllers/adminController')
 const { getSingleUser, saveDiscount } = require('../controllers/userController')
 const { authenticateUser, authorizePermission } = require('../middleware/authentication')
 const { updateProduct,deleteProduct,createProduct,getupdateProductPage } = require('../controllers/productController')
@@ -24,11 +29,23 @@ const upload = multer({ storage: storage })
 
 
 router
-    .route('/')
-    .get([ authenticateUser,authorizePermission('admin') ], getAdminPage)
+  .route('/')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminPage)
 router
-    .route('/adminorder/:page')
-    .get([ authenticateUser,authorizePermission('admin') ], getAdminOrderPage)
+  .route('/discount')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminDiscountPage)
+router
+  .route('/user')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminUserPage)
+router
+  .route('/order')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminOrderPage)
+router
+  .route('/stories')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminStoriesPage)
+router
+  .route('/statistic')
+  .get([ authenticateUser,authorizePermission('admin') ], getAdminStatisticPage)
 
 router.route('/alluser/:id').get(authenticateUser, authorizePermission('admin'), getSingleUser);
 
