@@ -1,6 +1,7 @@
 <%- include('_layouts/header') ; -%>
 
 <div class="container">
+    <button style="margin-top: 100px;" onclick="window.history.back()" >Tiếp tục mua hàng</button>
     <div class="cart">
         <span class="subheading" style="font-size:28px;">Giỏ hàng</span>
         <table class="cart-table" style="margin-top: 50px;">
@@ -8,7 +9,8 @@
                 <th width="60"  style="text-align: center;"><span class="cart-all">Tất cả</span></th>
                 <th width="150" style="text-align: center;">Sản phẩm</th>
                 <th width="50" style="text-align: center;">Giá</th>
-                <th width="50" style="text-align: center;">Số lượng</th>
+                <th width="25" style="text-align: center;">Số lượng</th>
+                <th width="25" style="text-align: center;">Size</th>
                 <th width="100" style="text-align: center;">Tổng cộng</th>
                 <th width="60" style="text-align: center;">Thao tác</th>
             </tr>
@@ -23,6 +25,7 @@
                     <a href="white-coffee.html" class="cart-name"><%= order.name  %></a></td>
                 <td><span class="cart-price"><%=  order.price  %>đ</span></td>
                 <td><span class="cart-reduce">-</span><span class="cart-num"><%= order.amount  %></span> <span class="cart-add">+</span> </td>
+                <td><span class="cart-price"><%=  order.size  %></span></td>
                 <td><span class="cart-subtotal"> <%= order.amount*order.price %>đ</span></td>
                 <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST" >
                     <td><span class="cart-del"> <input type="submit" value="Xoá" ></span></td>
@@ -30,16 +33,17 @@
                 
             </tr>
             <% }) %>
+            <% if( user.role=="user"){ %>
             <form action="/KACoffe/v1/order/buy" id="formsubmit" method="POST">
-            <tr>
-                <td colspan="8" >
-                </br>
+            </br>
+            <tr style="margin-top: 10px;" >
+                <td colspan="3" >
                     Address : <input type="text" name="address">
                 </td>
             </tr>
 
             <tr>
-                <td colspan="8" >
+                <td colspan="4" >
                 </br>
                     Áp dụng mã giảm giá : 
                     <select name="magiamgia" >
@@ -59,22 +63,82 @@
                 </td>
             </tr>
         </form>
+        <%  }else{ %>   
+        <form action="/KACoffe/v1/order/buyByAdmin" id="formsubmit1" method="POST">
+        </br>
+        
+        <tr style="margin-top: 250px;" >
+            
+            <td colspan="3" id="wrapform" >
+                Email : <input type="text" name="email">
+                
+            </td>
            
+        </tr>
+
+        <tr style="margin-top: 10px;" >
+            <td colspan="3" >
+                Address : <input type="text" name="address">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4" >
+            </br>
+                Áp dụng mã giảm giá : 
+                <select name="magiamgia" >
+                    <option  value="" >Không áp dụng</option>
+                    <% discount.forEach((discount) =>{ %>
+                    <option  value="<%= discount  %>" ><%= discount  %></option>
+                    <% }) %>    
+                </select>
+            </td>
+        </tr>
+    </form>    
+        <tr style="margin-top: 450px;" >
+            <form action="/KACoffe/v1/order/check" id="formsubmit2" method="POST">
+            <td colspan="3" id="wrapform" >
+                Email của KH : <input type="text" name="email">
+                <input type="submit" id="kiemtra" value="Kiểm tra KH"/>
+            </td>
+            </form>
+        </tr>
+        <tr class="cart-bottom">
+            <td colspan="6">
+                <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
+                <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
+                
+                <input type="submit" id="dathang1" value="Đặt hàng" />
+                
+            </td>
+        </tr>
+        
+        
+        <% } %>    
         </table>
     </div>
 </div>
 
 <script>
+    
+    const dathang1 = document.getElementById('dathang1')
     const dathang = document.getElementById('dathang')
     const formsubmit = document.getElementById('formsubmit')
+    const formsubmit1 = document.getElementById('formsubmit1')
+
+    dathang1.addEventListener('click', async function(e){
+        e.preventDefault()
+        
+        await swal("Đặt hàng thành công!", "Click để tiếp tục", "success")
+        formsubmit1.submit();
+    })
 
     dathang.addEventListener('click', async function(e){
         e.preventDefault()
         
         await swal("Đặt hàng thành công!", "Click để tiếp tục", "success")
         formsubmit.submit();
-
-})
+    })
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

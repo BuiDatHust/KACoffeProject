@@ -8,7 +8,7 @@ const {
 } = require('../middleware/authentication')
 
 const {
-    getAllOrders,
+    
     getSingleOrder,
     getCurrentUserOrders,
     createOrder,
@@ -17,7 +17,10 @@ const {
     getCart,
     deleteOrderItems,
     requestToDeleteOrder,
-    buyNotLogin
+    buyNotLogin,
+    getDetailOrder,
+    buyByAdmin,
+    checkAccount,
   } = require('../controllers/orderController');
   
   router
@@ -33,6 +36,11 @@ const {
   router.route('/cart').get(authenticateUser, getCart);
 
   router.route('/buy').post(authenticateUser, buy);
+  router.route('/buyByAdmin').post(authenticateUser, buyByAdmin);
+  router.route('/check').post(authenticateUser, checkAccount);
+
+  router.route('/detail/:id').get(authenticateUser, getDetailOrder)
+
   
   router
     .route('/:id')

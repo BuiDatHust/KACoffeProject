@@ -52,6 +52,7 @@ const createOrder = async (req,res) =>{
       Image:Image[0],
       address:cartItems.address,
       product: _id,
+      size:req.body.size,
     };
 
   var order
@@ -253,7 +254,7 @@ const getCurrentUserOrders = async (req, res) => {
 const getCart = async (req,res) =>{
   var orders = await Order.find({ user: req.user.userId });
   var user = await User.findOne({ _id: req.user.userId })
-
+  console.log(user.role)
   orders = orders.filter((e) => {
     return e.status=="tìm shipper"
   } );
@@ -350,6 +351,97 @@ const requestToDeleteOrder = async (req,res) =>{
   res.redirect('/KACoffe/v1/order/myOrders')
 } 
 
+const getDetailOrder = async (req,res) =>{
+  const { id } = req.params
+  const order = await Order.findOne({ _id: id })
+
+  console.log(order)
+
+  res.render('detailorder',
+  { orderid: order.id.slice(0,8), orderItems: order.orderItems, subtotal: order.subtotal, address:order.address,status: order.status })
+}
+
+const checkAccount = async (req,res) =>{
+  const email= req.body.email
+  const user1 = await User.findOne({ email:email })
+
+  var orders = await Order.find({ user: req.user.userId });
+  var user = await User.findOne({ _id: req.user.userId })
+  console.log(user.role)
+  orders = orders.filter((e) => {
+    return e.status=="tìm shipper"
+  } );
+
+  if( !user1){
+    alert("cdcd")
+    return  res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
+
+  }
+  
+  if( orders.length > 0 ){
+    console.log("cdc")
+    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
+  }else{
+    console.log("scscsc")
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+  }
+  // res.redirect('/KACoffe/v1/order/cart')
+}
+
+const buyByAdmin =async (req,res) =>{
+  const user = await User.findOne({ email:req.body.email })
+  const orders = await Order.find({ user: req.user.userId })
+  
+  const { magiamgia } = req.body
+  const discount = await Discount.findOne({ name: magiamgia })
+
+  const len= orders.length-1
+  const thisorder = orders[len]
+  var total = thisorder.total
+
+  if( discount){
+  const category = discount.category
+  if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
+    switch (category) 
+    {
+      case "money":
+
+        total -= discount.minusPrice
+        break
+      case "rate": 
+        total = total*(1-discount.minusPrice/100)
+        break
+      case "shippingfree":
+        total-=10000
+        break
+      default:
+        break
+    }
+    let userDiscount = user.discount
+    userDiscount = userDiscount.filter((e) =>{
+      return e!=magiamgia
+    })
+    console.log(userDiscount)
+    await User.findOneAndUpdate({_id:req.user.userId}, {discount: userDiscount})
+     
+}else{
+  throw new Error("Dont have enough condition")
+}
+}
+
+  const order=await Order.findOneAndUpdate({ _id: thisorder._id }, { 
+        user: user._id,
+        phone: user.phone,
+        address: req.body.address ,
+        status: "shipper đang lấy hàng",
+        subtotal: total+10000,
+        total: total
+      })
+  
+  // res.render('index', {order:order, user:user})
+      res.redirect('/KaCoffe/v1/order/cart')
+}
+
 
 module.exports ={
     createOrder,
@@ -362,5 +454,8 @@ module.exports ={
     getCart,
     requestToDeleteOrder,
     deleteOrder,
-    buyNotLogin
+    buyNotLogin,
+    getDetailOrder,
+    checkAccount,
+    buyByAdmin
 }
