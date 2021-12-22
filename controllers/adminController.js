@@ -161,7 +161,9 @@ let getInfoAdmin = async(req, res) => {
     let money = [];
     let guess = [];
     let today = new Date();
-    let weekNow = today.getDate() / 7;
+    console.log(today)
+    let weekNow = (today.getDate() / 7 + 1).toFixed(0);
+    if (weekNow > 4) weekNow = 4;
     let monthNow = today.getMonth() + 1;
     let yearNow = today.getFullYear();
     for (let i = 0; i <= 11; i++) {
@@ -186,14 +188,30 @@ let getInfoAdmin = async(req, res) => {
         guess.push(0);
     }
     order.forEach(function(e) {
-        weekNow = e.createdAt.getDate() / 7;
+        weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+        if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
         let orderDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
         for (let i = 0; i <= 11; i++) {
             if (time[i].localeCompare(orderDate) == 0) {
                 money[i] += e.subtotal;
-                guess[i]++;
+                if (e.user == undefined) {
+                    guess[i] += 1
+                }
+                break;
+            }
+        }
+    })
+    users.forEach(function(e) {
+        weekNow = (e.createdAt.getDate() / 7 + 1).toFixed(0);
+        if (weekNow > 4) weekNow = 4;
+        monthNow = e.createdAt.getMonth() + 1;
+        yearNow = e.createdAt.getFullYear();
+        let usersDate = "week " + weekNow + " - " + monthNow + " - " + yearNow;
+        for (let i = 0; i <= 11; i++) {
+            if (time[i].localeCompare(usersDate) == 0) {
+                guess[i] += 1
                 break;
             }
         }
@@ -201,6 +219,8 @@ let getInfoAdmin = async(req, res) => {
     for (let i = 0; i <= 11; i++) {
         money[i] = (money[i] / 1000000).toFixed(2)
     }
+    console.log(money)
+    console.log(guess)
 
     return {
         pages: Math.ceil(count / 10),

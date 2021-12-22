@@ -6,9 +6,8 @@
             <tr>
                 
                 <th width="100" style="text-align: center;">Đơn hàng</th>
-                <th width="50" style="text-align: center;">Tổng số tiền</th>
-                <th width="50" style="text-align: center;">Số lượng</th>
-                <th width="150" style="text-align: center;">Đồ đã mua</th>
+                <th width="75" style="text-align: center;">Tổng số tiền</th>
+                <th width="75" style="text-align: center;">Số lượng</th>
                 <th width="150" style="text-align: center;">Tình trạng</th>
                 <th width="50" style="text-align: center;">Thao tác</th>
             </tr>
@@ -18,17 +17,15 @@
                     <td># <%= index %></td>
                     <td><%= order.subtotal  %>đ  </td>
                     <td> <%= order.orderItems.length %>  </td>
-                    <td> <select >
-                        <% order.orderItems.forEach((item) =>{ %>
-                            <option  > <%= item.name %></option>
-                            <% }) %>
-                    </select>
-                    </td>
+                    
                     <td> <%=  order.status %> </td>
-                    <form  id="formsubmit<%= order._id %>" action="/KACoffe/v1/order/sendNotification/<%= order._id %>/<%= userid %>"" method="post">
-                        
-                    </form>
-                    <td><input  onclick="HuyDon('<%= order._id %>');" type="submit" value="Hủy Đơn Hàng"  /></td>
+                    <form  id="formsubmit<%= order._id %>" action="/KACoffe/v1/order/sendNotification/<%= order._id %>/<%= userid %>" method="post"></form>
+                    <form  id="orderdetail<%= order._id %>" action="/KACoffe/v1/order/detail/<%= order._id %>" method="get"></form>
+                    
+                    <td>
+                        <input   onclick="HuyDon('<%= order._id %>');" type="submit" id="xoa" value="Hủy Đơn"  />
+                        <input   onclick="XemDon('<%= order._id %>');" type="submit" id="sua" value="Xem Đơn"  />
+                    </td>
                     
                 </tr>            
             <% }) %>
@@ -43,6 +40,11 @@
         const formsubmit = document.getElementById(`formsubmit${orderid}`)  
        await swal("Thành công","Bản đã yêu cầu hủy đơn hàng","success")
        formsubmit.submit()
+    };
+
+    function XemDon(orderid){
+        const formsubmit = document.getElementById(`orderdetail${orderid}`)
+        formsubmit.submit()
     };
 
 </script>

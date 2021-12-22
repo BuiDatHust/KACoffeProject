@@ -4,6 +4,10 @@ const SingleOrderSchema = mongoose.Schema({
     name: { type : String, required: true },
     Image: { type: String, required: false },
     price: { type: Number, required: true },
+    size:{ 
+        type:String, 
+        enum: ["S","M","L"],
+        required: false },
     amount: { type: Number, required: true },
     product: {
         type: mongoose.Schema.ObjectId,

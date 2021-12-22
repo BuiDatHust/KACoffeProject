@@ -219,13 +219,17 @@
                             <p class="text1">Chọn kích cỡ: </p>
                             <span>
                                 <select name="size" >
-                                    <option value="s" >S</option>
-                                    <option value="m" >M</option>
-                                    <option value="l" >L</option>
+                                    <option value="S" >S</option>
+                                    <option value="M" >M</option>
+                                    <option value="L" >L</option>
                                 </select>
                             </span>
                         </div> </br>
-                        <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5"></br></br>
+                        <% if(user.role=="user") { %>
+                        <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5">
+                        <% }else{ %>
+                        <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5">    
+                        <% } %>
                         <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
                     </div>
 

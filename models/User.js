@@ -10,7 +10,7 @@ const user = new mongoose.Schema({
         type: Number ,
         default: 0
      },
-     rank:{ type:String,default:"no ranking" },
+     rank:{ type:String,default:"thường" },
     email: {type:String, required: true},
     role: {type: String, required: true},
     discount: [ { type: String, ref:'Discount' , required:false } ],
