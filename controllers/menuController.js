@@ -1,6 +1,7 @@
 const Product = require('../models/Product')
 // const Discount = require('../models/Discount')
 const { StatusCodes } = require('http-status-codes')
+const User = require('../models/User')
 
 const getproducts = async (req, res) => {
     const products = await Product.find({})
@@ -31,7 +32,7 @@ const getSingleProduct = async (req, res) => {
     if( req.user===undefined ){
         user = 0
     }else{
-        user = req.user
+        user = await User.findOne({ _id: req.user.userId })
     }
     
     res.status(StatusCodes.OK).render('detail', {product: product, user: user});
