@@ -584,3 +584,26 @@
 .menus:hover .text .one-forth .price {
     color: #000000;
 }
+
+.container2 {
+    whith: 100%;
+    margin-right: 15%
+}
+
+.text-intro-heading {
+    font-size: 60px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.text-introduce {
+    text-align: center;
+    color: #e8e8e7;
+    font-size: 30px;
+}
+
+.introduce {
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
