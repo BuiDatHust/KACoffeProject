@@ -200,6 +200,7 @@ const buy = async (req,res) =>{
       warning: 'Giỏ hàng trống!',
       noti: undefined
     })
+    return
   }
   if( discount){
   const category = discount.category
