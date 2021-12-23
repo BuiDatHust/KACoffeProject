@@ -19,16 +19,13 @@ const getHomepage = async (req,res) =>{
     drinks = drinks.slice(0, 3)
     doUongNhanh = doUongNhanh.slice(0, 3)
 
-    var user
-
-    if( req.user===undefined ){
-        user = 0
-    }else{
+    let user=false 
+    if( req.user != undefined ){
         user = req.user
-        
     }
-
-    res.status(StatusCodes.OK).renderPjax('index',{ 
+    console.log(req.user)
+    console.log(user)
+    res.status(StatusCodes.OK).render('index',{ 
         user:user,
         productNew: productNew,
         caPhe: caPhe,
@@ -82,6 +79,8 @@ const getStories = async (req,res) =>{
 
 const getNotification = async (req,res) =>{
     const user = await User.findOne({ _id: req.user.userId })
+
+    user.notification.reverse();
 
     res.render('notification', { noti: user.notification, user: req.user})
 }
