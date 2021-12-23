@@ -80,6 +80,8 @@ const getStories = async (req,res) =>{
 const getNotification = async (req,res) =>{
     const user = await User.findOne({ _id: req.user.userId })
 
+    user.notification.reverse();
+
     res.render('notification', { noti: user.notification, user: req.user})
 }
 

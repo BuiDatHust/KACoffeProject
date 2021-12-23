@@ -273,6 +273,12 @@ const buy = async (req,res) =>{
         subtotal: total+10000,
         total: total
       })
+
+  let noti = user.notification
+  console.log(noti);
+  noti = [...noti, `Bạn đã đặt thành công đơn hàng #${order._id.toString().slice(18, 24)}!`]
+  user.notification = noti
+  await user.save()
   res.render('cart', {
         orders: [], 
         total: 0,
@@ -302,21 +308,18 @@ const getSingleOrder = async (req, res) => {
 };
 
 const getCurrentUserOrders = async (req, res) => {
-    var orders = await Order.find({ user: req.user.userId });
+    var orders = await Order.find({ user: req.user.userId }).sort({ _id: -1 });
     var user = await User.findOne({ _id: req.user.userId })
     
     orders = orders.filter((e) => {
       return e.status!="tìm shipper"
     } );
-    
-
-    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id, user: user });
+    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id, user: user, warning: undefined });
 };
 
 const getCart = async (req,res) =>{
   var orders = await Order.find({ user: req.user.userId });
   var user = await User.findOne({ _id: req.user.userId })
-  console.log(user.role)
   orders = orders.filter((e) => {
     return e.status=="tìm shipper"
   } );
@@ -394,35 +397,59 @@ const deleteOrder = async(req,res) =>{
     
     let noti = user.notification
     let fakeid= orderid.slice(18,24)
-    noti = [...noti , `Bạn đã hủy đơn hàng mã #${fakeid} thành công`]
+    noti = [...noti , `Đơn hàng #${fakeid} của bạn đã bị xóa!`]
     await User.findByIdAndUpdate({ _id: order.user }, { notification: noti })
 
+    let admin = await User.find({ role: 'admin' })
+    admin.forEach(async ad => {
+      let adNoti = ad.notification
+      adNoti = [...adNoti, `Admin ${req.user.name} đã xóa đơn hàng mã #${fakeid}!`]
+      ad.notification = adNoti
+      await ad.save()
+    })
+
     await Order.findOneAndDelete({ _id: orderid })
-    res.redirect('/KACoffe/v1/admin')
+    res.redirect('/KACoffe/v1/admin/order')
 }
 
 const requestToDeleteOrder = async (req,res) =>{
   const { orderid,userid } = req.params 
-  console.log(req.params)
-  
-  console.log({ userid,orderid })
-  console.log(req.body)
+  const user = await User.findOne({ _id: userid })
+  const order = await Order.findOne({ _id: orderid })
 
-  let user = await User.findOne({_id: userid})
-  let order = await Order.find({})
+  var orders = await Order.find({ user: req.user.userId }).sort({ _id: -1 });
   
-  let index
-  order.forEach((e,i) =>{
-    if( e._id==orderid ) {
-      console.log(e._id)
-      index= i 
-    }
-  })
+  orders = orders.filter((e) => {
+    return e.status!="tìm shipper"
+  } );
 
   let noti = user.notification
-  noti = [...noti , `Khách hàng ${user.name} yêu cầu hủy đơn hàng số #${index}`]
 
-  await User.findOneAndUpdate({role:'admin'}, {notification: noti} )
+  if (order.status != 'shipper đang lấy hàng') {
+    noti = [...noti , `Yêu cầu hủy đơn hàng mã #${order._id.toString().slice(18, 24)} thất bại!`]
+    user.notification = noti
+    await user.save()
+    res.render('order', {
+      orders: orders,
+      userid: user._id,
+      user: user,
+      warning: 'Không thể hủy đơn đã giao hoặc đang giao!'
+    })
+    return 
+  }
+  
+  noti = [...noti , `Bạn đã gửi yêu cầu hủy đơn hàng mã #${order._id.toString().slice(18, 24)}!`]
+  user.notification = noti
+  await user.save()
+
+  var admin = await User.find({ role: 'admin' })
+  admin.forEach(async ad => {
+    var adNoti = ad.notification
+    adNoti = [...adNoti, `Khách hàng ${user.name} yêu cầu hủy đơn hàng mã #${order._id.toString().slice(18, 24)}!`]
+    ad.notification = adNoti
+    await ad.save()
+  })
+  //await User.findOneAndUpdate({role:'admin'}, {notification: noti} )
   res.redirect('/KACoffe/v1/order/myOrders')
 } 
 
