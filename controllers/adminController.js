@@ -150,9 +150,19 @@ const getAdminPage = async (req, res) => {
 const getAdminDiscountPage = async (req, res) => {
     const discounts = await Discount.find({}).sort({ _id: -1 });
 
+    for (var dc of discounts) {
+        if (dc.endTime < Date.now()) {
+            await dc.remove()
+        }
+    }
+
+    const newDiscounts = discounts.filter((dc) => {
+        return dc.endTime > Date.now()
+    })
+
     res.render('admin/discount', {
         user: req.user,
-        discounts: discounts,
+        discounts: newDiscounts,
     });
 };
 

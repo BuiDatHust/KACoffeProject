@@ -219,7 +219,8 @@ const buy = async (req, res) => {
         });
         return;
     }
-    if (!thisorder) {
+
+    if (!thisorder || thisorder.orderItems.length == 0) {
         res.render('cart', {
             orders: [],
             total: 0,
@@ -260,7 +261,16 @@ const buy = async (req, res) => {
                 { discount: userDiscount }
             );
         } else {
-            throw new Error('Dont have enough condition');
+            res.render('cart', {
+                orders: thisorder ? thisorder.orderItems : [],
+                total: thisorder ? thisorder.total : [],
+                subtotal: thisorder ? thisorder.subtotal : 0,
+                user: user,
+                discount: user.discount,
+                warning: 'Đơn hàng chưa đủ điều kiện giảm giá!',
+                noti: undefined,
+            });
+            return;
         }
     }
 
@@ -275,7 +285,6 @@ const buy = async (req, res) => {
     );
 
     let noti = user.notification;
-    console.log(noti);
     noti = [
         ...noti,
         `Bạn đã đặt thành công đơn hàng #${order._id
@@ -350,12 +359,27 @@ const getCurrentUserOrders = async (req, res) => {
 const getCart = async (req, res) => {
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
+    var discounts = user.discount
+    var newDc = []
+
+    for (let dc of discounts) {
+        const discount = await Discount.findOne({ name: dc, condition1: user.rank })
+        if (discount) {
+            if (discount.endTime < Date.now()) {
+                await discount.remove()
+            } else {
+                newDc = [...newDc, dc]
+            }
+        }
+    }
+
+    user.discount = newDc
+    await user.save()
+
     orders = orders.filter((e) => {
         return e.status == 'tìm shipper';
     });
-    console.log(orders);
     if (orders.length > 0) {
-        console.log('cdc');
         res.render('cart', {
             orders: orders[0].orderItems,
             total: orders[0].total,
@@ -366,7 +390,6 @@ const getCart = async (req, res) => {
             noti: undefined,
         });
     } else {
-        console.log('scscsc');
         res.render('cart', {
             orders: [],
             total: 0,
@@ -416,7 +439,7 @@ const deleteOrderItems = async (req, res) => {
             break;
         }
     }
-    subtotal = total + 10000;
+    subtotal = total == 0 ? 0 : total + 10000;
     console.log(orderItem, total, subtotal);
 
     order.orderItems = orderItem;
@@ -532,6 +555,21 @@ const getDetailOrder = async (req, res) => {
 const checkAccount = async (req, res) => {
     const email = req.body.email;
     const user1 = await User.findOne({ email: email });
+    var discounts = user1.discount
+    var newDc = []
+    for (let dc of discounts) {
+        const discount = await Discount.findOne({ name: dc, condition1: user1.rank })
+        if (discount) {
+            if (discount.endTime < Date.now()) {
+                await discount.remove()
+            } else {
+                newDc = [...newDc, dc]
+            }
+        }
+    }
+
+    user1.discount = newDc
+    await user1.save()
 
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
@@ -645,7 +683,16 @@ const buyByAdmin = async (req, res) => {
                 { discount: userDiscount }
             );
         } else {
-            throw new Error('Dont have enough condition');
+            res.render('cart', {
+                orders: thisorder ? thisorder.orderItems : [],
+                total: thisorder ? thisorder.total : [],
+                subtotal: thisorder ? thisorder.subtotal : 0,
+                user: user,
+                discount: user.discount,
+                warning: 'Đơn hàng chưa đủ điều kiện giảm giá!',
+                noti: undefined,
+            });
+            return;
         }
     }
 

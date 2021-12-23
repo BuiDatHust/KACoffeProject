@@ -46,11 +46,16 @@ const getHomepage = async (req, res) => {
 
 const getDiscount = async (req, res) => {
     const discount = await Discount.find({});
-    discount.forEach((discount) => {
-        if (discount.endTime < Date.now()) {
-            discount.remove();
+    for (var dc of discount) {
+        if (dc.endTime < Date.now()) {
+            await dc.remove()
         }
-    });
+    }
+
+    const newDiscount = discount.filter((dc) => {
+        return dc.endTime > Date.now()
+    })
+
     var user;
 
     if (req.user === undefined) {
@@ -60,9 +65,10 @@ const getDiscount = async (req, res) => {
     }
 
     res.status(StatusCodes.OK).render('tracuu', {
-        discount: discount,
+        discount: newDiscount,
         user: user,
         error: '',
+        status: 2,
     });
 };
 

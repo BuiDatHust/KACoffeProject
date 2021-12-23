@@ -25,6 +25,8 @@
                         </div>
                         <p><span>Dành cho khách hàng <%= discount.condition1 %></span></p>
                         <p><span>Đơn hàng từ <%= discount.condition2 %></span></p>
+                        <p><span>Bắt đầu: <%= discount.startTime.toLocaleString('en-GB') %></span></p>
+                        <p><span>Kết thúc: <%= discount.endTime.toLocaleString('en-GB') %></span></p>
                     </div>
                 </div>
             
@@ -35,6 +37,15 @@
     
 </div>
 </section>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        if ('<%= status %>' == 0) {
+            await swal("<%= error %>", "Click để tiếp tục", "success")
+        }
+        if ('<%= status %>' == 1) {
+            await swal("<%= error %>", "Click để tiếp tục", "warning")
+        }
+    })
+</script>
 <%- include('_layouts/footer') ; -%>

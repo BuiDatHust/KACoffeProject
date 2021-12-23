@@ -74,7 +74,7 @@ const updateUserPassword = async (req, res) => {
 const saveDiscount = async (req, res) => {
     const { id } = req.params;
     const user = await User.findOne({ _id: req.user.userId });
-
+    const allDiscount = await Discount.find({})
     const thisDiscount = await Discount.findOne({ _id: id });
     var discount = user.discount;
 
@@ -89,18 +89,30 @@ const saveDiscount = async (req, res) => {
         let today = new Date();
 
         if (discount.includes(thisDiscount.name)) {
-            res.render('error', {
-                error: 'Bạn đã có discount này',
-                status: [5, 0, 0],
+            res.render('tracuu', {
+                discount: allDiscount,
+                user: req.user,
+                error: 'Bạn đã có mã giảm giá này!',
+                status: 1,
             });
             return;
         } else if (
             today > thisDiscount.endTime ||
             today < thisDiscount.startTime
         ) {
-            res.render('error', {
-                error: 'Quá hạn sử dụng discount này',
-                status: [5, 0, 0],
+            res.render('tracuu', {
+                discount: allDiscount,
+                user: req.user,
+                error: 'Mã giảm giá không trong thời gian sử dụng!',
+                status: 1,
+            });
+            return;
+        } else if (user.rank != thisDiscount.condition1) {
+            res.render('tracuu', {
+                discount: allDiscount,
+                user: req.user,
+                error: 'Bạn không thể sử dụng mã giảm giá này!',
+                status: 1,
             });
             return;
         }
@@ -111,7 +123,12 @@ const saveDiscount = async (req, res) => {
         );
     }
 
-    res.redirect('/KACoffe/v1/discount');
+    res.render('tracuu', {
+        discount: allDiscount,
+        user: req.user,
+        error: 'Lưu mã giảm giá thành công!',
+        status: 0,
+    })
 };
 
 module.exports = {
