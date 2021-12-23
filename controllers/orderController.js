@@ -87,25 +87,6 @@ const createOrder = async (req,res) =>{
 }
 
 if( req.user!==undefined ){
-  var orders = await Order.find({ user: req.user.userId });
-
-  var userdiscount = dbUser.discount
-
-  var score = evaluateScore(dbUser, subtotal)
-  var rank 
-
-  if( score>100 && score<200 ){
-    rank = "đồng"
-  }else if( score<300 && score>200 ){
-    rank = "bạc"
-  }else{
-    if( score>300 ){
-      rank= "vàng"
-    }
-  }
-
-  const user = await User.findByIdAndUpdate({ _id:req.user.userId }, { score:score , rank:rank })
-  
   res
     .status(StatusCodes.CREATED)
     .redirect('order/cart');
@@ -278,6 +259,23 @@ const buy = async (req,res) =>{
   console.log(noti);
   noti = [...noti, `Bạn đã đặt thành công đơn hàng #${order._id.toString().slice(18, 24)}!`]
   user.notification = noti
+
+  var score = evaluateScore(user, order.subtotal)
+  var rank 
+
+  if( score>100 && score<200 ){
+    rank = "đồng"
+  }else if( score<300 && score>200 ){
+    rank = "bạc"
+  }else{
+    if( score>300 ){
+      rank= "vàng"
+    }
+  }
+
+  user.score = score
+  user.rank = rank
+
   await user.save()
   res.render('cart', {
         orders: [], 
@@ -586,6 +584,24 @@ const buyByAdmin =async (req,res) =>{
         total: total
       })
   
+  var score = evaluateScore(user, order.subtotal)
+  var rank 
+      
+  if( score>100 && score<200 ){
+    rank = "đồng"
+  }else if( score<300 && score>200 ){
+    rank = "bạc"
+  }else{
+    if( score>300 ){
+    rank= "vàng"
+    }
+  }
+      
+  user.score = score
+  user.rank = rank
+
+  await user.save()
+
   res.render('cart', {
     orders: [], 
     total: 0,

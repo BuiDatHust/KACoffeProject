@@ -4,7 +4,7 @@ const { StatusCodes } = require('http-status-codes')
 const User = require('../models/User')
 
 const getproducts = async (req, res) => {
-    const products = await Product.find({})
+    const products = await Product.find({}).sort({ _id: -1 })
     var user
 
     if( req.user===undefined ){

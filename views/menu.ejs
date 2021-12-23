@@ -24,23 +24,22 @@
                 <div class="heading-menu text-center ftco-animate">
                     <h3>Nổi bật</h3>
                 </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Nổi bật'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" > <%= product.name %> </a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
+                <% products.slice(0, 5).forEach(function(product) { %>
+                    <div class="menus d-flex ftco-animate">
+                        <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                        <div class="text">
+                            <div class="d-flex">
+                                <div class="one-half">
+                                    <h3><a href="/KACoffe/v1/menu/<%= product._id %>" > <%= product.name %> </a></h3>
                                 </div>
-                                <p><span><%= product.material %></span></p>
+                                <div class="one-forth">
+                                    <span class="price"><%= product.price %></span>
+                                </div>
                             </div>
+                            <p><span><%= product.material %></span></p>
                         </div>
-                <% }}); %>
+                    </div>        
+                <% }); %>
                 
             </div>
 
