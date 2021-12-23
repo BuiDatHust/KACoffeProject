@@ -1,49 +1,61 @@
 <%- include('_layouts/header') ; -%>
 
-<div class="container">
-    <div class="cart-cart" style="padding-bottom: 300px;">
-        <span class="subheading" style="font-size:28px;">Mã đơn: <%= orderid %></span>
-        <table class="cart-table">
-            <tr>
-                <th width="60" style="text-align: center;"><span class="cart-all">Tất cả</span></th>
-                <th width="150" style="padding-left: 12px;">Sản phẩm</th>
-                <th width="50" style="text-align: center;">Giá</th>
-                <th width="25" style="text-align: center;">Số lượng</th>
-                <th width="25" style="text-align: center;">Size</th>
-                <th width="100" style="text-align: center;">Tổng cộng</th>
-                <th width="60" style="text-align: center;">Thao tác</th>
-            </tr>
-            <% orderItems.forEach(function(product){  %>
-            <tr class="cart-item">
-                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
-                <td class="cart-txt-left">
-                    <img src="<%= product.Image %>" alt="" class="cart-txt-left-img">
-                    <a href="white-coffee.html" class="cart-name"><%= product.name  %></a></td>
-                <td><span class="cart-price"><%= product.price  %></span></td>
-                <td><span class="cart-subtotal"><%= product.amount  %></span></td>
-                <td><span class="cart-subtotal"><%= product.size  %></span></td>
-                <td><span class="cart-subtotal"><%= product.price * product.amount  %></span></td>
-                
-                <td><span class="cart-del">Xem</span></td>
-            </tr>
-            <% }) %>
-            
-           
-        </table>
-        <h2>Tình trạng đơn hàng: <%= status  %> </h2>
-        <h1>Địa chỉ: <%= address  %></h1>
-        <h1>Tổng tiền: <%= subtotal  %></h1>
-        <a id="back" class="cart-bottom-btn">Quay lại</a>
-        
+    <div class="container">
+        <div class="cart-cart" style="padding-bottom: 300px;">
+            <span class="subheading" style="font-size:28px;">Mã đơn: <%= orderid %></span>
+            <table class="cart-table">
+                <tr>
+                    <th width="60" style="text-align: center;"><span class="cart-all">Tất cả</span></th>
+                    <th width="150" style="padding-left: 12px;">Sản phẩm</th>
+                    <th width="50" style="text-align: center;">Giá</th>
+                    <th width="25" style="text-align: center;">Số lượng</th>
+                    <th width="25" style="text-align: center;">Size</th>
+                    <th width="100" style="text-align: center;">Tổng cộng</th>
+                    <th width="60" style="text-align: center;">Thao tác</th>
+                </tr>
+                <% orderItems.forEach(function(product){  %>
+                    <tr class="cart-item">
+                        <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                        <td class="cart-txt-left">
+                            <img src="<%= product.Image %>" alt="" class="cart-txt-left-img">
+                            <a href="/KACoffe/v1/menu/<%= product.product %>" class="cart-name">
+                                <%= product.name  %>
+                            </a>
+                        </td>
+                        <td><span class="cart-price"><%= product.price  %></span></td>
+                        <td><span class="cart-subtotal"><%= product.amount  %></span></td>
+                        <td><span class="cart-subtotal"><%= product.size  %></span></td>
+                        <td><span class="cart-subtotal"><%= product.price * product.amount  %></span></td>
+
+                        <td><span class="cart-del"><a  href="/KACoffe/v1/menu/<%= product.product %>" >Xem</a></span></td>
+                    </tr>
+                    <% }) %>
+
+
+            </table>
+            <li>Tình trạng đơn hàng:
+                <%= status  %>
+            </li>
+            <li>Địa chỉ:
+                <%= address  %>
+            </li>
+            <li>Tổng tiền:
+                <%= subtotal  %>
+            </li>
+            <li>Số điện thoại khách hàng: 
+                <%= email  %>
+            </li>
+            <a id="back" class="cart-bottom-btn">Quay lại</a>
+
+        </div>
     </div>
-</div>
-<div id="toastAlertN"></div>
-<script>
-    const back = document.getElementById("back")
+    <div id="toastAlertN"></div>
+    <script>
+        const back = document.getElementById("back")
 
-    back.addEventListener('click', function(){
-        window.history.back()
-    })
-</script>
+        back.addEventListener('click', function() {
+            window.history.back()
+        })
+    </script>
 
-<%- include('_layouts/footer') ; -%>
+    <%- include('_layouts/footer') ; -%>

@@ -32,45 +32,41 @@ const getSingleUser = async (req, res) => {
 
 const showCurrentUser = async (req, res) => {
     const user = await User.findOne({ _id: req.user.userId })
-    res.status(StatusCodes.OK).render('account', {user: user});
+    res.status(StatusCodes.OK).render('account', {user: user,status:''});
 };
 
 const updateUser = async (req, res) => {
     const { email, name,phone } = req.body;
-    if (!email || !name) {
-      throw new BadRequestError('Please provide all values');
-    }
     const user = await User.findById(req.user.userId);
    
-    user.email = email;
-    user.name = name;
-    user.phone = phone;
+    user.email = email ? email : user.email
+    user.name = name ? name: user.name;
+    user.phone = phone ? phone: user.phone;
     await user.save();
   
     const tokenUser = createTokenUser(user);
-    tokenUser.email=email
-    tokenUser.phone = phone
+    
     attachTokenToRes({ res, user: tokenUser });
 
-    res.status(StatusCodes.OK).render('account', {user: tokenUser});
+    res.render('account', {user: tokenUser,status: "Cập nhật thành công!"});
 };
 
 const updateUserPassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body;
     console.log(oldPassword)
-    if (!oldPassword || !newPassword) {
-      throw new BadRequestError('Please provide both values');
-    }
+   
     const user = await User.findOne( {_id:req.user.userId } );
     console.log(user)
     const isPasswordCorrect = await user.comparePassword(oldPassword);
     if (!isPasswordCorrect) {
-      throw new UnauthentiatedError('Invalid Credentials');
+      return res.render('account', {user: tokenUser,status: "Mật khẩu không đúng!"});
     }
     user.password = newPassword;
   
     await user.save();
-    res.status(StatusCodes.OK).json({ msg: 'Success! Password Updated.' });
+    const tokenUser = createTokenUser(user);
+
+    res.render('account', {user: tokenUser,status: "Cập nhật thành công!"});
 };
 
 const saveDiscount = async (req,res) =>{

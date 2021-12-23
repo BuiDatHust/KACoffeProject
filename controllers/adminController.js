@@ -301,18 +301,20 @@ const getAdminStatisticPage = async (req, res) => {
 
     orders.forEach(order => {
         if (order.createdAt.getFullYear() == yearNow && order.createdAt.getMonth() == monthNow) {
-            order.orderItems.forEach(orderitem => {
-                const category = orderitem.product.category;
-                if (category == 'Cà phê') {
-                    amount[0] += Number(orderitem.amount)
-                } else if (category == 'Trà trái cây-Trà sữa') {
-                    amount[1] += 1 * orderitem.amount
-                } else if (category == 'Đá xay-Choco-Matcha') {
-                    amount[2] += Number(orderitem.amount)
-                } else if (category == 'Đồ uống nhanh') {
-                    amount[3] += Number(orderitem.amount)
-                } else if (category == 'Drinks') {
-                    amount[4] += Number(orderitem.amount)
+            order.orderItems.forEach(orderItem => {
+                if (orderItem.product) {
+                    const category = orderItem.product.category;
+                    if (category == 'Cà phê') {
+                        amount[0] += Number(orderItem.amount)
+                    } else if (category == 'Trà trái cây-Trà sữa') {
+                        amount[1] += 1 * orderItem.amount
+                    } else if (category == 'Đá xay-Choco-Matcha') {
+                        amount[2] += Number(orderItem.amount)
+                    } else if (category == 'Đồ uống nhanh') {
+                        amount[3] += Number(orderItem.amount)
+                    } else if (category == 'Drinks') {
+                        amount[4] += Number(orderItem.amount)
+                    }
                 }
             })
         }

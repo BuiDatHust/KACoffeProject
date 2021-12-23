@@ -5,8 +5,20 @@ const User = require('../models/User')
 const { StatusCodes } = require('http-status-codes')
 
 const getHomepage = async (req,res) =>{
-    const product = await Product.find({})
-    
+    let productNew = await Product.find({}).sort({ _id: -1 })
+    let caPhe = await Product.find({ category: 'Cà phê' }).sort({ _id: -1 })
+    let traSua = await Product.find({ category: 'Trà trái cây-Trà sữa' }).sort({ _id: -1 })
+    let daXay = await Product.find({ category: 'Đá xay-Choco-Matcha'}).sort({ _id: -1 })
+    let doUongNhanh = await Product.find({ category: 'Đồ uống nhanh'}).sort({ _id: -1 })
+    let drinks = await Product.find({ category: 'Drinks'}).sort({ _id: -1 })
+
+    productNew = productNew.slice(0, 3)
+    caPhe = caPhe.slice(0, 3)
+    traSua = traSua.slice(0, 3)
+    daXay = daXay.slice(0, 3)
+    drinks = drinks.slice(0, 3)
+    doUongNhanh = doUongNhanh.slice(0, 3)
+
     var user
 
     if( req.user===undefined ){
@@ -16,7 +28,16 @@ const getHomepage = async (req,res) =>{
         
     }
 
-    res.status(StatusCodes.OK).renderPjax('index',{ user:user })
+    res.status(StatusCodes.OK).renderPjax('index',{ 
+        user:user,
+        productNew: productNew,
+        caPhe: caPhe,
+        traSua: traSua,
+        daXay: daXay,
+        doUongNhanh: doUongNhanh,
+        drinks, drinks,
+        status:'' 
+    })
 }
 
 const getDiscount = async (req,res) =>{
@@ -62,7 +83,7 @@ const getStories = async (req,res) =>{
 const getNotification = async (req,res) =>{
     const user = await User.findOne({ _id: req.user.userId })
 
-    res.render('notification', { noti: user.notification})
+    res.render('notification', { noti: user.notification, user: req.user})
 }
 
 module.exports = {
