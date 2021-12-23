@@ -12,8 +12,8 @@
                             <h1 class="text-intro-heading" style="color: #ffffff;">Đồ uống an toàn <br> và thanh khiết</h1>
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee </p>
                             <% if( !user ){ %>
-                            <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% }  %>
+                                <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                                <% }  %>
                         </div>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                             <h1 class="text-intro-heading" style="color: #ffffff;">Giá cả <br> phù hợp</h1>
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee</p>
                             <% if( !user ){ %>
-                            <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% }  %>
+                                <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                                <% }  %>
                         </div>
                     </div>
                 </div>
@@ -60,16 +60,16 @@
                         </p>
                         <h3 class="mt-5" style="color: #ffffff;">Đồ uống đặc biệt</h3>
                         <div class="thumb my-4 d-flex">
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="/KACoffe/v1/menu/61c27adc765f856f10ab1bc0" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(/uploads/image-1640135388777.jpg);"></div>
                                 <h4 style="color: #ffffff;">
                                     WHISKY COFFEE COLD BREW</h4>
                             </a>
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="/KACoffe/v1/menu/61c34c5016af22c17679155c" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(/uploads/image-1640189008426.jpg);"></div>
                                 <h4 style="color: #ffffff;">Americano Nóng</h4>
                             </a>
-                            <a href="#" class="thumb-menu pr-md-4 text-center">
+                            <a href="/KACoffe/v1/menu/61c27d3d765f856f10ab1c9d" class="thumb-menu pr-md-4 text-center">
                                 <div class="img" style="background-image: url(/uploads/image-1640135997139.jpg);"></div>
                                 <h4 style="color: #ffffff;">
                                     Trà Dâu</h4>
@@ -144,16 +144,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
@@ -166,16 +172,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
@@ -188,16 +200,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
 
                 <!--  -->
@@ -211,16 +229,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
@@ -233,16 +257,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
@@ -255,16 +285,22 @@
                             <div class="text">
                                 <div class="d-flex">
                                     <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                        <h3>
+                                            <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                <%= product.name %>
+                                            </a>
+                                        </h3>
                                     </div>
                                     <div class="one-forth">
                                         <span class="price"><%= product.price %></span>
                                     </div>
                                 </div>
-                                <p><%= product.material %></p>
+                                <p>
+                                    <%= product.material %>
+                                </p>
                             </div>
                         </div>
-                    <% }) %>
+                        <% }) %>
                 </div>
             </div>
         </div>
@@ -388,19 +424,19 @@
                                         <input name="address" type="text" class="form-control" placeholder="Địa chỉ">
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Ghi chú</label>
                                         <input name="note" type="text" class="form-control" placeholder="Lưu ý cho quán">
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Email</label>
-                                        <input  name="email" type="email" class="form-control" placeholder="VD: abc@gmail.com">
-                                            
+                                        <input name="email" type="email" class="form-control" placeholder="VD: abc@gmail.com">
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -409,7 +445,7 @@
                                         <input name="nameproduct" type="text" class="form-control" placeholder="Tên đồ uống">
                                     </div>
                                 </div>
-    
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Số lượng</label>
@@ -417,11 +453,11 @@
                                         <input type="number" id="quantity_61968f808d09d" min="1" max="10000" class="form-control" name="amount" placeholder="Số lượng nhỏ nhất là 1">
                                     </div>
                                 </div>
-    
-                                <div class="col-md-6" >
+
+                                <div class="col-md-6">
                                     <div class="form-group" style="margin-top: 55px;">
                                         <label for="">Size</label>
-                                        <select name="size" >
+                                        <select name="size">
                                             <option value="S">S</option>
                                             <option value="M">M</option>
                                             <option value="L">L</option>
@@ -439,21 +475,21 @@
                 </div>
             </div>
         </section>
-    <% } %>
-        
-    <%- include('_layouts/footer'); -%>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            if('<%= status %>') {
-                if ('<%= status %>' == 'Không tìm thấy sản phẩm này') {
-                    await swal("<%= status %>", "Click để tiếp tục", "warning")
-                } else {
-                    await swal("Đặt hàng thành công!", "Vui lòng kiểm tra email, hãy liên hệ với chúng tôi sớm nhất nếu không nhận được email!", "success")
-                }
-            }
-            var header = document.getElementById('ftco-navbar')
-            header.classList.remove('ftco-navbar-light-2')
-            header.classList.add('ftco-navbar-light')
-        })
-    </script>
+        <% } %>
+
+            <%- include('_layouts/footer'); -%>
+                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', async() => {
+                        if ('<%= status %>') {
+                            if ('<%= status %>' == 'Không tìm thấy sản phẩm này') {
+                                await swal("<%= status %>", "Click để tiếp tục", "warning")
+                            } else {
+                                await swal("Đặt hàng thành công!", "Vui lòng kiểm tra email, hãy liên hệ với chúng tôi sớm nhất nếu không nhận được email!", "success")
+                            }
+                        }
+                        var header = document.getElementById('ftco-navbar')
+                        header.classList.remove('ftco-navbar-light-2')
+                        header.classList.add('ftco-navbar-light')
+                    })
+                </script>

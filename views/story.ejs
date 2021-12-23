@@ -23,7 +23,7 @@
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
                     <div class="heading-section ftco-animate mb-5">
-                        <span class="subheading">Thông tin</span>
+                        <span class="subheading">Chủ đề</span>
                         <h2 name="product" class="mb-4">
                             <%= story.title %>
                         </h2>
@@ -33,7 +33,9 @@
                         <p>
                             <%= story.updatedAt.toString().slice(0, 15) %>
                         </p>
-                        <p><strong><%= story.user.name %></strong></p>
+                        <p>
+                            <%= story.user.name %>
+                        </p>
                         <p>
                             <%= story.description %>
                         </p>
