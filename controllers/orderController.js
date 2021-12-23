@@ -216,6 +216,7 @@ const buy = async (req,res) =>{
   if(req.body.address == '') {
     res.render('cart', {
       orders: thisorder ? thisorder.orderItems : [], 
+      total: thisorder ? thisorder.total : [],
       subtotal: thisorder ? thisorder.subtotal : 0, 
       user:user, 
       discount: user.discount, 
@@ -227,6 +228,7 @@ const buy = async (req,res) =>{
   if (!thisorder) {
     res.render('cart', {
       orders: [], 
+      total: 0,
       subtotal: 0, 
       user:user, 
       discount: user.discount, 
@@ -273,6 +275,7 @@ const buy = async (req,res) =>{
       })
   res.render('cart', {
         orders: [], 
+        total: 0,
         subtotal: 0, 
         user: req.user,
         discount: [], 
@@ -322,6 +325,7 @@ const getCart = async (req,res) =>{
     console.log("cdc")
     res.render('cart', { 
       orders: orders[0].orderItems,
+      total: orders[0].total,
       subtotal: orders[0].subtotal ,
       user:user,
       discount: user.discount, 
@@ -329,7 +333,7 @@ const getCart = async (req,res) =>{
       noti: undefined })
   }else{
     console.log("scscsc")
-    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[], warning: undefined, noti: undefined });
+    res.render('cart', { orders: [], total: 0, subtotal: 0, user:user, discount:[], warning: undefined, noti: undefined });
   }
   
 }
@@ -453,6 +457,7 @@ const checkAccount = async (req,res) =>{
   if( !user1){
     res.render('cart', { 
       orders: orders[0] ? orders[0].orderItems : [],
+      total: orders[0] ? orders[0].total : 0,
       subtotal: orders[0] ? orders[0].subtotal : 0 ,
       user:user,
       discount: [], 
@@ -465,6 +470,7 @@ const checkAccount = async (req,res) =>{
     console.log("cdc")
     res.render('cart', { 
       orders: orders[0].orderItems,
+      total: orders[0].total,
       subtotal: orders[0].subtotal ,
       user:user,discount: 
       user1.discount, 
@@ -472,7 +478,7 @@ const checkAccount = async (req,res) =>{
       noti: 'Người dùng khả dụng!' })
   }else{
     console.log("scscsc")
-    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[], noti: 'Người dùng khả dụng!', warning: undefined });
+    res.render('cart', { orders: [], total: 0, subtotal: 0, user:user, discount:[], noti: 'Người dùng khả dụng!', warning: undefined });
   }
   // res.redirect('/KACoffe/v1/order/cart')
 }
@@ -491,6 +497,7 @@ const buyByAdmin =async (req,res) =>{
   if(thisorder.status != 'tìm shipper') {
     res.render('cart', {
       orders: [], 
+      total: 0,
       subtotal: 0, 
       user: req.user,
       discount: [], 
@@ -503,6 +510,7 @@ const buyByAdmin =async (req,res) =>{
   if (!user) {
     res.render('cart', {
       orders: thisorder.orderItems, 
+      total: thisorder.total,
       subtotal: thisorder.subtotal, 
       user: req.user,
       discount: [], 
@@ -553,6 +561,7 @@ const buyByAdmin =async (req,res) =>{
   
   res.render('cart', {
     orders: [], 
+    total: 0,
     subtotal: 0, 
     user: req.user,
     discount: [], 
