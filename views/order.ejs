@@ -14,7 +14,7 @@
 
             <% orders.forEach(function(order,index) {  %>
                 <tr class="cart-item">
-                    <td># <%= index %></td>
+                    <td><a href="/KACoffe/v1/order/detail/<%= order._id %>"># <%= order._id.toString().slice(18, 24) %></a></td>
                     <td><%= order.subtotal  %>đ  </td>
                     <td> <%= order.orderItems.length %>  </td>
                     

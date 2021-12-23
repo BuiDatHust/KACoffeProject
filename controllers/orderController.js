@@ -66,26 +66,24 @@ const createOrder = async (req,res) =>{
 
     total = existOrder[len-1].total +singleOrderItem.price*singleOrderItem.amount
     subtotal = total+ shippingFee;
-
     const updateOrder = await Order.findByIdAndUpdate({_id:existOrder[len-1]._id}, 
       { orderItems: orderItems, subtotal: subtotal, total: total})
     order= updateOrder
-  
    
   }else{
     total= singleOrderItem.price*singleOrderItem.amount
     subtotal = total+shippingFee
     orderItems = [...orderItems, singleOrderItem]
 
-  const newOrder = await Order.create({
-    orderItems,
-    total :total,
-    subtotal: subtotal,
-    shippingFee,
-    phone: dbUser.phone,
-    user: req.user.userId,
-  });
-  order= newOrder
+    const newOrder = await Order.create({
+      orderItems,
+      total :total,
+      subtotal: subtotal,
+      shippingFee,
+      phone: dbUser.phone,
+      user: req.user.userId,
+    });
+    order= newOrder
 }
 
 if( req.user!==undefined ){
@@ -110,10 +108,7 @@ if( req.user!==undefined ){
   
   res
     .status(StatusCodes.CREATED)
-    .render('cart',{
-      orders:orders[0].orderItems, 
-      subtotal: orders[0].subtotal, 
-      discount:userdiscount});
+    .redirect('order/cart');
 }else{
   
 
@@ -176,16 +171,34 @@ res
 }
 
 const buy = async (req,res) =>{
-  
-  const orders = await Order.find({ user: req.user.userId })
+  const orders = await Order.find({ user: req.user.userId, status: 'tìm shipper' })
   const user = await User.findOne({ _id:req.user.userId })
   const { magiamgia } = req.body
   const discount = await Discount.findOne({ name: magiamgia })
 
-  const len= orders.length-1
+  const len= orders.length-1 
   const thisorder = orders[len]
-  var total = thisorder.total
+  var total = thisorder ? thisorder.total : 0
 
+  if(req.body.address == '') {
+    res.render('cart', {
+      orders: thisorder ? thisorder.orderItems : [], 
+      subtotal: thisorder ? thisorder.subtotal : 0, 
+      user:user, 
+      discount: user.discount, 
+      warning: 'Bạn chưa nhập địa chỉ!' 
+    })
+    return
+  }
+  if (!thisorder) {
+    res.render('cart', {
+      orders: [], 
+      subtotal: 0, 
+      user:user, 
+      discount: user.discount, 
+      warning: undefined
+    })
+  }
   if( discount){
   const category = discount.category
   if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
@@ -252,7 +265,7 @@ const getCurrentUserOrders = async (req, res) => {
     } );
     
 
-    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id });
+    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id, user: user });
 };
 
 const getCart = async (req,res) =>{
@@ -265,10 +278,16 @@ const getCart = async (req,res) =>{
   console.log(orders)
   if( orders.length > 0 ){
     console.log("cdc")
-    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
+    res.render('cart', { 
+      orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,
+      discount: user.discount, 
+      warning: undefined, 
+      noti: undefined })
   }else{
     console.log("scscsc")
-    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[], warning: undefined, noti: undefined });
   }
   
 }
@@ -294,30 +313,28 @@ const updateOrder = async (req, res) => {
 const deleteOrderItems = async (req,res) =>{
   const { id } = req.params
   
-  var order = await Order.find({ user: req.user.userId })
+  var order = await Order.findOne({ user: req.user.userId, status: 'tìm shipper' })
 
-  order = order.filter((e) =>{
-    return e.status=="tìm shipper"
-  })
-  var total= order[0].total, subtotal=0
-  var orderItem = order[0].orderItems 
-  console.log(orderItem)
+  var total= order.total, subtotal=0
+  var orderItem = order.orderItems 
 
   for(var i=0 ;i<orderItem.length; i++){
-    if( orderItem[i]._id ==id ){
+    if( orderItem[i]._id == id ){
       total -= orderItem[i].price  * orderItem[i].amount
       orderItem.splice(i,1)
-       
+      break
     }
   
   }
   subtotal = total+10000
-  console.log(subtotal)
+  console.log(orderItem, total, subtotal)
   
-  const updateOrder = await Order.findOneAndUpdate({ user: req.user.userId }, { 
-    orderItems: [...orderItem], total: total, subtotal: subtotal
-  })
-  // res.render('cart', { orders: orderItem ,subtotal: subtotal})
+  order.orderItems = orderItem
+  order.total = total
+  order.subtotal = subtotal
+
+  await order.save()
+
   res.redirect('/KACoffe/v1/order/cart')
 
 }
@@ -385,14 +402,24 @@ const checkAccount = async (req,res) =>{
   } );
 
   if( !user1){
-    alert("cdcd")
-    return  res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
-
+    res.render('cart', { orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,
+      discount: [], 
+      warning: 'Email không tồn tại!', 
+      noti: undefined })
+    return
   }
   
   if( orders.length > 0 ){
     console.log("cdc")
-    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
+    res.render('cart', { 
+      orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,discount: 
+      user1.discount, 
+      warning: undefined,
+      noti: 'Người dùng khả dụng!' })
   }else{
     console.log("scscsc")
     res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
@@ -403,13 +430,25 @@ const checkAccount = async (req,res) =>{
 const buyByAdmin =async (req,res) =>{
   const user = await User.findOne({ email:req.body.email })
   const orders = await Order.find({ user: req.user.userId })
-  
+
   const { magiamgia } = req.body
   const discount = await Discount.findOne({ name: magiamgia })
 
   const len= orders.length-1
   const thisorder = orders[len]
   var total = thisorder.total
+
+  if (!user) {
+    res.render('cart', {
+      orders: thisorder.orderItems, 
+      subtotal: thisorder.subtotal, 
+      user: req.user,
+      discount: [], 
+      warning: 'Email không tồn tại!',
+      noti: undefined 
+    })
+    return
+  }
 
   if( discount){
   const category = discount.category

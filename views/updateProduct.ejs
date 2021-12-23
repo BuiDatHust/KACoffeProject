@@ -23,13 +23,13 @@
                 <div class="form">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="product-name" name="name" placeholder="Tên sản phẩm">
+                            <input type="text" id="product-name" name="name" placeholder="Tên sản phẩm" value="<%= product.name %>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="short-des" name="description" placeholder="Miêu tả ngắn">
+                            <input type="text" id="short-des" name="description" placeholder="Miêu tả ngắn" value="<%= product.description %>">
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea id="description" name="detaildescription" placeholder="Miêu tả chi tiết"></textarea>
+                            <textarea id="description" name="detaildescription" placeholder="Miêu tả chi tiết"><%= product.detaildescription %></textarea>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="product-price">
-                                <input type="number" id="actual-price" name="realprice" placeholder="Giá gốc (VNĐ)">
+                                <input type="number" id="actual-price" name="realprice" placeholder="Giá gốc (VNĐ)" value="<%= product.realprice %>">
                             </div>
                         </div>
 
@@ -55,17 +55,17 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="number" name="price" id="price" max="actual-price" placeholder="Giá bán (VNĐ)">
+                            <input type="number" name="price" id="price" max="actual-price" placeholder="Giá bán (VNĐ)" value="<%= product.price %>">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input id="category" name="material" placeholder="Nguyên liệu"></input>
+                            <input id="category" name="material" placeholder="Nguyên liệu" value="<%= product.material %>"></input>
                         </div>
                     </div>
-                    <div class="buttons1">
-                        <input type="submit" onclick="event.preventDefault(); capnhat('<%= productid %>');" value="Cập nhật sản phẩm" />
+                    <div class="buttons1 col-md-6">
+                        <button class="btn1" type="submit" onclick="event.preventDefault(); capnhat('<%= productid %>');">Cập nhật sản phẩm</button>
                     </div>
                 </div>
             </form>

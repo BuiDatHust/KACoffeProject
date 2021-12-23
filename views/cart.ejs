@@ -38,7 +38,11 @@
             </br>
             <tr style="margin-top: 10px;" >
                 <td colspan="3" >
-                    Address : <input type="text" name="address">
+                    Address : <input type="text" name="address" required>
+                    <br>
+                    <% if(warning) { %>
+                        <div class="alert alert-danger p-1 mt-2"><%= warning %></div>
+                    <% } %>
                 </td>
             </tr>
 
@@ -70,16 +74,9 @@
         <tr style="margin-top: 250px;" >
             
             <td colspan="3" id="wrapform" >
-                Email : <input type="text" name="email">
-                
+                Email : <input type="email" name="email" required>
             </td>
-           
-        </tr>
-
-        <tr style="margin-top: 10px;" >
-            <td colspan="3" >
-                Address : <input type="text" name="address">
-            </td>
+            
         </tr>
 
         <tr>
@@ -99,7 +96,13 @@
             <form action="/KACoffe/v1/order/check" id="formsubmit2" method="POST">
             <td colspan="3" id="wrapform" >
                 Email của KH : <input type="text" name="email">
-                <input type="submit" id="kiemtra" value="Kiểm tra KH"/>
+                <button class="btn1 mt-2" type="submit" id="kiemtra">Kiểm tra KH</button>
+                <% if (warning) { %>
+                    <div class="alert alert-danger mt-2 p-1"><%= warning %></div>
+                <% } %>
+                <% if (noti) { %>
+                    <div class="alert alert-primary mt-2 p-1"><%= noti %></div>
+                <% } %>
             </td>
             </form>
         </tr>
@@ -108,8 +111,7 @@
                 <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
                 <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
                 
-                <input type="submit" id="dathang1" value="Đặt hàng" />
-                
+                <button class="btn1" type="submit" id="dathang1" >Đặt hàng</button>
             </td>
         </tr>
         
