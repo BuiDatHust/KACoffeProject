@@ -547,7 +547,7 @@ const buyByAdmin =async (req,res) =>{
         phone: user.phone,
         address: req.body.address ,
         status: "giao thành công",
-        subtotal: total+10000,
+        subtotal: total,
         total: total
       })
   

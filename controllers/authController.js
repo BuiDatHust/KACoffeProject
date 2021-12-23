@@ -24,8 +24,38 @@ const register = async (req,res) =>{
     const user = await User.create({ name,email,password,role,phone })
     await user.save()
     
+    let productNew = await Product.find({}).sort({ _id: -1 })
+    let caPhe = await Product.find({ category: 'Cà phê' }).sort({ _id: -1 })
+    let traSua = await Product.find({ category: 'Trà trái cây-Trà sữa' }).sort({ _id: -1 })
+    let daXay = await Product.find({ category: 'Đá xay-Choco-Matcha'}).sort({ _id: -1 })
+    let doUongNhanh = await Product.find({ category: 'Đồ uống nhanh'}).sort({ _id: -1 })
+    let drinks = await Product.find({ category: 'Drinks'}).sort({ _id: -1 })
+
+    productNew = productNew.slice(0, 3)
+    caPhe = caPhe.slice(0, 3)
+    traSua = traSua.slice(0, 3)
+    daXay = daXay.slice(0, 3)
+    drinks = drinks.slice(0, 3)
+    doUongNhanh = doUongNhanh.slice(0, 3)
+
+    productNew = productNew.slice(0, 3)
+    caPhe = caPhe.slice(0, 3)
+    traSua = traSua.slice(0, 3)
+    daXay = daXay.slice(0, 3)
+    drinks = drinks.slice(0, 3)
+    doUongNhanh = doUongNhanh.slice(0, 3)
+
     res.clearCookie('token')
-    res.status(StatusCodes.CREATED).render('index',{user: '',status:''});
+    res.status(StatusCodes.CREATED).render('index',{
+        user: '',
+        productNew: productNew,
+        caPhe: caPhe,
+        traSua: traSua,
+        daXay: daXay,
+        doUongNhanh: doUongNhanh,
+        drinks, drinks,
+        status:''
+    });
 
 }
 
