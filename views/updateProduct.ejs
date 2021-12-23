@@ -1,258 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>KACoffee</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lovers+Quarrel" rel="stylesheet">
-
-    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="/css/animate.css">
-
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-
-    <link rel="stylesheet" href="/css/aos.css">
-
-    <link rel="stylesheet" href="/css/ionicons.min.css">
-
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/css/jquery.timepicker.css">
-
-    <link rel="stylesheet" href="/css/test.css">
-    <link rel="stylesheet" href="/css/flaticon.css">
-    <link rel="stylesheet" href="/css/icomoon.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+<%- include('_layouts/header'); -%>
     <link rel="stylesheet" href="/css/addProduct.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
         <div class="container">
-            <a class="navbar-brand" href="/KACoffee/v1">KACoffee</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-            
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/KACoffe/v1" class="nav-link">Trang chủ</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/menu" class="nav-link">Thực đơn</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/order" class="nav-link"> Tra cứu đơn hàng</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/discount" class="nav-link">Khuyến mãi</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/stories" class="nav-link">Tin tức</a></li>
-                    <% if ( !user ) { %>
-                    <li class="nav-item"><a href="/KACoffe/v1/auth" class="nav-link">Đăng nhập</a></li>
-                    <% } %>
-                    <% if ( user ) { %>
-                    <li class="nav-item ">
-                        
-                        <div class="nav-link nav-item-user">
-                            <img src="/images/avt.jpg" alt="" class="nav-item-user-img">
-                            <span class="nav-item-user-name"><%= user.name  %></span>
-                            <ul class="nav-item-user-menu">
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/user/me">Tài khoản</a>
-                                </li>
-                                <li class="nav-item-user-item">
-                                    <a href="">Địa chỉ giao hàng</a>
-                                </li>
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/order/myOrders">Giỏ hàng</a>
-                                </li>
-                                <% if( user.role=="admin" ) { %> 
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/admin">Quản lí cửa hàng </a>
-                                </li>
-                                <% } %>
-                                <li class="nav-item-user-item">
-                                    <a href="/KACoffe/v1/auth/logout">Đăng xuất</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        
-                    </li>
-                    <% } %>
-                </ul>
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Thêm sản phẩm</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm sản phẩm <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
             </div>
-            <% if ( user ) { %>
-            <div class="header__cart">
-                <i class= "stardust-popover fas fa-cart-plus"></i>
-                <span class="header__cart-notice">3</span>
-                <!-- no-cart: header-cart-list--no-cart -->
-                <div class="header__cart-list">
-                    <img src="/images/empty-cart.png" alt="" class="header__cart-list-no-cart-img">
-                    <span class="header__cart-list-no-cart-msg">
-                      Chưa có sản phẩm
-                  </span>
-                    <h4 class="header__cart-heading">
-                        Sản phẩm đã thêm
-                    </h4>
-                    <ul class="header__cart-list-item">
-                        <!-- Cart-item-->
-                        <li class="header__cart-item">
-                            <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
-                            <div class="header__cart-item-info">
-                                <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
-                                    <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">45000đ</span>
-                                        <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">2</span>
-                                    </div>
-                                </div>
-                                <div class="header__cart-item-body">
-                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
-                                    <span class="header__cart-item-remove">Xóa</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="header__cart-item">
-                            <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
-                            <div class="header__cart-item-info">
-                                <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
-                                    <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">45000đ</span>
-                                        <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">2</span>
-                                    </div>
-                                </div>
-                                <div class="header__cart-item-body">
-                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
-                                    <span class="header__cart-item-remove">Xóa</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="header__cart-item">
-                            <img src="/images/cold-brew-milk-coffe.jpg" alt="" class="header__cart-img">
-                            <div class="header__cart-item-info">
-                                <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Cold Brew Sữa Tươi</h5>
-                                    <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">45000đ</span>
-                                        <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">2</span>
-                                    </div>
-                                </div>
-                                <div class="header__cart-item-body">
-                                    <span class="header__cart-item-description">Phân loại: Cà phê</span>
-                                    <span class="header__cart-item-remove">Xóa</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="/KACoffe/v1/order/myOrders" class="col-md-12 mt-3">
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="heading-section ftco-animate mb-5">
+                <span class="subheading">Cập nhật sản phẩm</span>
+            </div>
+
+            <!-- Form add products -->
+            <form id="updatesubmit" action="/KACoffe/v1/admin/allproduct/<%= productid %>" method="POST">
+                <div class="form">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
+                            <input type="text" id="product-name" name="name" placeholder="Tên sản phẩm" value="<%= product.name %>">
                         </div>
-                    </a>
-                </div>
-                <% }; %>
-            </div>
-            
-        </div>
-    </nav>
+                    </div>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Thêm sản phẩm</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Thêm sản phẩm <i class="ion-ios-arrow-forward"></i></span></p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-no-pt ftco-no-pb">
-    <div class="container">
-        <div class="heading-section ftco-animate mb-5">
-            <span class="subheading">Cập nhật sản phẩm</span>
-        </div>
-
-        <!-- Form add products -->
-        <form id="updatesubmit" action="/KACoffe/v1/admin/allproduct/<%= productid %>" method="POST" >
-        <div class="form">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" id="product-name" name="name" placeholder="Tên sản phẩm">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" id="short-des" name="description" placeholder="Miêu tả ngắn">
-                </div>
-            </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="short-des" name="description" placeholder="Miêu tả ngắn" value="<%= product.description %>">
+                        </div>
+                    </div>
 
 
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <textarea id="description" name="detaildescription" placeholder="Miêu tả chi tiết"></textarea>
-                </div>
-            </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea id="description" name="detaildescription" placeholder="Miêu tả chi tiết"><%= product.detaildescription %></textarea>
+                        </div>
+                    </div>
 
-            <!-- product image -->
-            
-               
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="product-price">
-                        <input type="number" id="actual-price" name="realprice" placeholder="Giá gốc (VNĐ)">
+                    <!-- product image -->
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="product-price">
+                                <input type="number" id="actual-price" name="realprice" placeholder="Giá gốc (VNĐ)" value="<%= product.realprice %>">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" name="price" id="price" max="actual-price" placeholder="Giá bán (VNĐ)" value="<%= product.price %>">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input id="category" name="material" placeholder="Nguyên liệu" value="<%= product.material %>"></input>
+                        </div>
+                    </div>
+                    <div class="buttons1 col-md-6">
+                        <button class="btn1" type="submit" onclick="event.preventDefault(); capnhat('<%= productid %>');">Cập nhật sản phẩm</button>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="number" name="price" id="price" max="actual-price" placeholder="Giá bán (VNĐ)">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input id="category" name="material" placeholder="Nguyên liệu"></input>
-                </div>
-            </div>
-            <div class="buttons1">
-                <input type="submit" onclick="event.preventDefault(); capnhat('<%= productid %>');" value="Cập nhật sản phẩm" />
-            </div>
+            </form>
         </div>
-    </form>
-    </div>
-</section>
-<script>
-    async function capnhat(productid){
-        const updatesubmit= document.getElementById("updatesubmit")
-        
-        await Swal.fire({
-  title: 'Do you want to save the changes?',
-  showDenyButton: true,
-  showCancelButton: true,
-  confirmButtonText: 'Save',
-  denyButtonText: `Don't save`,
-}).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
-  if (result.isConfirmed) {
-    Swal.fire('Saved!', '', 'success')
-    updatesubmit.submit()
-  } 
-})
+    </section>
+    <script>
+        async function capnhat(productid) {
+            const updatesubmit = document.getElementById("updatesubmit")
+
+            await Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire('Saved!', '', 'success')
+                    updatesubmit.submit()
+                }
+            })
 
 
-    }
-</script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<%- include('_layouts/footer') ; -%>
+        }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <%- include('_layouts/footer') ; -%>

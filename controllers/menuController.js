@@ -34,7 +34,6 @@ const getSingleProduct = async (req, res) => {
     }else{
         user = await User.findOne({ _id: req.user.userId })
     }
-    
     res.status(StatusCodes.OK).render('detail', {product: product, user: user});
 };
 

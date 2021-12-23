@@ -1,0 +1,186 @@
+<%- include('../_layouts/header') ; -%>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Profile</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Quản lý cửa hàng <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 my-5">
+        <div class="container">
+            <h1 class="mb-5">Quản lý cửa hàng</h1>
+            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                <div class="profile-tab-nav border-right">
+                    <div class="p-4">
+                        <div class="img-circle text-center mb-3">
+                            <img src="/images/avt.jpg" alt="Image" class="shadow">
+                        </div>
+                        <h4 class="text-center">Admin</h4>
+                    </div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link" id="products-tab" href="/KACoffe/v1/admin"> Sản phẩm
+                        </a>
+                        <a class="nav-link" id="discount-tab" href="/KACoffe/v1/admin/discount">
+                            Mã giảm giá
+                        </a>
+                        <a class="nav-link" id="user-tab" href="/KACoffe/v1/admin/user">
+                            Người dùng
+                        </a>
+                        <a class="nav-link active" id="order-tab" href="/KACoffe/v1/admin/order">
+                            Đơn hàng
+                        </a>
+                        <a class="nav-link" id="stories-tab" href="/KACoffe/v1/admin/stories">
+                            Tin tức
+                        </a>
+                        <a class="nav-link" id="statistic-tab" href="/KACoffe/v1/admin/statistic">
+                            Thống kê
+                        </a>
+                    </div>
+                </div>
+                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="order" role="tabpanel" aria-labelledby="notification-tab">
+                        <div class="grid__column-10">
+                            <div class="cart-cart">
+                                <span class="subheading" style="font-size:28px;">Đơn hàng</span>
+                                <table class="cart-table">
+                                    <tr>
+                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                        <th class="admin-header__products">Mã số đơn</th>
+                                        <th class="admin-header__price">Giá</th>
+                                        <th class="admin-header__price">Số lượng</th>
+                                        <th class="admin-header__price">Tình trạng</th>
+                                        <th class="admin-header__header">Thao tác</th>
+                                    </tr>
+                                    <% orders.forEach(function(order,index){  %>
+                                        <tr class="cart-item">
+                                            <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                            <td class="cart-txt-left">
+                                                <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
+                                                <a href="/KACoffe/v1/order/detail/<%= order._id %>" class="cart-name"> #<%= order._id.toString().slice(18, 24)%> %></a></td>
+                                            <td><span class="cart-price"><%= order.total %></span></td> 
+                                            <td><span class="cart-price"><%= order.orderItems.length %></span></td>
+                                            <td><span class="cart-price"><%= order.status %></span></td>
+                                            <td>
+                                                <form id="ordersubmit<%= order._id %>" method="post" action="/KACoffe/v1/admin/deleteOrder/<%= order._id %>">
+                                                    <input id="xoa" onclick="event.preventDefault();XoaDon('<%= order._id %>');" type="submit" value="Xóa" />
+                                                </form>
+                                                <form id="updateorder<%= order._id %>" method="post" action="/KACoffe/v1/admin/updateOrder/<%= order._id %>">
+                                                    <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
+                                                    <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>');" value="Cập nhật" type="submit" />
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </table>
+                                <br>
+                                <% if ( pages > 1) { %> 
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <% if ( page == 1) { %> 
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#">Previous</a>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= page - 1 %>">Previous</a>
+                                            </li>
+                                        <% } %>
+                                        <% for( let i=0; i < pages; i++ ){  %>
+                                            <% if ( i == page - 1) { %> 
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?page=<%= i + 1 %>"><%= i + 1 %></a>
+                                                </li>
+                                            <% } else { %>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page=<%= i + 1 %>"><%= i + 1 %></a>
+                                                </li>
+                                            <% } %>
+                                        <%  } %>
+                                        <% if ( page == pages) { %> 
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= page + 1 %>">Next</a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include('../_layouts/footer') ; -%>
+
+<script>
+    async function XoaDon(orderid) {
+        const ordersubmit = document.getElementById(`ordersubmit${orderid}`)
+        await Swal.fire({
+            title: 'Bạn có chắc xóa?',
+                text: "Bạn không thể quay lại kết quả",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có !'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Thành công!',
+                        'Xóa thành công',
+                        'success'
+                    )
+                    ordersubmit.submit()
+                }
+            })
+    }
+
+    async function capnhatdon(id) {
+        const updateOrder = document.getElementById(`updateorder${id}`) 
+        const updateValue = document.getElementById(`capnhat${id}`) 
+
+        const { value: status } = await Swal.fire({
+            title: 'Chọn một trạng thái bên dưới',
+            input: 'select',
+            inputOptions: {
+                "shipper đang lấy hàng" : "shipper đang lấy hàng", 
+                "shipper đang giao" : "shipper đang giao", 
+                "giao thành công" : "giao thành công"
+            },
+            inputPlaceholder: 'Trạng thái',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (!value) {
+                        resolve('Chưa lựa chọn trạng thái!')
+                    } else {
+                        resolve()
+                    }
+                })
+            }
+        })
+        if (status) {
+            Swal.fire({
+                text: `Đã cập nhật trạng thái thành: ${status}`, 
+                icon: 'success'
+            })
+            .then(() => {
+                updateValue.value = status
+                updateOrder.submit()
+            })
+        }
+    }
+</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

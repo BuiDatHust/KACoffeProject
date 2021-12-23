@@ -37,7 +37,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="/KACoffee/v1">KACoffee</a>
+            <a class="navbar-brand" href="/KACoffe/v1">KACoffee</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -45,7 +45,7 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="/KACoffe/v1" class="nav-link">Trang chủ</a></li>
-                    <li class="nav-item"><a href="/KACoffe/v1/menu" class="nav-link">Thực đơn</a></li>
+                    <li class="nav-item"><a href="/KACoffe/v1/menu" class="nav-link">Sản phẩm</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/discount" class="nav-link">Khuyến mãi</a></li>
                     <li class="nav-item"><a href="/KACoffe/v1/stories" class="nav-link">Tin tức</a></li>
                     <% if ( !user ) { %>
@@ -92,11 +92,13 @@
             </div>
             <% if ( user ) { %>
 
-                <div class="header__cart">
+                <div style="padding: 1px;margin-top: 4px;"  class="header__cart">
 
-                    <a href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
+                    <a  href="/KACoffe/v1/order/cart" class="col-md-12 mt-3">
                         <div class="form-group">
-                            <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5">
+                            <!-- <input type="submit" value="Xem giỏ hàng" class="header__cart-view btn btn-primary py-3 px-5"> -->
+                            
+                            <i style="align-items: center;" class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </div>
                     </a>
                 </div>

@@ -66,26 +66,24 @@ const createOrder = async (req,res) =>{
 
     total = existOrder[len-1].total +singleOrderItem.price*singleOrderItem.amount
     subtotal = total+ shippingFee;
-
     const updateOrder = await Order.findByIdAndUpdate({_id:existOrder[len-1]._id}, 
       { orderItems: orderItems, subtotal: subtotal, total: total})
     order= updateOrder
-  
    
   }else{
     total= singleOrderItem.price*singleOrderItem.amount
     subtotal = total+shippingFee
     orderItems = [...orderItems, singleOrderItem]
 
-  const newOrder = await Order.create({
-    orderItems,
-    total :total,
-    subtotal: subtotal,
-    shippingFee,
-    phone: dbUser.phone,
-    user: req.user.userId,
-  });
-  order= newOrder
+    const newOrder = await Order.create({
+      orderItems,
+      total :total,
+      subtotal: subtotal,
+      shippingFee,
+      phone: dbUser.phone,
+      user: req.user.userId,
+    });
+    order= newOrder
 }
 
 if( req.user!==undefined ){
@@ -110,10 +108,7 @@ if( req.user!==undefined ){
   
   res
     .status(StatusCodes.CREATED)
-    .render('cart',{
-      orders:orders[0].orderItems, 
-      subtotal: orders[0].subtotal, 
-      discount:userdiscount});
+    .redirect('order/cart');
 }else{
   
 
@@ -123,38 +118,41 @@ if( req.user!==undefined ){
 
 const buyNotLogin = async (req,res) =>{
   
-var { phone,name,amount,address,nameproduct,email } = req.body
-var subtotal=0, total =0
+  var { phone,name,amount,address,nameproduct,email,size } = req.body
+  var subtotal=0, total =0
 
-const product = await Product.findOne({ name: nameproduct })
-console.log(product)
-orderItems = [{
-name: name,
-price: product.price,
-amount: amount
-}]
-total =product.price* amount
-subtotal=total+ 20000
+  let product = await Product.findOne({name: nameproduct})
+ 
+  console.log(product)
+  orderItems = [{
+  name: name,
+  price: product.price,
+  amount: amount,
+  size:size,
+  product:product._id
+  }]
+  total =product.price* amount
+  subtotal=total+ 20000
 
-const transporter = nodeMailer.createTransport({
-  service: 'hotmail',
-  auth: {
-      user:process.env.EMAIL,
-      pass: process.env.PASSWORD,
-  },
-});
-const mailOptions = {
-  from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
-  to: req.body.emai,
-  subject: "Chúc mừng bạn có đơn hàng đầu tiên", 
-  html: "<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi" , 
-}
-transporter.sendMail(mailOptions, function(err,info) {
-  if (err) {
-      console.log(err)
-      return;
+  const transporter = nodeMailer.createTransport({
+    service: 'hotmail',
+    auth: {
+        user:process.env.EMAIL,
+        pass: process.env.PASSWORD,
+    },
+  });
+  const mailOptions = {
+    from: '"KaCoffee" <ka.coffee.hust@outlook.com>',
+    to: req.body.emai,
+    subject: "Chúc mừng bạn có đơn hàng đầu tiên", 
+    html: "<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi" , 
   }
-  console.log("Sent: " + info.response);
+  transporter.sendMail(mailOptions, function(err,info) {
+    if (err) {
+        console.log(err)
+        return;
+    }
+    console.log("Sent: " + info.response);
 });
 
 const order = await Order.create({
@@ -173,16 +171,34 @@ res
 }
 
 const buy = async (req,res) =>{
-  
-  const orders = await Order.find({ user: req.user.userId })
+  const orders = await Order.find({ user: req.user.userId, status: 'tìm shipper' })
   const user = await User.findOne({ _id:req.user.userId })
   const { magiamgia } = req.body
   const discount = await Discount.findOne({ name: magiamgia })
 
-  const len= orders.length-1
+  const len= orders.length-1 
   const thisorder = orders[len]
-  var total = thisorder.total
+  var total = thisorder ? thisorder.total : 0
 
+  if(req.body.address == '') {
+    res.render('cart', {
+      orders: thisorder ? thisorder.orderItems : [], 
+      subtotal: thisorder ? thisorder.subtotal : 0, 
+      user:user, 
+      discount: user.discount, 
+      warning: 'Bạn chưa nhập địa chỉ!' 
+    })
+    return
+  }
+  if (!thisorder) {
+    res.render('cart', {
+      orders: [], 
+      subtotal: 0, 
+      user:user, 
+      discount: user.discount, 
+      warning: undefined
+    })
+  }
   if( discount){
   const category = discount.category
   if( discount.condition1 === user.rank && thisorder.subtotal>discount.condition2 ){
@@ -247,8 +263,9 @@ const getCurrentUserOrders = async (req, res) => {
     orders = orders.filter((e) => {
       return e.status!="tìm shipper"
     } );
+    
 
-    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id });
+    res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id, user: user });
 };
 
 const getCart = async (req,res) =>{
@@ -261,10 +278,16 @@ const getCart = async (req,res) =>{
   console.log(orders)
   if( orders.length > 0 ){
     console.log("cdc")
-    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user.discount })
+    res.render('cart', { 
+      orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,
+      discount: user.discount, 
+      warning: undefined, 
+      noti: undefined })
   }else{
     console.log("scscsc")
-    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[], warning: undefined, noti: undefined });
   }
   
 }
@@ -290,24 +313,29 @@ const updateOrder = async (req, res) => {
 const deleteOrderItems = async (req,res) =>{
   const { id } = req.params
   
-  var order = await Order.findOne({ user: req.user.userId })
-  var total= order.total, subtotal=0
-  order = order.orderItems
+  var order = await Order.findOne({ user: req.user.userId, status: 'tìm shipper' })
 
-  for(var i=0 ;i<order.length; i++){
-    if( order[i]._id ==id ){
-      order.splice(i,1)
-      total -= order[i].price  * order[i].amount 
+  var total= order.total, subtotal=0
+  var orderItem = order.orderItems 
+
+  for(var i=0 ;i<orderItem.length; i++){
+    if( orderItem[i]._id == id ){
+      total -= orderItem[i].price  * orderItem[i].amount
+      orderItem.splice(i,1)
+      break
     }
   
   }
   subtotal = total+10000
-  console.log(subtotal)
+  console.log(orderItem, total, subtotal)
   
-  const updateOrder = await Order.findOneAndUpdate({ user: req.user.userId }, { 
-    orderItems: order, total: total, subtotal: subtotal
-  })
-  res.render('cart', { orders: order ,subtotal: subtotal})
+  order.orderItems = orderItem
+  order.total = total
+  order.subtotal = subtotal
+
+  await order.save()
+
+  res.redirect('/KACoffe/v1/order/cart')
 
 }
 
@@ -319,7 +347,8 @@ const deleteOrder = async(req,res) =>{
     let user = await User.findOne({ _id: order.user })
     
     let noti = user.notification
-    noti = [...noti , `Bạn đã hủy đơn hàng mã #${orderid} thành công`]
+    let fakeid= orderid.slice(18,24)
+    noti = [...noti , `Bạn đã hủy đơn hàng mã #${fakeid} thành công`]
     await User.findByIdAndUpdate({ _id: order.user }, { notification: noti })
 
     await Order.findOneAndDelete({ _id: orderid })
@@ -358,7 +387,7 @@ const getDetailOrder = async (req,res) =>{
   console.log(order)
 
   res.render('detailorder',
-  { orderid: order.id.slice(0,8), orderItems: order.orderItems, subtotal: order.subtotal, address:order.address,status: order.status })
+  { user: req.user, orderid: order.id.slice(18, 24), orderItems: order.orderItems, subtotal: order.subtotal, address:order.address,status: order.status })
 }
 
 const checkAccount = async (req,res) =>{
@@ -373,14 +402,24 @@ const checkAccount = async (req,res) =>{
   } );
 
   if( !user1){
-    alert("cdcd")
-    return  res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
-
+    res.render('cart', { orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,
+      discount: [], 
+      warning: 'Email không tồn tại!', 
+      noti: undefined })
+    return
   }
   
   if( orders.length > 0 ){
     console.log("cdc")
-    res.render('cart', { orders: orders[0].orderItems,subtotal: orders[0].subtotal ,user:user,discount: user1.discount })
+    res.render('cart', { 
+      orders: orders[0].orderItems,
+      subtotal: orders[0].subtotal ,
+      user:user,discount: 
+      user1.discount, 
+      warning: undefined,
+      noti: 'Người dùng khả dụng!' })
   }else{
     console.log("scscsc")
     res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
@@ -391,13 +430,25 @@ const checkAccount = async (req,res) =>{
 const buyByAdmin =async (req,res) =>{
   const user = await User.findOne({ email:req.body.email })
   const orders = await Order.find({ user: req.user.userId })
-  
+
   const { magiamgia } = req.body
   const discount = await Discount.findOne({ name: magiamgia })
 
   const len= orders.length-1
   const thisorder = orders[len]
   var total = thisorder.total
+
+  if (!user) {
+    res.render('cart', {
+      orders: thisorder.orderItems, 
+      subtotal: thisorder.subtotal, 
+      user: req.user,
+      discount: [], 
+      warning: 'Email không tồn tại!',
+      noti: undefined 
+    })
+    return
+  }
 
   if( discount){
   const category = discount.category
