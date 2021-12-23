@@ -19,16 +19,13 @@ const getHomepage = async (req,res) =>{
     drinks = drinks.slice(0, 3)
     doUongNhanh = doUongNhanh.slice(0, 3)
 
-    var user
-
-    if( req.user===undefined ){
-        user = 0
-    }else{
+    let user=false 
+    if( req.user != undefined ){
         user = req.user
-        
     }
-
-    res.status(StatusCodes.OK).renderPjax('index',{ 
+    console.log(req.user)
+    console.log(user)
+    res.status(StatusCodes.OK).render('index',{ 
         user:user,
         productNew: productNew,
         caPhe: caPhe,
