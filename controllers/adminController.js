@@ -89,15 +89,8 @@ const getUpdateStoryPage = async(req, res) => {
 
 const createStory = async(req, res) => {
     req.body.user = req.user.userId
-    console.log(req.files)
-        // const length = req.files.destination.length
-        // req.body.image = req.files.destination.slice(8, length) + '/' + req.files.filename;
-        // console.log(req.files)
-        // req.files.forEach(function(img) {
-        //         const length = img.destination.length
-        //         req.body.Image = [...req.body.Image, img.destination.slice(8, length) + '/' + img.filename]
-        //     })
-        // req.body.image = "/images/bg_5.jpg"
+    
+    req.body.image = '/uploads/' + req.file.filename;
     const story = await Story.create(req.body)
     res.redirect('/KACoffe/v1/admin/stories')
 }
