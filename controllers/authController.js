@@ -24,7 +24,7 @@ const register = async (req,res) =>{
     await user.save()
     
     res.clearCookie('token')
-    res.status(StatusCodes.CREATED).render('index',{user: ''});
+    res.status(StatusCodes.CREATED).render('index',{user: '',status:''});
 
 }
 
@@ -47,7 +47,7 @@ const login = async (req,res) =>{
     }
     const tokenUser = createTokenUser(user)
     attachTokenToRes({res, user: tokenUser})
-    res.status(StatusCodes.OK).render('index', {user: tokenUser})
+    res.status(StatusCodes.OK).render('index', {user: tokenUser,status:''})
 }
 
 const logout = async (req, res) => {

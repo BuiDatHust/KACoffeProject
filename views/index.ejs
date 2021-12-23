@@ -1,5 +1,21 @@
 <%- include('_layouts/header'); -%>
-
+    <% if(status){   %>
+        <% if(status=='Không tìm thấy sản phẩm này'){   %>
+            <div style="z-index: 12; display: block;width: 500px;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> <%= status %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <% }else{  %>
+            <div style="z-index: 12; display: block;width: 500px;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> <%= status %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <% } %>
+    <% }  %>
     <section class="home-slider js-fullheight owl-carousel bg-white">
         <div class="slider-item js-fullheight">
             <div class="overlay"></div>

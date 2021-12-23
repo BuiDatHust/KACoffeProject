@@ -122,8 +122,10 @@ const buyNotLogin = async (req,res) =>{
   var subtotal=0, total =0
 
   let product = await Product.findOne({name: nameproduct})
- 
-  console.log(product)
+
+  if( !product ){
+    return res.render('index', { user:'',status: "Không tìm thấy sản phẩm này" });
+  }
   orderItems = [{
   name: name,
   price: product.price,
@@ -165,9 +167,7 @@ phone
 })
 
 
-res
-.status(StatusCodes.CREATED)
-.render('index', { user:'' });
+res.render('index', { user:'',status: "Đặt hàng thành công" });
 }
 
 const buy = async (req,res) =>{

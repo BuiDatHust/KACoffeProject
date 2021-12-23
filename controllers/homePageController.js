@@ -16,7 +16,7 @@ const getHomepage = async (req,res) =>{
         
     }
 
-    res.status(StatusCodes.OK).renderPjax('index',{ user:user })
+    res.status(StatusCodes.OK).renderPjax('index',{ user:user,status:'' })
 }
 
 const getDiscount = async (req,res) =>{
