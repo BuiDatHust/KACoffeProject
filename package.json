@@ -4,6 +4,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
+        "beautiful": "prettier --single-quote --tab-width 4 --write package.json controllers/**/*.js middleware/**/*.js routes/**/*.js errors/**/*.js models/**/*.js db/**/*.js utils/**/*.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon app.js"
     },
@@ -35,6 +36,7 @@
         "nodemailer": "^6.7.2",
         "nodemon": "^2.0.15",
         "path": "^0.12.7",
+        "prettier": "^2.5.1",
         "randomstring": "^1.2.1",
         "sweetalert2": "^11.3.0"
     },

@@ -1,14 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 const {
     authenticateUser,
     authorizePermission,
-    attachUser
-} = require('../middleware/authentication')
+    attachUser,
+} = require('../middleware/authentication');
 
 const {
-    
     getSingleOrder,
     getCurrentUserOrders,
     createOrder,
@@ -21,36 +20,31 @@ const {
     getDetailOrder,
     buyByAdmin,
     checkAccount,
-  } = require('../controllers/orderController');
-  
-  router
-    .route('/')
-    .post(attachUser, createOrder)
-    // .get(authenticateUser, authorizePermission('admin'), getAllOrders);
+} = require('../controllers/orderController');
 
-    router
-      .route('/orderNotLogin')
-      .post(attachUser,buyNotLogin)
-  
-  router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
-  router.route('/cart').get(authenticateUser, getCart);
+router.route('/').post(attachUser, createOrder);
+// .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
-  router.route('/buy').post(authenticateUser, buy);
-  router.route('/buyByAdmin').post(authenticateUser, buyByAdmin);
-  router.route('/check').post(authenticateUser, checkAccount);
+router.route('/orderNotLogin').post(attachUser, buyNotLogin);
 
-  router.route('/detail/:id').get(authenticateUser, getDetailOrder)
+router.route('/myOrders').get(authenticateUser, getCurrentUserOrders);
+router.route('/cart').get(authenticateUser, getCart);
 
-  
-  router
+router.route('/buy').post(authenticateUser, buy);
+router.route('/buyByAdmin').post(authenticateUser, buyByAdmin);
+router.route('/check').post(authenticateUser, checkAccount);
+
+router.route('/detail/:id').get(authenticateUser, getDetailOrder);
+
+router
     .route('/:id')
     .get(authenticateUser, getSingleOrder)
     .patch(authenticateUser, updateOrder);
-  
-  router
-    .route('/delete/:id')
-    .post(authenticateUser,deleteOrderItems )
 
-  router.route('/sendNotification/:orderid/:userid').post(authenticateUser,requestToDeleteOrder)
-  
-  module.exports = router;
+router.route('/delete/:id').post(authenticateUser, deleteOrderItems);
+
+router
+    .route('/sendNotification/:orderid/:userid')
+    .post(authenticateUser, requestToDeleteOrder);
+
+module.exports = router;

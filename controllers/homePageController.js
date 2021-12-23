@@ -1,30 +1,36 @@
-const Product = require('../models/Product')
-const Discount = require('../models/Discount')
-const Story = require('../models/Story')
-const User = require('../models/User')
-const { StatusCodes } = require('http-status-codes')
+const Product = require('../models/Product');
+const Discount = require('../models/Discount');
+const Story = require('../models/Story');
+const User = require('../models/User');
+const { StatusCodes } = require('http-status-codes');
 
-const getHomepage = async(req, res) => {
-    let productNew = await Product.find({}).sort({ _id: -1 })
-    let caPhe = await Product.find({ category: 'Cà phê' }).sort({ _id: -1 })
-    let traSua = await Product.find({ category: 'Trà trái cây-Trà sữa' }).sort({ _id: -1 })
-    let daXay = await Product.find({ category: 'Đá xay-Choco-Matcha' }).sort({ _id: -1 })
-    let doUongNhanh = await Product.find({ category: 'Đồ uống nhanh' }).sort({ _id: -1 })
-    let drinks = await Product.find({ category: 'Drinks' }).sort({ _id: -1 })
+const getHomepage = async (req, res) => {
+    let productNew = await Product.find({}).sort({ _id: -1 });
+    let caPhe = await Product.find({ category: 'Cà phê' }).sort({ _id: -1 });
+    let traSua = await Product.find({ category: 'Trà trái cây-Trà sữa' }).sort({
+        _id: -1,
+    });
+    let daXay = await Product.find({ category: 'Đá xay-Choco-Matcha' }).sort({
+        _id: -1,
+    });
+    let doUongNhanh = await Product.find({ category: 'Đồ uống nhanh' }).sort({
+        _id: -1,
+    });
+    let drinks = await Product.find({ category: 'Drinks' }).sort({ _id: -1 });
 
-    productNew = productNew.slice(0, 3)
-    caPhe = caPhe.slice(0, 3)
-    traSua = traSua.slice(0, 3)
-    daXay = daXay.slice(0, 3)
-    drinks = drinks.slice(0, 3)
-    doUongNhanh = doUongNhanh.slice(0, 3)
+    productNew = productNew.slice(0, 3);
+    caPhe = caPhe.slice(0, 3);
+    traSua = traSua.slice(0, 3);
+    daXay = daXay.slice(0, 3);
+    drinks = drinks.slice(0, 3);
+    doUongNhanh = doUongNhanh.slice(0, 3);
 
-    let user = false
+    let user = false;
     if (req.user != undefined) {
-        user = req.user
+        user = req.user;
     }
-    console.log(req.user)
-    console.log(user)
+    console.log(req.user);
+    console.log(user);
     res.status(StatusCodes.OK).render('index', {
         user: user,
         productNew: productNew,
@@ -34,85 +40,93 @@ const getHomepage = async(req, res) => {
         doUongNhanh: doUongNhanh,
         drinks,
         drinks,
-        status: ''
-    })
-}
+        status: '',
+    });
+};
 
-const getDiscount = async(req, res) => {
-    const discount = await Discount.find({})
-    discount.forEach(discount => {
+const getDiscount = async (req, res) => {
+    const discount = await Discount.find({});
+    discount.forEach((discount) => {
         if (discount.endTime < Date.now()) {
-            discount.remove()
+            discount.remove();
         }
-    })
-    var user
+    });
+    var user;
 
     if (req.user === undefined) {
-        user = 0
+        user = 0;
     } else {
-        user = req.user
+        user = req.user;
     }
 
-    res.status(StatusCodes.OK).render('tracuu', { discount: discount, user: user, error: '' })
-}
+    res.status(StatusCodes.OK).render('tracuu', {
+        discount: discount,
+        user: user,
+        error: '',
+    });
+};
 
-const getStories = async(req, res) => {
-    const stories = await Story.find({}).populate({ path: 'user', model: User, select: 'name' })
-    stories.reverse()
-    const page = req.query.page || 1
+const getStories = async (req, res) => {
+    const stories = await Story.find({}).populate({
+        path: 'user',
+        model: User,
+        select: 'name',
+    });
+    stories.reverse();
+    const page = req.query.page || 1;
 
-    var user
+    var user;
 
     if (req.user === undefined) {
-        user = 0
+        user = 0;
     } else {
-        user = req.user
+        user = req.user;
     }
-    console.log(user)
+    console.log(user);
 
     res.status(StatusCodes.OK).render('stories', {
         stories: stories.slice((page - 1) * 6, page * 6),
         page: parseInt(page),
         totalPage: Math.ceil(stories.length / 6),
-        user: user
-    })
-}
+        user: user,
+    });
+};
 
-const getSingleStory = async(req, res) => {
+const getSingleStory = async (req, res) => {
     const { id: storyId } = req.params;
-    var user
-        // const story = await Story.findOne({ _id: storyId }).populate('reviews');
-    const story = await Story.findOne({ _id: storyId })
+    var user;
+    // const story = await Story.findOne({ _id: storyId }).populate('reviews');
+    const story = await Story.findOne({ _id: storyId });
 
     if (!story) {
         throw new NotFoundError(`No story with id : ${storyId}`);
     }
 
     if (req.user === undefined) {
-        user = 0
+        user = 0;
     } else {
-        user = req.user
+        user = req.user;
     }
-    console.log(user)
+    console.log(user);
 
     res.status(StatusCodes.OK).render('story', {
         story: story,
-        user: user
-    })
+        user: user,
+    });
 };
 
-const getNotification = async(req, res) => {
-    const user = await User.findOne({ _id: req.user.userId })
+const getNotification = async (req, res) => {
+    const user = await User.findOne({ _id: req.user.userId });
 
     user.notification.reverse();
 
-    res.render('notification', { noti: user.notification, user: req.user })
-}
+    res.render('notification', { noti: user.notification, user: req.user });
+};
 
 module.exports = {
     getHomepage,
     getDiscount,
     getStories,
     getNotification,
-    getSingleStory
-}
+    getSingleStory,
+};

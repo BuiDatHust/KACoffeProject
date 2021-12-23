@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
-
-const user = new mongoose.Schema({
-    name: {type: String, required: true, maxLength: 100,},
-    phone: {type: String, required: true},
-    password: {type: String, required: true, minLength: 8},
-    score: { 
-        type: Number ,
-        default: 0
-     },
-     rank:{ type:String,default:"thường" },
-    email: {type:String, required: true},
-    role: {type: String, required: true},
-    discount: [ { type: String, ref:'Discount' , required:false } ],
-    notification: [ { type: String, ref: 'User' ,required: false, default:"" } ]
-},{
-    timestamps: true
-})
+const user = new mongoose.Schema(
+    {
+        name: { type: String, required: true, maxLength: 100 },
+        phone: { type: String, required: true },
+        password: { type: String, required: true, minLength: 8 },
+        score: {
+            type: Number,
+            default: 0,
+        },
+        rank: { type: String, default: 'thường' },
+        email: { type: String, required: true },
+        role: { type: String, required: true },
+        discount: [{ type: String, ref: 'Discount', required: false }],
+        notification: [
+            { type: String, ref: 'User', required: false, default: '' },
+        ],
+    },
+    {
+        timestamps: true,
+    }
+);
 
 user.pre('save', async function () {
     // console.log(this.modifiedPaths());
@@ -25,7 +29,7 @@ user.pre('save', async function () {
     if (!this.isModified('password')) return;
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-  });
+});
 
 user.methods.comparePassword = async function (canditatePassword) {
     const isMatch = await bcrypt.compare(canditatePassword, this.password);

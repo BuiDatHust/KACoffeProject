@@ -1,17 +1,17 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const {
     authenticateUser,
-    authorizePermission
-} = require('../middleware/authentication')
+    authorizePermission,
+} = require('../middleware/authentication');
 const {
-    createProduct , 
+    createProduct,
     getAllProducts,
-    getSingleProduct ,
+    getSingleProduct,
     uploadImage,
     updateProduct,
     deleteProduct,
-} =    require('../controllers/productController')
+} = require('../controllers/productController');
 
 // router
 //   .route('/:id')
@@ -20,15 +20,12 @@ const {
 //   .delete([authenticateUser, authorizePermission('admin')], deleteProduct);
 
 router
-  .route('/')
-  // .post([authenticateUser, authorizePermission('admin')], createProduct)
-  .get(getAllProducts);
-
+    .route('/')
+    // .post([authenticateUser, authorizePermission('admin')], createProduct)
+    .get(getAllProducts);
 
 // router
 //   .route('/uploadImage')
 //   .post([authenticateUser, authorizePermission('admin')], uploadImage);
 
-
-
-module.exports = router 
+module.exports = router;
