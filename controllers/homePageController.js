@@ -18,7 +18,6 @@ const getHomepage = async (req,res) =>{
     daXay = daXay.slice(0, 3)
     drinks = drinks.slice(0, 3)
     doUongNhanh = doUongNhanh.slice(0, 3)
-    console.log(caPhe, traSua, daXay, drinks);
 
     var user
 
