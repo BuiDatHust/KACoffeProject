@@ -1,102 +1,120 @@
 <%- include('_layouts/header'); -%>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_4.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Tin tức</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffee/v1/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Tin tức <i class="ion-ios-arrow-forward"></i></span></p>
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_4.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Tin tức</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffee/v1/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Tin tức <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            <% for(var story of stories) {%>
-                <div class="col-md-4 ftco-animate">
-                    <div class="blog-entry">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('<%= story.image %>');">
-                        </a>
-                        <div class="text px-4 pt-3 pb-4">
-                            <div class="meta">
-                                <div><a href="#"><%= story.updatedAt.toString().slice(0, 15) %></a></div>
-                                <div><a href="#"><%= story.user.name %></a></div>
-                            </div>
-                            <h3 class="heading"><%= story.title %></h3>
-                            <p class="clearfix">
-                                <a href="#" data-title="<%= story.title %>" data-description="<%= story.description %>" data-toggle="modal" data-target="#description-modal">
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                <% for(var story of stories) {%>
+                    <div class="col-md-4 ftco-animate">
+                        <div class="blog-entry">
+                            <a href="/KACoffe/v1/stories/<%= story._id %>" class="block-20" style="background-image: url('<%= story.image %>');">
+                            </a>
+                            <div class="text px-4 pt-3 pb-4">
+                                <div class="meta">
+                                    <div>
+                                        <a href="#">
+                                            <%= story.updatedAt.toString().slice(0, 15) %>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="#">
+                                            <%= story.user.name %>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h3 class="heading">
+                                    <%= story.title %>
+                                </h3>
+                                <p class="clearfix">
+                                    <a href="#" data-title="<%= story.title %>" data-description="<%= story.description %>" data-toggle="modal" data-target="#description-modal">
                                     Read More
                                 </a>
-                            </p>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+            <% if(totalPage > 1) { %>
+                <div class="row no-gutters my-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <% if(page != 1) { %>
+                                    <li><a href="?page=<%= page - 1 %>">&lt;</a></li>
+                                    <% } %>
+                                        <% for(var i = 1; i <= totalPage; i++) { %>
+                                            <% if(i == page) { %>
+                                                <li class="active">
+                                                    <a href="?page=<%= i %>">
+                                                        <%= i %>
+                                                    </a>
+                                                </li>
+                                                <% } else{ %>
+                                                    <li>
+                                                        <a href="?page=<%= i %>">
+                                                            <%= i %>
+                                                        </a>
+                                                    </li>
+                                                    <% } %>
+                                                        <% } %>
+                                                            <% if(page != totalPage) { %>
+                                                                <li><a href="?page=<%= page + 1 %>">&gt;</a></li>
+                                                                <% } %>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            <% } %>
+                <% } %>
         </div>
-        <% if(totalPage > 1) { %>
-            <div class="row no-gutters my-5">
-                <div class="col text-center">
-                    <div class="block-27">
-                    <ul>
-                        <% if(page != 1) { %>
-                            <li><a href="?page=<%= page - 1 %>">&lt;</a></li>
-                        <% } %>
-                        <% for(var i = 1; i <= totalPage; i++) { %>
-                            <% if(i == page) { %>
-                                <li class="active"><a href="?page=<%= i %>"><%= i %></a></li>
-                            <% } else{ %> 
-                                <li><a href="?page=<%= i %>"><%= i %></a></li>
-                            <% } %>
-                        <% } %>
-                        <% if(page != totalPage) { %>
-                            <li><a href="?page=<%= page + 1 %>">&gt;</a></li>
-                        <% } %>
-                    </ul>
+    </section>
+
+    <%- include('_layouts/footer'); -%>
+
+        <div class="modal fade d-none" id="description-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-        <% } %>
-    </div>
-</section>
-
-<%- include('_layouts/footer'); -%>
-
-<div class="modal fade d-none" id="description-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
         </div>
-    </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        var title, description
-        var modal = document.querySelector('.modal')
-        var modalBody = document.querySelector('.modal-body')
-        var modalTitle = document.querySelector('.modal-title')
-        console.log(modalTitle);
-        $('#description-modal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            title = button.data('title')
-            description = button.data('description')
-            modal.classList.remove('d-none')
-            modalTitle.innerHTML = `<b>${title}</b>`
-            modalBody.innerText = description
-        }); 
-    })
-</script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                var title, description
+                var modal = document.querySelector('.modal')
+                var modalBody = document.querySelector('.modal-body')
+                var modalTitle = document.querySelector('.modal-title')
+                console.log(modalTitle);
+                $('#description-modal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    title = button.data('title')
+                    description = button.data('description')
+                    modal.classList.remove('d-none')
+                    modalTitle.innerHTML = `<b>${title}</b>`
+                    modalBody.innerText = description
+                });
+            })
+        </script>

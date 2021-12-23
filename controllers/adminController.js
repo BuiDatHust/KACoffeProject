@@ -6,15 +6,15 @@ const Story = require("../models/Story");
 const User = require("../models/User");
 var ObjectId = require('mongodb').ObjectID;
 
-const createProductPage = async (req, res) => {
+const createProductPage = async(req, res) => {
     res.render('addProduct', { user: req.user })
 }
 
-const createDiscountPage = async (req, res) => {
+const createDiscountPage = async(req, res) => {
     res.render('addDiscount', { user: req.user, discount: 0, warning: undefined })
 }
 
-const createDiscount = async (req, res) => {
+const createDiscount = async(req, res) => {
     const newDiscount = req.body
     if (newDiscount.startTime >= newDiscount.endTime) {
         res.render('addDiscount', { user: req.user, discount: newDiscount, warning: "Thời gian không hợp lệ!" })
@@ -29,13 +29,13 @@ const createDiscount = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/discount')
 }
 
-const updateDiscountPage = async (req, res) => {
+const updateDiscountPage = async(req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
     res.render('updateDiscount', { user: req.user, discount: discount })
 }
 
-const updateDiscount = async (req, res) => {
+const updateDiscount = async(req, res) => {
     const { id: discountId } = req.params
     var update = req.body;
     var updateForm = {};
@@ -55,7 +55,7 @@ const updateDiscount = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/discount')
 }
 
-const deleteDiscount = async (req, res) => {
+const deleteDiscount = async(req, res) => {
     const { id: discountId } = req.params
     const discount = await Discount.findOne({ _id: discountId });
 
@@ -66,7 +66,7 @@ const deleteDiscount = async (req, res) => {
     await discount.remove();
     res.redirect('/KACoffe/v1/admin/discount');
 }
-const updateRoleUserAsAdmin = async (req, res) => {
+const updateRoleUserAsAdmin = async(req, res) => {
     const { id: userId } = req.params
     const user = await User.findOne({ _id: userId });
     const update1 = user
@@ -79,25 +79,30 @@ const updateRoleUserAsAdmin = async (req, res) => {
     })
     res.redirect('/KACoffe/v1/admin/user');
 }
-const createStoryPage = async (req, res) => {
+const createStoryPage = async(req, res) => {
     res.render('addStories', { user: req.user })
 }
 
-const getUpdateStoryPage = async (req, res) => {
+const getUpdateStoryPage = async(req, res) => {
     res.render('updateStories', { user: req.user })
 }
 
-const createStory = async (req, res) => {
+const createStory = async(req, res) => {
     req.body.user = req.user.userId
     console.log(req.files)
-    const length = req.files.destination.length
-    req.body.image = req.files.destination.slice(8, length) + '/' + req.files.filename;
-
+        // const length = req.files.destination.length
+        // req.body.image = req.files.destination.slice(8, length) + '/' + req.files.filename;
+        // console.log(req.files)
+        // req.files.forEach(function(img) {
+        //         const length = img.destination.length
+        //         req.body.Image = [...req.body.Image, img.destination.slice(8, length) + '/' + img.filename]
+        //     })
+        // req.body.image = "/images/bg_5.jpg"
     const story = await Story.create(req.body)
     res.redirect('/KACoffe/v1/admin/stories')
 }
 
-const updateStory = async (req, res) => {
+const updateStory = async(req, res) => {
     const { id: storyId } = req.params
     const { title, description, detaildescription } = req.body
 
@@ -105,7 +110,7 @@ const updateStory = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/stories')
 }
 
-const deleteStory = async (req, res) => {
+const deleteStory = async(req, res) => {
     const story = await Story.findByIdAndDelete(req.params.id)
     console.log(story)
     res.redirect('/KACoffe/v1/admin/stories')
@@ -121,7 +126,7 @@ const getAdminPage = async(req, res) => {
         .sort({ _id: -1 })
         .skip(perPage * page - perPage)
         .limit(perPage)
-    
+
     res.render('admin/products', {
         user: req.user,
         products: products,
@@ -130,7 +135,7 @@ const getAdminPage = async(req, res) => {
     })
 }
 
-const getAdminDiscountPage = async (req, res) => {
+const getAdminDiscountPage = async(req, res) => {
     const discounts = await Discount.find({}).sort({ _id: -1 })
 
     res.render('admin/discount', {
@@ -139,8 +144,8 @@ const getAdminDiscountPage = async (req, res) => {
     })
 }
 
-const getAdminUserPage = async (req, res) => {
-    const users = await User.find({}).sort({ score: -1})
+const getAdminUserPage = async(req, res) => {
+    const users = await User.find({}).sort({ score: -1 })
 
     res.render('admin/user', {
         user: req.user,
@@ -151,17 +156,17 @@ const getAdminUserPage = async (req, res) => {
 const getAdminOrderPage = async(req, res) => {
     const perPage = 10
     const page = req.query.page || 1
-    const count = await Order.count({status : {$ne : 'tìm shipper'}})   
+    const count = await Order.count({ status: { $ne: 'tìm shipper' } })
     const pages = Math.ceil(count / perPage)
 
     console.log(count);
 
-    const orders = await Order.find({status : {$ne : 'tìm shipper'}})
+    const orders = await Order.find({ status: { $ne: 'tìm shipper' } })
         .sort({ _id: -1 })
         .skip((perPage * page) - perPage)
         .limit(perPage)
 
-    res.render('admin/order', { 
+    res.render('admin/order', {
         user: req.user,
         orders: orders,
         page: page,
@@ -178,9 +183,9 @@ const getAdminStoriesPage = async(req, res) => {
     })
 }
 
-const getAdminStatisticPage = async (req, res) => {
+const getAdminStatisticPage = async(req, res) => {
     const users = await User.find({})
-    const orders = await Order.find({ status : {$ne : 'tìm shipper'} })
+    const orders = await Order.find({ status: { $ne: 'tìm shipper' } })
         .sort({ _id: -1 })
         .populate({
             path: 'orderItems',
@@ -211,15 +216,13 @@ const getAdminStatisticPage = async (req, res) => {
 
     // Thống kê
     orders.forEach(function(e) {
-        console.log(e.createdAt.getMonth());
         if (e.createdAt.getMonth() == (monthNow - 1)) {
             avenue += e.subtotal;
             sumorder += 1;
             if (e.user == undefined) {
                 newcustomer += 1
             }
-        }
-        else if (e.createAt.getMonth() == (monthNow - 2)) {
+        } else if (e.createAt.getMonth() == (monthNow - 2)) {
             oldAvenue += e.subtotal;
             oldSumOrder += 1;
             if (e.user == undefined) {
@@ -230,8 +233,7 @@ const getAdminStatisticPage = async (req, res) => {
     users.forEach(function(e) {
         if (e.createdAt.getMonth() == (monthNow - 1)) {
             newcustomer += 1
-        }
-        else if (e.createdAt.getMonth() == (monthNow - 2)) {
+        } else if (e.createdAt.getMonth() == (monthNow - 2)) {
             oldCustomer += 1
         }
     })
