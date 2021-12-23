@@ -125,15 +125,16 @@ const buyNotLogin = async (req,res) =>{
   
   var { phone,name,amount,address,nameproduct,email,size } = req.body
   var subtotal=0, total =0
-  console.log(req.body)
 
-  const product = await Product.findOne({ name: nameproduct })
+  let product = await Product.findOne({name: nameproduct})
+ 
   console.log(product)
   orderItems = [{
   name: name,
   price: product.price,
   amount: amount,
-  size:size
+  size:size,
+  product:product._id
   }]
   total =product.price* amount
   subtotal=total+ 20000
@@ -249,6 +250,7 @@ const getCurrentUserOrders = async (req, res) => {
     orders = orders.filter((e) => {
       return e.status!="tìm shipper"
     } );
+    
 
     res.status(StatusCodes.OK).render('order', { orders:orders,userid: user._id });
 };
@@ -328,7 +330,8 @@ const deleteOrder = async(req,res) =>{
     let user = await User.findOne({ _id: order.user })
     
     let noti = user.notification
-    noti = [...noti , `Bạn đã hủy đơn hàng mã #${orderid} thành công`]
+    let fakeid= orderid.slice(18,24)
+    noti = [...noti , `Bạn đã hủy đơn hàng mã #${fakeid} thành công`]
     await User.findByIdAndUpdate({ _id: order.user }, { notification: noti })
 
     await Order.findOneAndDelete({ _id: orderid })
