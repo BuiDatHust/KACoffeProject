@@ -38,11 +38,8 @@
             </br>
             <tr style="margin-top: 10px;" >
                 <td colspan="3" >
-                    Address : <input type="text" name="address" required>
+                    Address : <input id="address-input" type="text" name="address">
                     <br>
-                    <% if(warning) { %>
-                        <div class="alert alert-danger p-1 mt-2"><%= warning %></div>
-                    <% } %>
                 </td>
             </tr>
 
@@ -58,15 +55,14 @@
                     </select>
                 </td>
             </tr>
-              
-            <tr class="cart-bottom">
-                <td colspan="6">
-                    <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
-                    <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
-                    <input type="submit" id="dathang" value="Đặt hàng" >
-                </td>
-            </tr>
         </form>
+        <tr class="cart-bottom">
+            <td colspan="6">
+                <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
+                <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= subtotal %>đ</span></span>
+                <button class="btn1" type="submit" id="buy">Đặt hàng</button>
+            </td>
+        </tr>
         <%  }else{ %>   
         <form action="/KACoffe/v1/order/buyByAdmin" id="formsubmit1" method="POST">
         </br>
@@ -74,7 +70,7 @@
         <tr style="margin-top: 250px;" >
             
             <td colspan="3" id="wrapform" >
-                Email : <input type="email" name="email" required>
+                Email : <input type="email" id="email-input" name="email" required>
             </td>
             
         </tr>
@@ -97,12 +93,6 @@
             <td colspan="3" id="wrapform" >
                 Email của KH : <input type="text" name="email">
                 <button class="btn1 mt-2" type="submit" id="kiemtra">Kiểm tra KH</button>
-                <% if (warning) { %>
-                    <div class="alert alert-danger mt-2 p-1"><%= warning %></div>
-                <% } %>
-                <% if (noti) { %>
-                    <div class="alert alert-primary mt-2 p-1"><%= noti %></div>
-                <% } %>
             </td>
             </form>
         </tr>
@@ -122,25 +112,49 @@
 </div>
 
 <script>
-    
+    const addressInput = document.getElementById('address-input')
+    const emailInput = document.getElementById('email-input')
     const dathang1 = document.getElementById('dathang1')
-    const dathang = document.getElementById('dathang')
+    const dathang = document.getElementById('buy')
     const formsubmit = document.getElementById('formsubmit')
     const formsubmit1 = document.getElementById('formsubmit1')
 
-    dathang1.addEventListener('click', async function(e){
-        e.preventDefault()
-        
-        await swal("Đặt hàng thành công!", "Click để tiếp tục", "success")
-        formsubmit1.submit();
+    document.addEventListener('DOMContentLoaded', async function() {
+        if ('<%= noti %>') {
+            await swal("<%= noti %>", "Click để tiếp tục", "success")
+        }
+        if ('<%= warning %>') {
+            await swal("<%= warning %>", "Click để tiếp tục", "warning")
+        }
     })
 
-    dathang.addEventListener('click', async function(e){
-        e.preventDefault()
-        
-        await swal("Đặt hàng thành công!", "Click để tiếp tục", "success")
-        formsubmit.submit();
-    })
+    if (dathang1) {
+        dathang1.addEventListener('click', async function(e){
+            if (emailInput.value == '') {
+                e.preventDefault()
+                await swal("Chưa có email khách hàng!", "Click để tiếp tục", "warning")
+            } else {
+                await swal("Đang thực hiện mua hàng!", "Click để tiếp tục", "success")
+                formsubmit1.submit();
+            }
+        })
+    }
+
+    if (dathang) {
+        dathang.addEventListener('click', async function(e){
+            
+            if (addressInput.value == '') {
+                e.preventDefault()
+                await swal("Chưa có địa chỉ mua hàng!", "Click để tiếp tục", "warning")
+            } else {
+                await swal("Đang thực hiện đặt hàng!", "Click để tiếp tục", "success")
+                .then(() => {
+                    formsubmit.submit();
+                })
+            } 
+        })
+    }
+    
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

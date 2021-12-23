@@ -186,7 +186,8 @@ const buy = async (req,res) =>{
       subtotal: thisorder ? thisorder.subtotal : 0, 
       user:user, 
       discount: user.discount, 
-      warning: 'Bạn chưa nhập địa chỉ!' 
+      warning: 'Bạn chưa nhập địa chỉ!',
+      noti: undefined
     })
     return
   }
@@ -196,7 +197,8 @@ const buy = async (req,res) =>{
       subtotal: 0, 
       user:user, 
       discount: user.discount, 
-      warning: undefined
+      warning: 'Giỏ hàng trống!',
+      noti: undefined
     })
   }
   if( discount){
@@ -235,8 +237,14 @@ const buy = async (req,res) =>{
         subtotal: total+10000,
         total: total
       })
-  // res.render('index', {order:order, user:user})
-      res.redirect('/KaCoffe/v1/order/cart')
+  res.render('cart', {
+        orders: [], 
+        subtotal: 0, 
+        user: req.user,
+        discount: [], 
+        warning: undefined,
+        noti: 'Đặt hàng thành công!' 
+      })
 }
 
 const getAllOrders = async (req, res) => {
@@ -402,8 +410,9 @@ const checkAccount = async (req,res) =>{
   } );
 
   if( !user1){
-    res.render('cart', { orders: orders[0].orderItems,
-      subtotal: orders[0].subtotal ,
+    res.render('cart', { 
+      orders: orders[0] ? orders[0].orderItems : [],
+      subtotal: orders[0] ? orders[0].subtotal : 0 ,
       user:user,
       discount: [], 
       warning: 'Email không tồn tại!', 
@@ -422,7 +431,7 @@ const checkAccount = async (req,res) =>{
       noti: 'Người dùng khả dụng!' })
   }else{
     console.log("scscsc")
-    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[] });
+    res.render('cart', { orders: [], subtotal: 0, user:user, discount:[], noti: 'Người dùng khả dụng!', warning: undefined });
   }
   // res.redirect('/KACoffe/v1/order/cart')
 }
@@ -437,6 +446,18 @@ const buyByAdmin =async (req,res) =>{
   const len= orders.length-1
   const thisorder = orders[len]
   var total = thisorder.total
+
+  if(thisorder.status != 'tìm shipper') {
+    res.render('cart', {
+      orders: [], 
+      subtotal: 0, 
+      user: req.user,
+      discount: [], 
+      warning: 'Giỏ hàng trống!',
+      noti: undefined 
+    })
+    return
+  }
 
   if (!user) {
     res.render('cart', {
@@ -484,13 +505,19 @@ const buyByAdmin =async (req,res) =>{
         user: user._id,
         phone: user.phone,
         address: req.body.address ,
-        status: "shipper đang lấy hàng",
+        status: "giao thành công",
         subtotal: total+10000,
         total: total
       })
   
-  // res.render('index', {order:order, user:user})
-      res.redirect('/KaCoffe/v1/order/cart')
+  res.render('cart', {
+    orders: [], 
+    subtotal: 0, 
+    user: req.user,
+    discount: [], 
+    warning: undefined,
+    noti: 'Đặt hàng thành công!' 
+  })
 }
 
 

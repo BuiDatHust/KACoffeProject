@@ -140,153 +140,75 @@
         <div class="container">
             <div class="row justify-content-center mb-5 pb-2">
                 <div class="col-md-7 text-center heading-section ftco-animate">
-                    <span class="subheading">Nổi bật</span>
+                    <span class="subheading">Mới</span>
                     <h2 class="mb-4">Sản phẩm</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
-                        <h3>Lựa chọn nhiều</h3>
+                        <h3>Sản phẩm mới nhất</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/white-coffee.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Cà phê sữa đá</h3>
+                    <% productNew.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">32.000</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>Cà phê phin</span>, <span>Sữa đặc</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/cookies.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Chocolate Đá Xay</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">59.000</span>
-                                </div>
-                            </div>
-                            <p><span>Sữa</span>, <span>Kem tươi</span>, <span>Sô-cô-la</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/pink-latte-macchiato-tea.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Hồng Trà Latte Macchiato</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">55.000</span>
-                                </div>
-                            </div>
-                            <p><span>Hồng trà</span>, <span>Sữa tươi</span>, <span>Macchiato</span></p>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Cà phê</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/hot-americano-coffe.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Americano Nóng</h3>
+                    <% caPhe.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">40.000</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>hạt Arabica</span>, <span>hạt Robusta</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/cold-brew-milk-coffe.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Cold Brew Sữa Tươi</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">45.000</span>
-                                </div>
-                            </div>
-                            <p><span>Cà phê tự nhiên</span>, <span>Sữa tươi</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/cold-grinding-ice-coffe.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Cà Phê Đá Xay-Lạnh</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">59.000</span>
-                                </div>
-                            </div>
-                            <p><span>Cà phê phin</span>, <span>Sữa đặc</span>, <span>Kem tươi</span></p>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Trà trái cây-Trà sữa</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/pink-milk-pearl-tea.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Hồng Trà Sữa Trân Châu</h3>
+                    <% traSua.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">55.000</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>Hồng trà</span>, <span>Sữa tươi</span>, <span>Trân châu</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/foamcheese.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Trà Hạt Sen - Đá</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">45.000</span>
-                                </div>
-                            </div>
-                            <p><span>Trà Oolong</span>, <span>Hạt sen</span>, <span>foam cheese</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/black-Macchiato-tea.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Trà Đen Macchiato</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">39.000</span>
-                                </div>
-                            </div>
-                            <p><span>Trà đen</span>, <span>Macchiato</span></p>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
                 <!--  -->
@@ -294,145 +216,67 @@
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Đá xay-Choco-Matcha</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/matcha.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Matcha Đá Xay</h3>
+                    <% daXay.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">59.000</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>Matcha</span>, <span>Kem</span>, <span>Sữa</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/Yogurt.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Yogurt Dưa Lưới phát tài</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">59.000</span>
-                                </div>
-                            </div>
-                            <p><span>yogurt</span>, <span>Dưa lưới</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/orange.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Phúc Bồn Tử Cam Đá Xay</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">59.000</span>
-                                </div>
-                            </div>
-                            <p><span>Cam tươi</span>, <span>Phúc bồn tử</span>, <span>Đá xay</span></p>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
-                        <h3>Đồ pha chế sẵn</h3>
+                        <h3>Đồ uống nhanh</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/cold-coffe-milk-bottle.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Cà Phê Sữa Đá</h3>
+                    <% doUongNhanh.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">44.000</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>Hộp 10 gói</span>, <span>10*22g</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/24-lon-cpsd_225680.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Thùng 24 Lon Cà Phê Sữa</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">336.000</span>
-                                </div>
-                            </div>
-                            <p><span>Thùng 24 lon</span> - <span>Lon 180ml</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/Peak-Flavor-coffe.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Cà Phê Peak Flavor Hương Thơm Đỉnh Cao</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">90.000</span>
-                                </div>
-                            </div>
-                            <p><span>350g</span></p>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
-                <!-- <div class="col-md-6 col-lg-4 menu-wrap">
+                <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Drinks</h3>
                     </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/drink-1.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Grilled Beef with potatoes</h3>
+                    <% drinks.forEach(product => { %>
+                        <div class="menus d-flex ftco-animate">
+                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                            <div class="text">
+                                <div class="d-flex">
+                                    <div class="one-half">
+                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
+                                    </div>
+                                    <div class="one-forth">
+                                        <span class="price"><%= product.price %></span>
+                                    </div>
                                 </div>
-                                <div class="one-forth">
-                                    <span class="price">$29</span>
-                                </div>
+                                <p><%= product.material %></p>
                             </div>
-                            <p><span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span></p>
                         </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/drink-2.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Grilled Crab with Onion</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">$29</span>
-                                </div>
-                            </div>
-                            <p><span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span></p>
-                        </div>
-                    </div>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url(/images/drink-3.jpg);"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3>Grilled Crab with Onion</h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price">$29</span>
-                                </div>
-                            </div>
-                            <p><span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span></p>
-                        </div>
-                    </div>
-                </div> -->
+                    <% }) %>
+                </div>
             </div>
         </div>
 
