@@ -1,21 +1,4 @@
 <%- include('_layouts/header'); -%>
-    <% if(status){   %>
-        <% if(status=='Không tìm thấy sản phẩm này'){   %>
-            <div style="z-index: 12; display: block;width: 500px;" class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> <%= status %>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <% }else{  %>
-            <div style="z-index: 12; display: block;width: 500px;" class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> <%= status %>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <% } %>
-    <% }  %>
     <section class="home-slider js-fullheight owl-carousel bg-white">
         <div class="slider-item js-fullheight">
             <div class="overlay"></div>
@@ -452,11 +435,18 @@
     </section>
 
     <%- include('_layouts/footer'); -%>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                var header = document.getElementById('ftco-navbar')
-                header.classList.remove('ftco-navbar-light-2')
-                header.classList.add('ftco-navbar-light')
-            })
-        </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if('<%= status %>') {
+                if ('<%= status %>' == 'Không tìm thấy sản phẩm này') {
+                    await swal("<%= status %>", "Click để tiếp tục", "warning")
+                } else {
+                    await swal("Đặt hàng thành công!", "Vui lòng kiểm tra email, hãy liên hệ với chúng tôi sớm nhất nếu không nhận được email!", "success")
+                }
+            }
+            var header = document.getElementById('ftco-navbar')
+            header.classList.remove('ftco-navbar-light-2')
+            header.classList.add('ftco-navbar-light')
+        })
+    </script>

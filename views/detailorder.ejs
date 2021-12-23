@@ -18,7 +18,7 @@
                         <td><input type="checkbox" checked="checked" class="cart-check" /></td>
                         <td class="cart-txt-left">
                             <img src="<%= product.Image %>" alt="" class="cart-txt-left-img">
-                            <a href="white-coffee.html" class="cart-name">
+                            <a href="/KACoffe/v1/menu/<%= product.product %>" class="cart-name">
                                 <%= product.name  %>
                             </a>
                         </td>
@@ -41,6 +41,9 @@
             </li>
             <li>Tổng tiền:
                 <%= subtotal  %>
+            </li>
+            <li>Số điện thoại khách hàng: 
+                <%= email  %>
             </li>
             <a id="back" class="cart-bottom-btn">Quay lại</a>
 
