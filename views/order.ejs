@@ -34,12 +34,18 @@
     </div>
 </div>
 
-<script  >
+<script>
     
+    document.addEventListener("DOMContentLoaded", async () => {
+        if ('<%= warning %>') {
+            await swal("Thông báo!","<%= warning %>","warning")
+        }
+    })
+
     async function HuyDon(orderid){
         const formsubmit = document.getElementById(`formsubmit${orderid}`)  
-       await swal("Thành công","Bản đã yêu cầu hủy đơn hàng","success")
-       formsubmit.submit()
+        await swal("Đang xử lý!","Bản đã gửi yêu cầu hủy đơn hàng","success")
+        formsubmit.submit()
     };
 
     function XemDon(orderid){

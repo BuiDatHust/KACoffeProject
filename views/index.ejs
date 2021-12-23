@@ -11,7 +11,9 @@
                         <div class="introduce">
                             <h1 class="text-intro-heading" style="color: #ffffff;">Đồ uống an toàn <br> và thanh khiết</h1>
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee </p>
+                            <% if( !user ){ %>
                             <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                            <% }  %>
                         </div>
                     </div>
                 </div>
@@ -29,7 +31,9 @@
                         <div class="introduce">
                             <h1 class="text-intro-heading" style="color: #ffffff;">Giá cả <br> phù hợp</h1>
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee</p>
+                            <% if( !user ){ %>
                             <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                            <% }  %>
                         </div>
                     </div>
                 </div>
@@ -352,88 +356,89 @@
         </div>
     </section>
 
-
-    <section class="ftco-section ftco-no-pt ftco-no-pb">
-        <div class="container">
-            <div class="row d-flex">
-                <div class="col-md-5 ftco-animate img img-2" style="background-image: url(/images/bg_7.jpg);"></div>
-                <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                    <div class="heading-section ftco-animate mb-5" id="order_now">
-                        <span class="subheading"></span>
-                        <h2 class="mb-4">Thưởng thức tại nhà</h2>
-                    </div>
-                    <form action="/KACoffe/v1/order/orderNotLogin" method="POST">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Họ tên</label>
-                                    <input type="text" name="name" class="form-control" placeholder="Họ tên">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Số điện thoại</label>
-                                    <input name="phone" type="number" class="form-control" placeholder="Nhập số">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Điạ chỉ</label>
-                                    <input name="address" type="text" class="form-control" placeholder="Địa chỉ">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Ghi chú</label>
-                                    <input name="note" type="text" class="form-control" placeholder="Lưu ý cho quán">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input  name="email" type="email" class="form-control" placeholder="VD: abc@gmail.com">
-                                        
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Tên sản phẩm</label>
-                                    <input name="nameproduct" type="text" class="form-control" placeholder="Tên đồ uống">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Số lượng</label>
-                                    <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                                    <input type="number" id="quantity_61968f808d09d" min="1" max="10000" class="form-control" name="amount" placeholder="Số lượng nhỏ nhất là 1">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" >
-                                <div class="form-group" style="margin-top: 55px;">
-                                    <label for="">Size</label>
-                                    <select name="size" >
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <div class="form-group">
-                                    <input type="submit" value="Đặt ngay" class="btn btn-primary py-3 px-5">
-                                </div>
-                            </div>
+    <% if( !user ) { %>
+        <section class="ftco-section ftco-no-pt ftco-no-pb">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-md-5 ftco-animate img img-2" style="background-image: url(/images/bg_7.jpg);"></div>
+                    <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
+                        <div class="heading-section ftco-animate mb-5" id="order_now">
+                            <span class="subheading"></span>
+                            <h2 class="mb-4">Thưởng thức tại nhà</h2>
                         </div>
-                    </form>
+                        <form action="/KACoffe/v1/order/orderNotLogin" method="POST">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Họ tên</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Họ tên">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Số điện thoại</label>
+                                        <input name="phone" type="number" class="form-control" placeholder="Nhập số">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Điạ chỉ</label>
+                                        <input name="address" type="text" class="form-control" placeholder="Địa chỉ">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Ghi chú</label>
+                                        <input name="note" type="text" class="form-control" placeholder="Lưu ý cho quán">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input  name="email" type="email" class="form-control" placeholder="VD: abc@gmail.com">
+                                            
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Tên sản phẩm</label>
+                                        <input name="nameproduct" type="text" class="form-control" placeholder="Tên đồ uống">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Số lượng</label>
+                                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                        <input type="number" id="quantity_61968f808d09d" min="1" max="10000" class="form-control" name="amount" placeholder="Số lượng nhỏ nhất là 1">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-6" >
+                                    <div class="form-group" style="margin-top: 55px;">
+                                        <label for="">Size</label>
+                                        <select name="size" >
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-group">
+                                        <input type="submit" value="Đặt ngay" class="btn btn-primary py-3 px-5">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    <% } %>
+        
     <%- include('_layouts/footer'); -%>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
