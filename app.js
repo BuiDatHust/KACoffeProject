@@ -1,6 +1,5 @@
 require('dotenv').config()
 require('express-async-errors');
-var pjax = require('express-pjax');
 const path = require('path')
 
 //option pakages
@@ -47,7 +46,7 @@ app.use('/KACoffe/v1/admin', adminRouter)
 
 app.use(notFoundMiddleware)
 
-const port = 3000;
+const port = process.env.PORT||8080;
 const start = async() => {
     try {
         await connectDB(process.env.MONGO_URI)

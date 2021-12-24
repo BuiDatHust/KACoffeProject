@@ -6,7 +6,8 @@
     "scripts": {
         "beautiful": "prettier --single-quote --tab-width 4 --write package.json controllers/**/*.js middleware/**/*.js routes/**/*.js errors/**/*.js models/**/*.js db/**/*.js utils/**/*.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon app.js"
+        "start": "nodemon app.js",
+        "build": "webpack"
     },
     "repository": {
         "type": "git",
@@ -38,7 +39,10 @@
         "path": "^0.12.7",
         "prettier": "^2.5.1",
         "randomstring": "^1.2.1",
-        "sweetalert2": "^11.3.0"
+        "sweetalert2": "^11.3.0",
+        "webpack": "^5.65.0"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "webpack-cli": "^4.9.1"
+    }
 }
