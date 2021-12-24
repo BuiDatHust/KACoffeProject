@@ -29,8 +29,7 @@ const getHomepage = async (req, res) => {
     if (req.user != undefined) {
         user = req.user;
     }
-    console.log(req.user);
-    console.log(user);
+
     res.status(StatusCodes.OK).render('index', {
         user: user,
         productNew: productNew,
@@ -45,16 +44,16 @@ const getHomepage = async (req, res) => {
 };
 
 const getDiscount = async (req, res) => {
-    const discount = await Discount.find({});
+    const discount = await Discount.find({}).sort({ _id: -1 });
     for (var dc of discount) {
         if (dc.endTime < Date.now()) {
-            await dc.remove()
+            await dc.remove();
         }
     }
 
     const newDiscount = discount.filter((dc) => {
-        return dc.endTime > Date.now()
-    })
+        return dc.endTime > Date.now();
+    });
 
     var user;
 

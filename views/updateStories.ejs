@@ -23,21 +23,21 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Tiêu đề</label>
-                        <input type="text" id="stories-name" name="title" placeholder="">
+                        <input type="text" id="stories-name" name="title" value="<%= story.title %>">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Miêu tả ngắn</label>
-                        <input type="text" id="short-des" name="description" placeholder="">
+                        <input type="text" id="short-des" name="description" value="<%= story.description %>">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Miêu tả chi tiết</label>
-                        <textarea id="description" name="detaildescription" placeholder=""></textarea>
+                        <textarea id="description" name="detaildescription" ><%= story.detaildescription %></textarea>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
         </div>
 
         <div class="buttons1" style="margin-left: 190px;">
-            <input class="btn1" type="submit" value="Cập nhật" id="add-btn1" />
+            <button class="btn1" type="submit" id="add-btn1">Cập nhật</button>
         </div>
         </form>
         </div>

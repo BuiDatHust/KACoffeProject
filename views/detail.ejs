@@ -16,10 +16,13 @@
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="row d-flex">
-                <div class="col-md-5 ftco-animate img img-2 cart-img-img" style="background-image: url('<%= product.Image[0] %>');">
+                <div class="col-md-5 ftco-animate img img-2 cart-img-img">
+                    <img class="image-0" src="<%= product.Image[0] %>" style="width:434px; margin-bottom: 12px">
+                    <img class="image-1" src="<%= product.Image[0] %>" style="width:100px; margin-right:7px">
+                    <img class="image-2" src="<%= product.Image[1] %>" style="width:100px; margin-right:7px">
+                    <img class="image-3" src="<%= product.Image[2] %>" style="width:100px; margin-right:7px">
+                    <img class="image-4" src="<%= product.Image[3] %>" style="width:100px">
                 </div>
-
-
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
                     <form method="POST" action="/KACoffe/v1/order">
@@ -56,27 +59,21 @@
                 </div> -->
                         <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
 
-                        <div class="quantity">
+                        <div class="quantity p-3" style="border:1px solid #D5E5F5">
                             <input type="hidden" name="product" value="<%= product._id %>">
                             <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text" name="quantity">
-                            <div class="select-sizes">
-                                <p class="text1">Chọn kích cỡ: </p>
-                                <span>
-                                <select name="size" >
-                                    <option value="S" >S</option>
-                                    <option value="M" >M</option>
-                                    <option value="L" >L</option>
-                                </select>
-                            </span>
-                            </div>
-                            </br>
+                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
+                            <select name="size" >
+                                <option value="S" >S</option>
+                                <option value="M" >M</option>
+                                <option value="L" >L</option>
+                            </select>
                             <% if(user.role=="user") { %>
-                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5">
-                                <% }else{ %>
-                                    <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5">
-                                    <% } %>
-                                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
+                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
+                            <% }else{ %>
+                                <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
+                            <% } %>
+                            <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
                         </div>
 
                     </form>
@@ -87,3 +84,24 @@
     </section>
 
     <%- include('_layouts/footer') ; -%>
+
+    <script>
+        const image0 = document.querySelector('.image-0')
+        const image1 = document.querySelector('.image-1')
+        const image2 = document.querySelector('.image-2')
+        const image3 = document.querySelector('.image-3')
+        const image4 = document.querySelector('.image-4')
+
+        image1.onclick = function() {
+            image0.src = image1.src
+        }
+        image2.onclick = function() {
+            image0.src = image2.src
+        }
+        image3.onclick = function() {
+            image0.src = image3.src
+        }
+        image4.onclick = function() {
+            image0.src = image4.src
+        }
+    </script>

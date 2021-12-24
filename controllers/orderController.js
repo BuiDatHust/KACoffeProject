@@ -207,6 +207,8 @@ const buy = async (req, res) => {
     const thisorder = orders[len];
     var total = thisorder ? thisorder.total : 0;
 
+    console.log(thisorder.orderItems);
+
     if (req.body.address == '') {
         res.render('cart', {
             orders: thisorder ? thisorder.orderItems : [],
@@ -359,22 +361,25 @@ const getCurrentUserOrders = async (req, res) => {
 const getCart = async (req, res) => {
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
-    var discounts = user.discount
-    var newDc = []
+    var discounts = user.discount;
+    var newDc = [];
 
     for (let dc of discounts) {
-        const discount = await Discount.findOne({ name: dc, condition1: user.rank })
+        const discount = await Discount.findOne({
+            name: dc,
+            condition1: user.rank,
+        });
         if (discount) {
             if (discount.endTime < Date.now()) {
-                await discount.remove()
+                await discount.remove();
             } else {
-                newDc = [...newDc, dc]
+                newDc = [...newDc, dc];
             }
         }
     }
 
-    user.discount = newDc
-    await user.save()
+    user.discount = newDc;
+    await user.save();
 
     orders = orders.filter((e) => {
         return e.status == 'tìm shipper';
@@ -555,21 +560,24 @@ const getDetailOrder = async (req, res) => {
 const checkAccount = async (req, res) => {
     const email = req.body.email;
     const user1 = await User.findOne({ email: email });
-    var discounts = user1.discount
-    var newDc = []
+    var discounts = user1.discount;
+    var newDc = [];
     for (let dc of discounts) {
-        const discount = await Discount.findOne({ name: dc, condition1: user1.rank })
+        const discount = await Discount.findOne({
+            name: dc,
+            condition1: user1.rank,
+        });
         if (discount) {
             if (discount.endTime < Date.now()) {
-                await discount.remove()
+                await discount.remove();
             } else {
-                newDc = [...newDc, dc]
+                newDc = [...newDc, dc];
             }
         }
     }
 
-    user1.discount = newDc
-    await user1.save()
+    user1.discount = newDc;
+    await user1.save();
 
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
@@ -628,7 +636,7 @@ const buyByAdmin = async (req, res) => {
     const thisorder = orders[len];
     var total = thisorder.total;
 
-    if (thisorder.status != 'tìm shipper') {
+    if (thisorder.status != 'tìm shipper' || thisorder.orderItems.length == 0) {
         res.render('cart', {
             orders: [],
             total: 0,

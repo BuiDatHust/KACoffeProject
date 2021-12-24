@@ -74,7 +74,7 @@ const updateUserPassword = async (req, res) => {
 const saveDiscount = async (req, res) => {
     const { id } = req.params;
     const user = await User.findOne({ _id: req.user.userId });
-    const allDiscount = await Discount.find({})
+    const allDiscount = await Discount.find({});
     const thisDiscount = await Discount.findOne({ _id: id });
     var discount = user.discount;
 
@@ -128,7 +128,7 @@ const saveDiscount = async (req, res) => {
         user: req.user,
         error: 'Lưu mã giảm giá thành công!',
         status: 0,
-    })
+    });
 };
 
 module.exports = {

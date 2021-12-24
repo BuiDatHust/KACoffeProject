@@ -99,7 +99,10 @@ const createStoryPage = async (req, res) => {
 };
 
 const getUpdateStoryPage = async (req, res) => {
-    res.render('updateStories', { user: req.user });
+    const { id: storyId } = req.params;
+    const story = await Story.findOne({ _id: storyId });
+
+    res.render('updateStories', { user: req.user, story: story });
 };
 
 const createStory = async (req, res) => {
@@ -152,13 +155,13 @@ const getAdminDiscountPage = async (req, res) => {
 
     for (var dc of discounts) {
         if (dc.endTime < Date.now()) {
-            await dc.remove()
+            await dc.remove();
         }
     }
 
     const newDiscounts = discounts.filter((dc) => {
-        return dc.endTime > Date.now()
-    })
+        return dc.endTime > Date.now();
+    });
 
     res.render('admin/discount', {
         user: req.user,

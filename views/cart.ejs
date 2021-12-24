@@ -1,5 +1,5 @@
 <%- include('_layouts/header') ; -%>
-
+    <link rel="stylesheet" href="/css/addProduct.css">
     <div class="container">
         <button class="btn btn-primary mb-3" style="margin-top: 100px;"><a href="/KACoffe/v1/menu">Tiếp tục mua hàng</a></button>
         <div class="cart">
@@ -27,7 +27,7 @@
                             </a>
                         </td>
                         <td><span class="cart-price"><%=  order.price  %>đ</span></td>
-                        <td><span class="cart-reduce">-</span><span class="cart-num"><%= order.amount  %></span> <span class="cart-add">+</span> </td>
+                        <td><!--<span class="cart-reduce">-</span>--><span class="cart-num"><%= order.amount  %></span><!--<span class="cart-add">+</span>--></td>
                         <td><span class="cart-price"><%=  order.size  %></span></td>
                         <td><span class="cart-subtotal"> <%= order.amount*order.price %>đ</span></td>
                         <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST">
