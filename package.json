@@ -5,8 +5,8 @@
     "main": "app.js",
     "engines": {
         "node": "14.17.1",
-        "npm":"6.14.13"
-      },
+        "npm": "6.14.13"
+    },
     "scripts": {
         "beautiful": "prettier --single-quote --tab-width 4 --write package.json controllers/**/*.js middleware/**/*.js routes/**/*.js errors/**/*.js models/**/*.js db/**/*.js utils/**/*.js",
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,7 +17,6 @@
         "type": "git",
         "url": "git+https://github.com/BuiDatHust/KACoffeProject.git"
     },
-    
     "author": "",
     "license": "ISC",
     "bugs": {
