@@ -13,6 +13,9 @@
         "type": "git",
         "url": "git+https://github.com/BuiDatHust/KACoffeProject.git"
     },
+    "engines": {
+        "node": ">=12"
+    },
     "author": "",
     "license": "ISC",
     "bugs": {
