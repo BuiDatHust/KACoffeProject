@@ -36,6 +36,7 @@ const getSingleProduct = async (req, res) => {
     res.status(StatusCodes.OK).render('detail', {
         product: product,
         user: user,
+        warning: ''
     });
 };
 
