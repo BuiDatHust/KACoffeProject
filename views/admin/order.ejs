@@ -50,7 +50,7 @@
                                 <span class="subheading" style="font-size:28px;">Đơn hàng</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products">Mã số đơn</th>
                                         <th class="admin-header__price">Giá</th>
                                         <th class="admin-header__price">Số lượng</th>
@@ -59,7 +59,7 @@
                                     </tr>
                                     <% orders.forEach(function(order,index){  %>
                                         <tr class="cart-item">
-                                            <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                            <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                             <td class="cart-txt-left">
                                                 <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
                                                 <a href="/KACoffe/v1/order/detail/<%= order._id %>" class="cart-name"> #<%= order._id.toString().slice(18, 24)%> %></a></td>

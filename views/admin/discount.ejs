@@ -50,7 +50,7 @@
                                 <span class="subheading" style="font-size:28px;">Mã giảm giá</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px; margin-left: 8px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products" style="width:100px">Đối tượng sử dụng</th>
                                         <th class="admin-header__price">Tên mã</th>
                                         <th class="admin-header__time" style="width:140px">Thời gian áp dụng</th>
@@ -58,7 +58,7 @@
                                     </tr>
                                     <% discounts.forEach(function(discount){  %>
                                         <tr class="cart-item">
-                                            <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                            <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                             <td class="cart-txt-left">
                                                 <a href="/KACoffe/v1/admin/allDiscount/<%= discount._id  %>" class="cart-name">Khách hàng <%= discount.condition1  %></a></td>
                                             <td><span class="cart-price"><%= discount.name  %></span></td>
