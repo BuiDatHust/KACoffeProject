@@ -87,12 +87,11 @@ const saveDiscount = async (req, res) => {
         );
     } else {
         let today = new Date();
-
-        if (discount.includes(thisDiscount.name)) {
+        if (user.rank != thisDiscount.condition1) {
             res.render('tracuu', {
                 discount: allDiscount,
                 user: req.user,
-                error: 'Bạn đã có mã giảm giá này!',
+                error: 'Bạn không thể sử dụng mã giảm giá này!',
                 status: 1,
             });
             return;
@@ -107,11 +106,11 @@ const saveDiscount = async (req, res) => {
                 status: 1,
             });
             return;
-        } else if (user.rank != thisDiscount.condition1) {
+        } else if (discount.includes(thisDiscount.name)) {
             res.render('tracuu', {
                 discount: allDiscount,
                 user: req.user,
-                error: 'Bạn không thể sử dụng mã giảm giá này!',
+                error: 'Bạn đã có mã giảm giá này!',
                 status: 1,
             });
             return;

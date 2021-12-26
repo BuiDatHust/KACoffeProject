@@ -72,7 +72,7 @@
                                                 </form>
                                                 <form id="updateorder<%= order._id %>" method="post" action="/KACoffe/v1/admin/updateOrder/<%= order._id %>">
                                                     <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
-                                                    <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>');" value="Cập nhật" type="submit" />
+                                                    <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>', '<%= order.status %>');" value="Cập nhật" type="submit" />
                                                 </form>
                                             </td>
                                         </tr>
@@ -147,39 +147,43 @@
             })
     }
 
-    async function capnhatdon(id) {
+    async function capnhatdon(id, status) {
         const updateOrder = document.getElementById(`updateorder${id}`) 
         const updateValue = document.getElementById(`capnhat${id}`) 
 
-        const { value: status } = await Swal.fire({
-            title: 'Chọn một trạng thái bên dưới',
-            input: 'select',
-            inputOptions: {
-                "shipper đang lấy hàng" : "shipper đang lấy hàng", 
-                "shipper đang giao" : "shipper đang giao", 
-                "giao thành công" : "giao thành công"
-            },
-            inputPlaceholder: 'Trạng thái',
-            showCancelButton: true,
-            inputValidator: (value) => {
-                return new Promise((resolve) => {
-                    if (!value) {
-                        resolve('Chưa lựa chọn trạng thái!')
-                    } else {
-                        resolve()
-                    }
+        if (status == 'giao thành công') {
+            await Swal.fire("Không thể cập nhật!", "Đơn đã giao thành công", "warning")
+        } else {
+            const { value: status } = await Swal.fire({
+                title: 'Chọn một trạng thái bên dưới',
+                input: 'select',
+                inputOptions: {
+                    "shipper đang lấy hàng" : "shipper đang lấy hàng", 
+                    "shipper đang giao" : "shipper đang giao", 
+                    "giao thành công" : "giao thành công"
+                },
+                inputPlaceholder: 'Trạng thái',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    return new Promise((resolve) => {
+                        if (!value) {
+                            resolve('Chưa lựa chọn trạng thái!')
+                        } else {
+                            resolve()
+                        }
+                    })
+                }
+            })
+            if (status) {
+                Swal.fire({
+                    text: `Đã cập nhật trạng thái thành: ${status}`, 
+                    icon: 'success'
+                })
+                .then(() => {
+                    updateValue.value = status
+                    updateOrder.submit()
                 })
             }
-        })
-        if (status) {
-            Swal.fire({
-                text: `Đã cập nhật trạng thái thành: ${status}`, 
-                icon: 'success'
-            })
-            .then(() => {
-                updateValue.value = status
-                updateOrder.submit()
-            })
         }
     }
 </script>

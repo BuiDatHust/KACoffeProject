@@ -92,12 +92,12 @@ const createOrder = async (req, res) => {
 
         res.status(StatusCodes.CREATED).redirect('order/cart');
     } else {
-        const product = await Product.findOne({ _id: req.body.product })
+        const product = await Product.findOne({ _id: req.body.product });
         res.render('detail', {
             user: 0,
             product: product,
-            warning: "Vui lòng đăng nhập để thêm vào giỏ hàng!"
-        })
+            warning: 'Vui lòng đăng nhập để thêm vào giỏ hàng!',
+        });
     }
 };
 
