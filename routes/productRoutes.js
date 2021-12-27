@@ -11,6 +11,8 @@ const {
     uploadImage,
     updateProduct,
     deleteProduct,
+    saveComment,
+    deleteComment
 } = require('../controllers/productController');
 
 // router
@@ -18,7 +20,8 @@ const {
 //   // .get(getSingleProduct)
 //   .patch([authenticateUser, authorizePermission('admin')], updateProduct)
 //   .delete([authenticateUser, authorizePermission('admin')], deleteProduct);
-
+router.route('/saveComment').post(authenticateUser, saveComment);
+router.route('/deleteComment').post(authenticateUser, deleteComment);
 router
     .route('/')
     // .post([authenticateUser, authorizePermission('admin')], createProduct)
