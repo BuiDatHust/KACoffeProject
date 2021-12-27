@@ -55,12 +55,12 @@ const createOrder = async (req, res) => {
 
         var order;
 
-        const existOrder = await Order.find({ user: req.user.userId });
+        const existOrder = await Order.find({
+            user: req.user.userId,
+            status: 'tìm shipper',
+        });
         const len = existOrder.length;
-        if (
-            !existOrder.length == 0 &&
-            existOrder[len - 1].status == 'tìm shipper'
-        ) {
+        if (!existOrder.length == 0) {
             console.log('xss');
 
             orderItems = [...existOrder[len - 1].orderItems, singleOrderItem];
@@ -138,6 +138,7 @@ const buyNotLogin = async (req, res) => {
     orderItems = [
         {
             name: nameproduct,
+            Image: product.Image[0],
             price: product.price,
             amount: amount,
             size: size,
