@@ -8,9 +8,11 @@ const {
 const {
     getproducts,
     getSingleProduct,
+    filterProduct,
 } = require('../controllers/menuController');
 
 router.route('/:id').get(attachUser, getSingleProduct);
 router.route('/').get(attachUser, getproducts);
+router.route('/filter').post(attachUser, filterProduct);
 
 module.exports = router;

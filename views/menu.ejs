@@ -18,13 +18,41 @@
                 <h2 class="mb-4">Sản phẩm</h2>
             </div>
         </div>
+
+        <form action="/KACoffe/v1/menu/filter" method="POST" >
+        <div class="filter_div" >
+            <span class="loai" >
+            Loại:<select name="category">
+                <option value="all" >All</option>
+                <option value="Nổi bật" >Nổi bật</option>
+                <option value="Cà phê">Cà phê</option>
+                <option value="Trà trái cây-Trà sữa">Trà trái cây-Trà sữa</option>
+                <option value="Đá xay-Choco-Matcha">Đá xay-Choco-Matcha</option>
+                <option value="Đồ uống nhanh">Đồ uống nhanh</option>
+                <option value="Drinks">Drinks</option>
+            </select>
+            </span>
+            <span class="price" >
+           Min: <input type="text" name="min" /> Max:<input type="text"  name="max"/>
+            </span>
+            <span class="sort" >
+            Sort: <select name="sort" >
+                <option value="ASC" >ASC</option>
+                <option value="DESC" >DESC</option>
+            </select>
+            </span>
+            <input type="submit" value="Filter"  class="filterbtn" />
+        </div>
+    </form>
+
         <div class="row">
  
             <div class="col-md-6 col-lg-4 menu-wrap">
                 <div class="heading-menu text-center ftco-animate">
                     <h3>Nổi bật</h3>
                 </div>
-                <% products.slice(0, 5).forEach(function(product) { %>
+                <% products.forEach(function(product) { %>
+                    <% if(product.category == 'Nổi bật'){ %>
                     <div class="menus d-flex ftco-animate">
                         <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
                         <div class="text">
@@ -38,7 +66,8 @@
                             </div>
                             <p><span><%= product.material %></span></p>
                         </div>
-                    </div>        
+                    </div>       
+                    <% } %> 
                 <% }); %>
                 
             </div>

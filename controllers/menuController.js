@@ -39,7 +39,29 @@ const getSingleProduct = async (req, res) => {
     });
 };
 
+const filterProduct = async (req,res) =>{
+    let { category, min,max,sort } = req.body 
+    
+    const sortquery = sort=="ASC" ?'price' :'-price'
+    const categoryquery= category=="all" ? {} : { category: category }
+    console.log(categoryquery)
+
+   let products = await Product.find( categoryquery).sort(sortquery)
+   
+   min=parseInt(min)
+   max=parseInt(max)
+   if( min && max ){
+       products = products.filter(function(e){
+           return e.price>min && e.price<max
+       })
+   }
+   console.log(products)
+
+    res.render('menu', {products: products, user: req.user})
+}
+
 module.exports = {
     getproducts,
     getSingleProduct,
+    filterProduct
 };
