@@ -4,12 +4,12 @@ const NotFoundError = require('../errors/notFoundError');
 const BadRequestError = require('../errors/badRequestError');
 const path = require('path');
 
-const createProduct = async (req, res) => {
+const createProduct = async(req, res) => {
     req.body.user = req.user.userId;
     req.body.Image = [];
 
     console.log(req.files);
-    req.files.forEach(function (img) {
+    req.files.forEach(function(img) {
         const length = img.destination.length;
         req.body.Image = [
             ...req.body.Image,
@@ -22,12 +22,12 @@ const createProduct = async (req, res) => {
     res.redirect('/KACoffe/v1/admin');
 };
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async(req, res) => {
     const products = await Product.find({});
     res.status(StatusCodes.OK).render('menu', { products: products });
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async(req, res) => {
     const { id: productId } = req.params;
 
     var update = req.body;
@@ -40,8 +40,7 @@ const updateProduct = async (req, res) => {
     });
     console.log(updateForm);
 
-    const product = await Product.findOneAndUpdate(
-        { _id: productId },
+    const product = await Product.findOneAndUpdate({ _id: productId },
         updateForm
     );
 
@@ -51,7 +50,7 @@ const updateProduct = async (req, res) => {
 
     res.redirect('/KACoffe/v1/admin');
 };
-const getupdateProductPage = async (req, res) => {
+const getupdateProductPage = async(req, res) => {
     const id = req.params.id;
     const product = await Product.findById(id);
 
@@ -64,7 +63,7 @@ const getupdateProductPage = async (req, res) => {
     });
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async(req, res) => {
     const { id: productId } = req.params;
 
     const product = await Product.findOne({ _id: productId });

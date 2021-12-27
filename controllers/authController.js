@@ -7,7 +7,7 @@ const { attachTokenToRes, createTokenUser } = require('../utils');
 const nodemailer = require('nodemailer');
 const randomString = require('randomstring');
 
-const register = async (req, res) => {
+const register = async(req, res) => {
     const { email, name, password, phone } = req.body;
 
     const emailExists = await User.findOne({ email });
@@ -66,7 +66,7 @@ const register = async (req, res) => {
     });
 };
 
-const login = async (req, res) => {
+const login = async(req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         res.render('auth/login', {
@@ -128,7 +128,7 @@ const login = async (req, res) => {
     });
 };
 
-const logout = async (req, res) => {
+const logout = async(req, res) => {
     // res.cookie('token', 'logout', {
     //   httpOnly: true,
     //   expires: new Date(Date.now() + 500),
@@ -137,7 +137,7 @@ const logout = async (req, res) => {
     res.status(StatusCodes.OK).redirect('/KACoffe/v1/');
 };
 
-const forgotPassword = async (req, res) => {
+const forgotPassword = async(req, res) => {
     const email = req.body.email;
     const newPassword = randomString.generate(8);
     console.log(newPassword);
@@ -172,7 +172,7 @@ const forgotPassword = async (req, res) => {
         subject: 'Thiết lập lại mật khẩu!',
         html: '<b>Mật khẩu mới: </b>' + newPassword,
     };
-    transporter.sendMail(mailOptions, function (err, info) {
+    transporter.sendMail(mailOptions, function(err, info) {
         if (err) {
             console.log(err);
             return;
