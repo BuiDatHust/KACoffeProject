@@ -1,0 +1,44 @@
+<div class="comment">
+    <div class="danhgia" >Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;" ><%= len %> comments</span> </div>
+
+    <div class="vietcmt" >
+        <form action="/KACoffe/v1/product/saveComment" method="POST">
+        <input type="hidden" name="product" value="<%= product._id %>">
+        <input type="text" id="comment" name="comment" placeholder="Bình luận của bạn..." />
+        <input type="submit" value="Bình luận" />
+        </form>
+    </div>
+
+    <ul class="listcmnt" >
+        <% comments.forEach(function(e){  %>
+            <form hidden action="/KACoffe/v1/product/<%= e.product %>/deleteComment/<%= e._id %>" name="formsubmit1" method="POST"></form>
+            <li >
+                
+                <div class="grid" >
+                <p class="title" ><span><img src="/uploads/image-1640135291160.jpg" alt="Avatar" class="avatar">
+                    </span><%= e.title %> <span class="time" ><%= e.created %></span>
+                    <% if( e.title == user.name ){ %>
+                    <span style="margin-left: 60px;" ><i  class="fas fa-edit"></i></span>
+                    
+                    <span style="margin-left: 5px;" ><a href="javascript: submitform1()" class="delete" ><i class="fas fa-trash"></i></a></span>
+                    
+                    <% } %>
+                </p> 
+                <p class="cmt" ><%= e.comment %></p>
+            </div>
+            </li>
+        <% }) %>
+    </ul>
+    
+</div>
+<script>
+    // const delete1 = document.querySelector('delete')
+   
+
+    // delete1.addEventListener('click',function(){
+    //     document.forms['formsubmit1'].submit()
+    // })
+    function submitform1(){
+        document.forms['formsubmit1'].submit()
+    }
+</script>

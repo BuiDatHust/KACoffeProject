@@ -21,7 +21,7 @@ const {
 //   .patch([authenticateUser, authorizePermission('admin')], updateProduct)
 //   .delete([authenticateUser, authorizePermission('admin')], deleteProduct);
 router.route('/saveComment').post(authenticateUser, saveComment);
-router.route('/deleteComment').post(authenticateUser, deleteComment);
+router.route('/:productId/deleteComment/:commentId').post(authenticateUser, deleteComment);
 router
     .route('/')
     // .post([authenticateUser, authorizePermission('admin')], createProduct)

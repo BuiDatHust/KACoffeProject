@@ -22,7 +22,7 @@
             <form action="/KACoffe/v1/menu/filter" method="POST">
                 <div class="filter_div">
                     <span class="loai">
-            Loại:<select name="category">
+            Loại:<select class="category1" name="category">
                 <option value="all" >All</option>
                 <option value="Nổi bật" >Nổi bật</option>
                 <option value="Cà phê">Cà phê</option>
@@ -46,7 +46,7 @@
             </form>
 
             <div class="row">
-
+                <% if( products.length!=0 ){ %>
                 <div class="col-md-6 col-lg-4 menu-wrap">
                     <div class="heading-menu text-center ftco-animate">
                         <h3>Nổi bật</h3>
@@ -211,7 +211,9 @@
                             </div>
                             <% }}); %>
                 </div>
-
+                <% }else{  %>
+                <h1 class="notfound" >Không có sản phẩm nào</h1>
+                <%  } %>
             </div>
         </div>
 

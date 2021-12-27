@@ -34,14 +34,23 @@ const getSingleProduct = async(req, res) => {
     } else {
         user = await User.findOne({ _id: req.user.userId });
     }
-    const comments = await Review.find({
+
+    let comments = await Review.find({
         product: productId
     })
+    comments.forEach(function(e){
+        
+        e.created = e.createdAt.getDay() +'/' + e.createdAt.getMonth() +'/'+e.createdAt.getFullYear()
+    })
+    console.log(comments)
+    
+    console.log(user._id)
     res.status(StatusCodes.OK).render('detail', {
         comments: comments,
         product: product,
         user: user,
         warning: '',
+        len: comments.length
     });
 };
 

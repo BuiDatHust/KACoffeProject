@@ -93,11 +93,12 @@ const saveComment = async(req, res) => {
 };
 
 const deleteComment = async(req, res) => {
-
-    const comment = await Review.findOne({ _id: req.body.comment });
+    const {commentId,productId} =req.params
+    console.log(productId)
+    const comment = await Review.findOne({ _id: commentId });
 
     await comment.remove();
-    res.redirect('/KACoffe/v1/menu/' + req.body.product);
+    res.redirect('/KACoffe/v1/menu/' + productId);
 };
 
 module.exports = {

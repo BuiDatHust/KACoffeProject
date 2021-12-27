@@ -8,5 +8,7 @@ const review = new mongoose.Schema({
     comment: { type: String, required: true, maxLength: 200, minLength: 1 },
     user: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
     product: { type: mongoose.Types.ObjectId, ref: 'Product', required: true },
+},{
+    timestamps: true 
 });
 module.exports = mongoose.model('review', review);

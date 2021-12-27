@@ -13342,6 +13342,10 @@ align-items: center;
 
 .loai{
     padding-right: 10px;
+    
+}
+.category1{
+    border-radius: 5px;
 }
 .price{
     padding-right: 10px;
@@ -13349,6 +13353,8 @@ align-items: center;
 .price input{
     width: 60px;
     height: 25px;
+    box-sizing: border-box;  
+    border-radius: 5px;
 }
 .filterbtn{
     border-radius: 5px;
@@ -13358,5 +13364,61 @@ align-items: center;
     cursor: pointer;
 }
 .sort select{
-    width:60px
+    width:60px;
+    border-radius: 5px;
+}
+.notfound{
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* comment */
+.comment{
+    /* box-sizing: border-box;  */
+    /* border: rgba(82, 88, 93, 0.5) solid 1px; */
+    padding: 30px;
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 600px ;
+}
+
+.listcmnt{
+    list-style-type: none;
+    margin-left: 5px;
+}
+
+.time{
+    margin-left: 20px;
+    font-size: 15px;
+    color: silver;
+}
+.title{
+    font-size: 20px;
+    font-weight:500;
+    margin-bottom: 1px;
+}
+.cmt{
+    /* margin-top: 2px; */
+    font-size: 17px;
+}
+.vietcmt{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+.danhgia{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+.listcmt li{
+    margin-bottom: 10px;
+    
 }
