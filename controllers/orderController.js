@@ -90,10 +90,14 @@ const createOrder = async (req, res) => {
             order = newOrder;
         }
 
-        if (req.user !== undefined) {
-            res.status(StatusCodes.CREATED).redirect('order/cart');
-        } else {
-        }
+        res.status(StatusCodes.CREATED).redirect('order/cart');
+    } else {
+        const product = await Product.findOne({ _id: req.body.product });
+        res.render('detail', {
+            user: 0,
+            product: product,
+            warning: 'Vui lòng đăng nhập để thêm vào giỏ hàng!',
+        });
     }
 };
 

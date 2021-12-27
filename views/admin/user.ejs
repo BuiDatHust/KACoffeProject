@@ -50,7 +50,7 @@
                                 <span class="subheading" style="font-size:20px;">Người dùng vàng</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products">Tài khoản</th>
                                         <th class="admin-header__price">Số điện thoại</th>
                                         <th class="admin-header__price">Điểm số</th>
@@ -59,7 +59,7 @@
                                     <% users.forEach(function(user){  %>
                                         <% if( user.rank=="vàng" ) { %>
                                             <tr class="cart-item">
-                                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                                <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                                 <td class="cart-txt-left">
                                                     <a href="" class="cart-name">
                                                         <%= user.name %>
@@ -72,7 +72,7 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm quyền Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -85,7 +85,7 @@
                                 <span class="subheading" style="font-size:20px;">Người dùng bạc</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width:30px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products">Tài khoản</th>
                                         <th class="admin-header__price">Số điện thoại</th>
                                         <th class="admin-header__price">Điểm số</th>
@@ -94,7 +94,7 @@
                                     <% users.forEach(function(user){  %>
                                         <% if( user.rank=="bạc" ) { %>
                                             <tr class="cart-item">
-                                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                                <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                                 <td class="cart-txt-left">
                                                     <a href="" class="cart-name">
                                                         <%= user.name %>
@@ -107,7 +107,7 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm quyền Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -120,7 +120,7 @@
                                 <span class="subheading" style="font-size:20px;">Người dùng đồng</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products">Tài khoản</th>
                                         <th class="admin-header__price">Số điện thoại</th>
                                         <th class="admin-header__price">Điểm số</th>
@@ -129,7 +129,7 @@
                                     <% users.forEach(function(user){  %>
                                         <% if( user.rank=="đồng" ) { %>
                                             <tr class="cart-item">
-                                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                                <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                                 <td class="cart-txt-left">
                                                     <a href="" class="cart-name">
                                                         <%= user.name %>
@@ -142,7 +142,7 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm quyền Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -156,7 +156,7 @@
                                 <span class="subheading" style="font-size:20px;">Người dùng hạng thường</span>
                                 <table class="cart-table">
                                     <tr>
-                                        <th style="width: 30px;"><span class="cart-all">Tất cả</span></th>
+                                        <!--<th style="width: 30px;"><span class="cart-all">Tất cả</span></th>-->
                                         <th class="admin-header__products">Tài khoản</th>
                                         <th class="admin-header__price">Số điện thoại</th>
                                         <th class="admin-header__price">Điểm số</th>
@@ -165,7 +165,7 @@
                                     <% users.forEach(function(user){  %>
                                         <% if( user.rank=="no ranking" || user.rank=="thường") { %>
                                             <tr class="cart-item">
-                                                <td><input type="checkbox" checked="checked" class="cart-check" /></td>
+                                                <!--<td><input type="checkbox" checked="checked" class="cart-check" /></td>-->
                                                 <td class="cart-txt-left">
                                                     <a href="" class="cart-name">
                                                         <%= user.name %>
@@ -178,7 +178,7 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm quyền Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
                                                         </form>
                                                     <% } %>
                                                 </td>

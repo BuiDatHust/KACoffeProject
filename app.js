@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('express-async-errors');
+var pjax = require('express-pjax');
 const path = require('path')
 
 //option pakages

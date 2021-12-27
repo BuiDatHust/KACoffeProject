@@ -68,7 +68,7 @@
                                 <option value="M" >M</option>
                                 <option value="L" >L</option>
                             </select>
-                            <% if(user.role=="user") { %>
+                            <% if(user.role=="user" || !user) { %>
                                 <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
                             <% }else{ %>
                                 <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
@@ -104,4 +104,10 @@
         image4.onclick = function() {
             image0.src = image4.src
         }
+        document.addEventListener('DOMContentLoaded', async function() {
+            if ('<%= warning %>') {
+                await swal("Thất bại!", "<%= warning %>", "warning")
+            }
+        })
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
