@@ -1,12 +1,14 @@
 <%- include('_layouts/header') ; -%>
     <link rel="stylesheet" href="/css/addProduct.css">
     <div class="container">
-        <button class="btn btn-primary mb-3" style="margin-top: 100px;"><a href="/KACoffe/v1/menu">Tiếp tục mua hàng</a></button>
+        <a href="/KACoffe/v1/menu">
+            <button class="btn btn-primary mb-3" style="margin-top: 100px;">Tiếp tục mua hàng</button>
+        </a>
         <div class="cart">
             <span class="subheading" style="font-size:28px;">Giỏ hàng</span>
             <table class="cart-table" style="margin-top: 50px;">
                 <tr>
-                    <th width="60" style="text-align: center;"><span class="cart-all">Tất cả</span></th>
+                    <!--<th width="60" style="text-align: center;"><span class="cart-all">Tất cả</span></th>-->
                     <th width="150" style="text-align: center;">Sản phẩm</th>
                     <th width="50" style="text-align: center;">Giá</th>
                     <th width="25" style="text-align: center;">Số lượng</th>
@@ -17,9 +19,9 @@
 
                 <% orders.forEach( (order)=>{  %>
                     <tr class="cart-item">
-                        <td>
+                        <!--<td>
                             <input type="checkbox" checked="checked" class="cart-check" name="courseIds[]" value="<%= order._id %>" />
-                        </td>
+                        </td>-->
                         <td class="cart-txt-left">
                             <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
                             <a href="white-coffee.html" class="cart-name">
@@ -31,7 +33,7 @@
                         <td><span class="cart-price"><%=  order.size  %></span></td>
                         <td><span class="cart-subtotal"> <%= order.amount*order.price %>đ</span></td>
                         <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST">
-                            <td><span class="cart-del"> <input type="submit" value="Xoá" ></span></td>
+                            <td><span class="cart-del"> <button class="btn btn-danger" type="submit">Xóa</button></span></td>
                         </form>
                     </tr>
                     <% }) %>
