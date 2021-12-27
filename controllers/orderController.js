@@ -21,7 +21,7 @@ const evaluateScore = (user, subtotal) => {
     return score;
 };
 
-const createOrder = async (req, res) => {
+const createOrder = async(req, res) => {
     if (req.user !== undefined) {
         const cartItems = {
             amount: req.body.quantity,
@@ -69,10 +69,7 @@ const createOrder = async (req, res) => {
                 existOrder[len - 1].total +
                 singleOrderItem.price * singleOrderItem.amount;
             subtotal = total + shippingFee;
-            const updateOrder = await Order.findByIdAndUpdate(
-                { _id: existOrder[len - 1]._id },
-                { orderItems: orderItems, subtotal: subtotal, total: total }
-            );
+            const updateOrder = await Order.findByIdAndUpdate({ _id: existOrder[len - 1]._id }, { orderItems: orderItems, subtotal: subtotal, total: total });
             order = updateOrder;
         } else {
             total = singleOrderItem.price * singleOrderItem.amount;
@@ -101,7 +98,7 @@ const createOrder = async (req, res) => {
     }
 };
 
-const buyNotLogin = async (req, res) => {
+const buyNotLogin = async(req, res) => {
     var { phone, name, amount, address, nameproduct, email, size } = req.body;
     var subtotal = 0,
         total = 0;
@@ -135,16 +132,14 @@ const buyNotLogin = async (req, res) => {
         });
         return;
     }
-    orderItems = [
-        {
-            name: nameproduct,
-            Image: product.Image[0],
-            price: product.price,
-            amount: amount,
-            size: size,
-            product: product._id,
-        },
-    ];
+    orderItems = [{
+        name: nameproduct,
+        Image: product.Image[0],
+        price: product.price,
+        amount: amount,
+        size: size,
+        product: product._id,
+    }, ];
     total = product.price * amount;
     subtotal = total + 20000;
 
@@ -161,7 +156,7 @@ const buyNotLogin = async (req, res) => {
         subject: 'Chúc mừng bạn có đơn hàng đầu tiên',
         html: '<b>Chúc mừng bạn có đơn hàng đầu tiên: </b> Hãy đăng nhập để có thể hưởng thêm ưu đãi',
     };
-    transporter.sendMail(mailOptions, function (err, info) {
+    transporter.sendMail(mailOptions, function(err, info) {
         if (err) {
             console.log(err);
             return;
@@ -199,7 +194,7 @@ const buyNotLogin = async (req, res) => {
     });
 };
 
-const buy = async (req, res) => {
+const buy = async(req, res) => {
     const orders = await Order.find({
         user: req.user.userId,
         status: 'tìm shipper',
@@ -263,10 +258,7 @@ const buy = async (req, res) => {
                 return e != magiamgia;
             });
             console.log(userDiscount);
-            await User.findOneAndUpdate(
-                { _id: req.user.userId },
-                { discount: userDiscount }
-            );
+            await User.findOneAndUpdate({ _id: req.user.userId }, { discount: userDiscount });
         } else {
             res.render('cart', {
                 orders: thisorder ? thisorder.orderItems : [],
@@ -281,15 +273,12 @@ const buy = async (req, res) => {
         }
     }
 
-    const order = await Order.findOneAndUpdate(
-        { _id: thisorder._id },
-        {
-            address: req.body.address,
-            status: 'shipper đang lấy hàng',
-            subtotal: total + 10000,
-            total: total,
-        }
-    );
+    const order = await Order.findOneAndUpdate({ _id: thisorder._id }, {
+        address: req.body.address,
+        status: 'shipper đang lấy hàng',
+        subtotal: total + 10000,
+        total: total,
+    });
 
     let noti = user.notification;
     noti = [
@@ -328,7 +317,7 @@ const buy = async (req, res) => {
     });
 };
 
-const getAllOrders = async (req, res) => {
+const getAllOrders = async(req, res) => {
     const orders = await Order.find({});
     res.status(StatusCodes.OK).render('reservation', {
         orders: orders,
@@ -336,7 +325,7 @@ const getAllOrders = async (req, res) => {
     });
 };
 
-const getSingleOrder = async (req, res) => {
+const getSingleOrder = async(req, res) => {
     const { id: orderId } = req.params;
     const order = await Order.findOne({ _id: orderId });
     if (!order) {
@@ -348,7 +337,7 @@ const getSingleOrder = async (req, res) => {
     res.status(StatusCodes.OK).json({ order });
 };
 
-const getCurrentUserOrders = async (req, res) => {
+const getCurrentUserOrders = async(req, res) => {
     var orders = await Order.find({ user: req.user.userId }).sort({ _id: -1 });
     var user = await User.findOne({ _id: req.user.userId });
 
@@ -363,7 +352,7 @@ const getCurrentUserOrders = async (req, res) => {
     });
 };
 
-const getCart = async (req, res) => {
+const getCart = async(req, res) => {
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
     var discounts = user.discount;
@@ -412,7 +401,7 @@ const getCart = async (req, res) => {
     }
 };
 
-const updateOrder = async (req, res) => {
+const updateOrder = async(req, res) => {
     const { id: orderId } = req.params;
     const { amount, address } = req.body;
 
@@ -430,7 +419,7 @@ const updateOrder = async (req, res) => {
     res.status(StatusCodes.OK).json({ order });
 };
 
-const deleteOrderItems = async (req, res) => {
+const deleteOrderItems = async(req, res) => {
     const { id } = req.params;
 
     var order = await Order.findOne({
@@ -461,7 +450,7 @@ const deleteOrderItems = async (req, res) => {
     res.redirect('/KACoffe/v1/order/cart');
 };
 
-const deleteOrder = async (req, res) => {
+const deleteOrder = async(req, res) => {
     const { orderid } = req.params;
 
     let order = await Order.findOne({ _id: orderid });
@@ -474,7 +463,7 @@ const deleteOrder = async (req, res) => {
     await User.findByIdAndUpdate({ _id: order.user }, { notification: noti });
 
     let admin = await User.find({ role: 'admin' });
-    admin.forEach(async (ad) => {
+    admin.forEach(async(ad) => {
         let adNoti = ad.notification;
         adNoti = [
             ...adNoti,
@@ -488,7 +477,7 @@ const deleteOrder = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/order');
 };
 
-const requestToDeleteOrder = async (req, res) => {
+const requestToDeleteOrder = async(req, res) => {
     const { orderid, userid } = req.params;
     const user = await User.findOne({ _id: userid });
     const order = await Order.findOne({ _id: orderid });
@@ -529,7 +518,7 @@ const requestToDeleteOrder = async (req, res) => {
     await user.save();
 
     var admin = await User.find({ role: 'admin' });
-    admin.forEach(async (ad) => {
+    admin.forEach(async(ad) => {
         var adNoti = ad.notification;
         adNoti = [
             ...adNoti,
@@ -544,7 +533,7 @@ const requestToDeleteOrder = async (req, res) => {
     res.redirect('/KACoffe/v1/order/myOrders');
 };
 
-const getDetailOrder = async (req, res) => {
+const getDetailOrder = async(req, res) => {
     const { id } = req.params;
     const order = await Order.findOne({ _id: id });
     const user = await User.findOne({ _id: req.user.userId });
@@ -562,7 +551,7 @@ const getDetailOrder = async (req, res) => {
     });
 };
 
-const checkAccount = async (req, res) => {
+const checkAccount = async(req, res) => {
     const email = req.body.email;
     const user1 = await User.findOne({ email: email });
     var discounts = user1.discount;
@@ -630,7 +619,7 @@ const checkAccount = async (req, res) => {
     // res.redirect('/KACoffe/v1/order/cart')
 };
 
-const buyByAdmin = async (req, res) => {
+const buyByAdmin = async(req, res) => {
     const user = await User.findOne({ email: req.body.email });
     const orders = await Order.find({ user: req.user.userId });
 
@@ -691,10 +680,7 @@ const buyByAdmin = async (req, res) => {
                 return e != magiamgia;
             });
             console.log(userDiscount);
-            await User.findOneAndUpdate(
-                { _id: req.user.userId },
-                { discount: userDiscount }
-            );
+            await User.findOneAndUpdate({ _id: req.user.userId }, { discount: userDiscount });
         } else {
             res.render('cart', {
                 orders: thisorder ? thisorder.orderItems : [],
@@ -709,17 +695,14 @@ const buyByAdmin = async (req, res) => {
         }
     }
 
-    const order = await Order.findOneAndUpdate(
-        { _id: thisorder._id },
-        {
-            user: user._id,
-            phone: user.phone,
-            address: req.body.address,
-            status: 'giao thành công',
-            subtotal: total,
-            total: total,
-        }
-    );
+    const order = await Order.findOneAndUpdate({ _id: thisorder._id }, {
+        user: user._id,
+        phone: user.phone,
+        address: req.body.address,
+        status: 'giao thành công',
+        subtotal: total,
+        total: total,
+    });
 
     var score = evaluateScore(user, order.subtotal);
     var rank;

@@ -1,27 +1,27 @@
 <%- include('_layouts/header'); -%>
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Danh sách</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="localhost:3000/KACofee/v1/">Trang chủ<i class="ion-ios-arrow-forward"></i></a></span> <span>Menu <i class="ion-ios-arrow-forward"></i></span></p>
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Danh sách</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="localhost:3000/KACofee/v1/">Trang chủ<i class="ion-ios-arrow-forward"></i></a></span> <span>Menu <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-2">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <span class="subheading"></span>
-                <h2 class="mb-4">Sản phẩm</h2>
+    </section>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-2">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading"></span>
+                    <h2 class="mb-4">Sản phẩm</h2>
+                </div>
             </div>
-        </div>
 
-        <form action="/KACoffe/v1/menu/filter" method="POST" >
-        <div class="filter_div" >
-            <span class="loai" >
+            <form action="/KACoffe/v1/menu/filter" method="POST">
+                <div class="filter_div">
+                    <span class="loai">
             Loại:<select name="category">
                 <option value="all" >All</option>
                 <option value="Nổi bật" >Nổi bật</option>
@@ -32,164 +32,188 @@
                 <option value="Drinks">Drinks</option>
             </select>
             </span>
-            <span class="price" >
+                    <span class="price">
            Min: <input type="text" name="min" /> Max:<input type="text"  name="max"/>
             </span>
-            <span class="sort" >
+                    <span class="sort">
             Sort: <select name="sort" >
                 <option value="ASC" >ASC</option>
                 <option value="DESC" >DESC</option>
             </select>
             </span>
-            <input type="submit" value="Filter"  class="filterbtn" />
+                    <input type="submit" value="Filter" class="filterbtn" />
+                </div>
+            </form>
+
+            <div class="row">
+
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Nổi bật</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Nổi bật'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% } %>
+                                <% }); %>
+
+                </div>
+
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Cà phê</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Cà phê'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% }}); %>
+                </div>
+
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Trà trái cây-Trà sữa</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Trà trái cây-Trà sữa'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% }}); %>
+                </div>
+
+                <!--  -->
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Đá xay-Choco-Matcha</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Đá xay-Choco-Matcha'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% }}); %>
+                </div>
+
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Đồ uống nhanh</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Đồ uống nhanh'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% }}); %>
+                </div>
+
+                <div class="col-md-6 col-lg-4 menu-wrap">
+                    <div class="heading-menu text-center ftco-animate">
+                        <h3>Drinks</h3>
+                    </div>
+                    <% products.forEach(function(product) { %>
+                        <% if(product.category == 'Drinks'){ %>
+                            <div class="menus d-flex ftco-animate">
+                                <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
+                                <div class="text">
+                                    <div class="d-flex">
+                                        <div class="one-half">
+                                            <h3>
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>">
+                                                    <%= product.name %>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="one-forth">
+                                            <span class="price"><%= product.price %></span>
+                                        </div>
+                                    </div>
+                                    <p><span><%= product.material %></span></p>
+                                </div>
+                            </div>
+                            <% }}); %>
+                </div>
+
+            </div>
         </div>
-    </form>
 
-        <div class="row">
- 
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Nổi bật</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Nổi bật'){ %>
-                    <div class="menus d-flex ftco-animate">
-                        <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                        <div class="text">
-                            <div class="d-flex">
-                                <div class="one-half">
-                                    <h3><a href="/KACoffe/v1/menu/<%= product._id %>" > <%= product.name %> </a></h3>
-                                </div>
-                                <div class="one-forth">
-                                    <span class="price"><%= product.price %></span>
-                                </div>
-                            </div>
-                            <p><span><%= product.material %></span></p>
-                        </div>
-                    </div>       
-                    <% } %> 
-                <% }); %>
-                
-            </div>
-
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Cà phê</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Cà phê'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
-                                </div>
-                                <p><span><%= product.material %></span></p>
-                            </div>
-                        </div>
-                <% }}); %>
-            </div>
-
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Trà trái cây-Trà sữa</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Trà trái cây-Trà sữa'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
-                                </div>
-                                <p><span><%= product.material %></span></p>
-                            </div>
-                        </div>
-                <% }}); %>
-            </div>
-
-            <!--  -->
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Đá xay-Choco-Matcha</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Đá xay-Choco-Matcha'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
-                                </div>
-                                <p><span><%= product.material %></span></p>
-                            </div>
-                        </div>
-                <% }}); %>
-            </div>
-
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Đồ uống nhanh</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Đồ uống nhanh'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
-                                </div>
-                                <p><span><%= product.material %></span></p>
-                            </div>
-                        </div>
-                <% }}); %>
-            </div>
-
-            <div class="col-md-6 col-lg-4 menu-wrap">
-                <div class="heading-menu text-center ftco-animate">
-                    <h3>Drinks</h3>
-                </div>
-                <% products.forEach(function(product) { %>
-                    <% if(product.category == 'Drinks'){ %>
-                        <div class="menus d-flex ftco-animate">
-                            <div class="menu-img img" style="background-image: url('<%= product.Image[0] %>');"></div>
-                            <div class="text">
-                                <div class="d-flex">
-                                    <div class="one-half">
-                                        <h3><a href="/KACoffe/v1/menu/<%= product._id %>" ><%= product.name %></a></h3>
-                                    </div>
-                                    <div class="one-forth">
-                                        <span class="price"><%= product.price %></span>
-                                    </div>
-                                </div>
-                                <p><span><%= product.material %></span></p>
-                            </div>
-                        </div>
-                <% }}); %>
-            </div>
-            
-        </div>
-    </div>
-
-</section>
-<%- include('_layouts/footer'); -%>
+    </section>
+    <%- include('_layouts/footer'); -%>

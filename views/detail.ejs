@@ -34,16 +34,16 @@
 
                         </div>
                         <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
-              class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
-            class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
-              class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
+                            class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
+                            class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
+                            class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
                         <div class="woocommerce-product-details__short-description">
                             <p>
                                 <%= product.description %>
                             </p>
                             <p><strong>Nguyên liệu:</strong></p>
                             <p>
-                                <%= product.material %> 
+                                <%= product.material %>
                             </p>
                             <p><strong>Mô tả sản phẩm:</strong></p>
                             <p style="white-space: pre-line;margin-top: -30px;">
@@ -51,32 +51,45 @@
                             </p>
 
                         </div>
-                        <!-- <p>Hình ảnh sản phầm: </p>
-                <div>
-                    <% product.Image.forEach(function(img){ %>
-                        <img src="<%= img  %>" >
-                    <% }) %>
-                </div> -->
-                        <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
-
                         <div class="quantity p-3" style="border:1px solid #D5E5F5">
                             <input type="hidden" name="product" value="<%= product._id %>">
                             <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
-                            <select name="size" >
+                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ:
+                            <select name="size">
                                 <option value="S" >S</option>
                                 <option value="M" >M</option>
                                 <option value="L" >L</option>
                             </select>
                             <% if(user.role=="user" || !user) { %>
                                 <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                            <% }else{ %>
-                                <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
-                            <% } %>
-                            <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
+                                <% }else{ %>
+                                    <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
+                                    <% } %>
+                                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
                         </div>
 
                     </form>
+                    <form action="/KACoffe/v1/product/saveComment" method="POST">
+                        <input type="hidden" name="product" value="<%= product._id %>">
+                        <input type="text" id="comment" name="comment" placeholder="Comment">
+                        <div class="buttons1" style="margin-left: 190px;">
+                            <button class="btn1" id="add-btn1">Bình luận</button>
+                        </div>
+                    </form>
+                    <% comments.forEach(function(e){  %>
+                        <p><strong><%= e.title %></strong>
+                            <%= e.comment %>
+                                <% if( e.title === user.name ){ %>
+                                    <form action="/KACoffe/v1/product/deleteComment" method="POST">
+                                        <input type="hidden" name="product" value="<%= product._id %>">
+                                        <input type="hidden" name="comment" value="<%= e._id %>">
+                                        <div class="buttons1" style="margin-left: 190px;">
+                                            <button class="btn1" id="add-btn1">Delete your comment</button>
+                                        </div>
+                                    </form>
+                                    <% } %>
+                        </p>
+                        <% }) %>
                 </div>
 
             </div>
@@ -85,29 +98,29 @@
 
     <%- include('_layouts/footer') ; -%>
 
-    <script>
-        const image0 = document.querySelector('.image-0')
-        const image1 = document.querySelector('.image-1')
-        const image2 = document.querySelector('.image-2')
-        const image3 = document.querySelector('.image-3')
-        const image4 = document.querySelector('.image-4')
+        <script>
+            const image0 = document.querySelector('.image-0')
+            const image1 = document.querySelector('.image-1')
+            const image2 = document.querySelector('.image-2')
+            const image3 = document.querySelector('.image-3')
+            const image4 = document.querySelector('.image-4')
 
-        image1.onclick = function() {
-            image0.src = image1.src
-        }
-        image2.onclick = function() {
-            image0.src = image2.src
-        }
-        image3.onclick = function() {
-            image0.src = image3.src
-        }
-        image4.onclick = function() {
-            image0.src = image4.src
-        }
-        document.addEventListener('DOMContentLoaded', async function() {
-            if ('<%= warning %>') {
-                await swal("Thất bại!", "<%= warning %>", "warning")
+            image1.onclick = function() {
+                image0.src = image1.src
             }
-        })
-    </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            image2.onclick = function() {
+                image0.src = image2.src
+            }
+            image3.onclick = function() {
+                image0.src = image3.src
+            }
+            image4.onclick = function() {
+                image0.src = image4.src
+            }
+            document.addEventListener('DOMContentLoaded', async function() {
+                if ('<%= warning %>') {
+                    await swal("Thất bại!", "<%= warning %>", "warning")
+                }
+            })
+        </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
