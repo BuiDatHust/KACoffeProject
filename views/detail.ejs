@@ -75,7 +75,7 @@
                         </div>
 
                     </form>
-
+                    <% if(user.role=="admin") { %>
                     <form method="POST" action="/KACoffe/v1/order/buyfree" >
                         <div class="quantity p-3" style="border:1px solid #D5E5F5">
                             <input type="hidden" name="product" value="<%= product._id %>">
@@ -86,15 +86,15 @@
                                 <option value="M" >M</option>
                                 <option value="L" >L</option>
                             </select>
-                            <% if(user.role=="user" || !user) { %>
-                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                                <% }else{ %>
+                            
+                              
                                     <input type="submit" value="Chọn chai miễn phí" class="btn btn-primary py-3 px-5 mt-4">
                                    
-                                    <% } %>
+                                    
                                         <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
                         </div>
                     </form>
+                    <% } %>
                    
                 </div>
 
