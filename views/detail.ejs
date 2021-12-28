@@ -34,7 +34,7 @@
 
                             <div class="stars-outer">
                                 <div class="stars-inner"></div>
-                                <span class="number-rating"><%= product.averageRating %></span>
+                                <span style="margin-left: 2px;" class="number-rating"><%= product.averageRating %></span>
                             </div>
 
                         </div>
@@ -69,10 +69,31 @@
                                 <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
                                 <% }else{ %>
                                     <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
+                                   
                                     <% } %>
                                         <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
                         </div>
 
+                    </form>
+
+                    <form method="POST" action="/KACoffe/v1/order/buyfree" >
+                        <div class="quantity p-3" style="border:1px solid #D5E5F5">
+                            <input type="hidden" name="product" value="<%= product._id %>">
+                            <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ:
+                            <select name="size">
+                                <option value="S" >S</option>
+                                <option value="M" >M</option>
+                                <option value="L" >L</option>
+                            </select>
+                            <% if(user.role=="user" || !user) { %>
+                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
+                                <% }else{ %>
+                                    <input type="submit" value="Chọn chai miễn phí" class="btn btn-primary py-3 px-5 mt-4">
+                                   
+                                    <% } %>
+                                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
+                        </div>
                     </form>
                    
                 </div>
@@ -81,7 +102,7 @@
         </div>
     </section>
 
-    <div style="margin-left: 500px;" >
+    <div style="margin-left: 650px;" >
         <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>"  method="POST" >
         <p>Bạn thấy sản phẩm này:
             <span>
@@ -95,6 +116,8 @@
                 </select>
             </span>
             <input type="submit" value="Gửi phản hồi" /> 
+            
+            
         </form>
         </p>
         

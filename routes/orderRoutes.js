@@ -20,9 +20,11 @@ const {
     getDetailOrder,
     buyByAdmin,
     checkAccount,
+    buyFree
 } = require('../controllers/orderController');
 
 router.route('/').post(attachUser, createOrder);
+router.route('/buyfree').post(attachUser, buyFree);
 // .get(authenticateUser, authorizePermission('admin'), getAllOrders);
 
 router.route('/orderNotLogin').post(attachUser, buyNotLogin);
@@ -46,5 +48,6 @@ router.route('/delete/:id').post(authenticateUser, deleteOrderItems);
 router
     .route('/sendNotification/:orderid/:userid')
     .post(authenticateUser, requestToDeleteOrder);
+
 
 module.exports = router;

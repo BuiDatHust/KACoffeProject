@@ -25,7 +25,7 @@ const {
 router.route('/saveComment').post(authenticateUser, saveComment);
 router.route('/:productId/deleteComment/:commentId').post(authenticateUser, deleteComment);
 router.route('/:productId/editComment/:commentId').post(authenticateUser, editComment);
-router.route('/rateProduct/:productId').post(authenticateUser, rateProduct);
+router.route('/rateProduct/:productId').post(rateProduct);
 
 router
     .route('/')

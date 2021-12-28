@@ -337,6 +337,56 @@ const getSingleOrder = async(req, res) => {
     res.status(StatusCodes.OK).json({ order });
 };
 
+const buyFree = async (req,res) =>{
+    const cartItems = {
+        amount: req.body.quantity,
+        product: req.body.product,
+        email: req.body.email,
+    };
+    if (!cartItems || cartItems.length < 1) {
+        throw new BadRequestError('No cart items provided');
+    }
+
+    shippingFee = 10000;
+
+    let orderItems = [];
+
+    const dbUser = await User.findOne({ _id: req.user.userId });
+    const dbProduct = await Product.findOne({ _id: cartItems.product });
+    if (!dbProduct) {
+        throw new Error(`No product with id : ${cartItems.product}`);
+    }
+    const { name, price, Image, _id } = dbProduct;
+    const singleOrderItem = {
+        amount: cartItems.amount,
+        name,
+        price,
+        Image: Image[0],
+        address: cartItems.address,
+        product: _id,
+        size: req.body.size,
+    };
+
+    var order;
+
+    const existOrder = await Order.find({
+        user: req.user.userId,
+        status: 'tìm shipper',
+    });
+    const len = existOrder.length;
+    
+    console.log('xss');
+
+    orderItems = [...existOrder[len - 1].orderItems, singleOrderItem];
+
+    const updateOrder = await Order.findByIdAndUpdate({ _id: existOrder[len - 1]._id }, { orderItems: orderItems });
+    order = updateOrder;
+    
+
+    res.status(StatusCodes.CREATED).redirect('/KACoffe/v1/order/cart');
+
+}
+
 const getCurrentUserOrders = async(req, res) => {
     var orders = await Order.find({ user: req.user.userId }).sort({ _id: -1 });
     var user = await User.findOne({ _id: req.user.userId });
@@ -378,10 +428,15 @@ const getCart = async(req, res) => {
     orders = orders.filter((e) => {
         return e.status == 'tìm shipper';
     });
+    let amount=0
+    orders[0].orderItems.forEach((e) =>{
+        amount+= e.amount
+    })
     if (orders.length > 0) {
         res.render('cart', {
             orders: orders[0].orderItems,
             total: orders[0].total,
+            amount: amount,
             subtotal: orders[0].subtotal,
             user: user,
             discount: user.discount,
@@ -748,4 +803,5 @@ module.exports = {
     getDetailOrder,
     checkAccount,
     buyByAdmin,
+    buyFree
 };

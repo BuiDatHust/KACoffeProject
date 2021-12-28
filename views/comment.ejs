@@ -1,12 +1,15 @@
 <div class="comment">
     <div class="danhgia" >Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;" ><%= len %> comments</span> </div>
 
+    <div class="alert1" >
+
+    </div>
     
     <div class="vietcmt" >
         <form action="/KACoffe/v1/product/saveComment" method="POST">
         <input type="hidden" name="product" value="<%= product._id %>">
         <input class="inputcmt" type="text" id="comment" name="comment" placeholder="Bình luận của bạn..." />
-        <input class="btncmt" type="submit" value="Bình luận" />
+        <input type="submit" class="btncmt" value="Bình luận" />
         </form>
     </div>
    
@@ -45,7 +48,6 @@
 <script>
     var formsubmit2= document.forms['formsubmit2']
     var div = document.getElementsByClassName('cmtarea')
-   
 
     function submitform1(){
         document.forms['formsubmit1'].submit()
@@ -71,5 +73,7 @@
         cmt1.appendChild(child)
         window.location.reload(true)
     }
+
+    
     
 </script>

@@ -96,6 +96,19 @@
                                 </tr>
                                 <tr class="cart-bottom">
                                     <td colspan="6">
+                                        <select style="padding: 7px;" id="doichai" name="doivo" >
+                                            <option value="5" >5 chai</option>
+                                            <option value="10">10 chai</option>
+                                            <option value="15">15 chai</option>
+                                            <option value="20">20 chai</option>
+                                        </select>
+                                        <button class="btn btn-primary px-4 py-3 mt-3" onclick="event.preventDefault();doivochai()" style="width: 150px;margin-bottom: 20.5px; margin-left: 8px;" type="submit" >Đổi vỏ chai</button>
+                                        
+                                        
+                                    </td>
+                                </tr>
+                                <tr class="cart-bottom">
+                                    <td colspan="6">
                                         <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
                                         <span class="cart-bottom-span">Tổng cộng: <span class="cart-total-price"><%= total %>đ</span></span>
                                         <button class="btn btn-primary px-4 py-3 mt-3" style="width: 150px;margin-bottom: 20.5px; margin-left: 8px;" type="submit" id="dathang1">Đặt hàng</button>
@@ -146,6 +159,18 @@
                     })
             } 
         })
+    }
+
+    async function doivochai(){
+        let chai= $('#doichai option:selected').val();
+        let amount ='<%= amount %>'
+        amount= parseInt(amount)
+
+        if(amount>=5){
+            await swal(`Quý khách được đổi ${chai/5} chai miễn phí`, "Click để tiếp tục", "success")
+        }else{
+            await swal("Không đủ điều kiện để đổi chai!", "Click để tiếp tục", "warning")
+        }
     }
     
 </script>
