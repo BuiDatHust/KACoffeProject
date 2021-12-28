@@ -29,7 +29,6 @@ const Product = new Schema({
     Image: {},
     material: { type: String, required: [true, 'Please provide Material'] },
     averageRating: { type: Number, default: 0 },
-    numOfReviews: { type: Number, default: 0 },
     user: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
 });
 

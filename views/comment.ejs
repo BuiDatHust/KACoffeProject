@@ -1,6 +1,7 @@
 <div class="comment">
     <div class="danhgia" >Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;" ><%= len %> comments</span> </div>
 
+    
     <div class="vietcmt" >
         <form action="/KACoffe/v1/product/saveComment" method="POST">
         <input type="hidden" name="product" value="<%= product._id %>">
@@ -8,7 +9,7 @@
         <input class="btncmt" type="submit" value="Bình luận" />
         </form>
     </div>
-
+   
     <ul class="listcmnt" >
         <% comments.forEach(function(e){  %>
             <form hidden action="/KACoffe/v1/product/<%= e.product %>/deleteComment/<%= e._id %>" name="formsubmit1" method="POST"></form>

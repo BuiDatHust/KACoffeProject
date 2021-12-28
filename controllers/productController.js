@@ -109,6 +109,20 @@ const editComment = async (req,res) =>{
     res.redirect('/KACoffe/v1/menu/' + productId)
 }
 
+const rateProduct=  async (req,res) =>{
+    let { rate } = req.body;
+    const { productId } = req.params
+    rate = parseInt(rate)
+    
+    const product =await Product.findOne({ _id: productId })
+
+    let average= ( rate+product.averageRating )/2
+    average= average.toFixed(1)
+    
+    await Product.findByIdAndUpdate({ _id: productId }, {averageRating: average})
+    res.redirect('/KACoffe/v1/menu/' + productId)
+}
+
 module.exports = {
     createProduct,
     getAllProducts,
@@ -118,5 +132,6 @@ module.exports = {
     getupdateProductPage,
     saveComment,
     deleteComment,
-    editComment
+    editComment,
+    rateProduct
 };

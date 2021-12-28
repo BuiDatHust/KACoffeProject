@@ -32,6 +32,11 @@
                                 <%= product.name %>
                             </h2>
 
+                            <div class="stars-outer">
+                                <div class="stars-inner"></div>
+                                <span class="number-rating"><%= product.averageRating %></span>
+                            </div>
+
                         </div>
                         <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
                             class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
@@ -75,8 +80,29 @@
             </div>
         </div>
     </section>
-    <%- include('comment') ; -%>
 
+    <div style="margin-left: 500px;" >
+        <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>"  method="POST" >
+        <p>Bạn thấy sản phẩm này:
+            <span>
+                <select name="rate" >
+                    <option value="3" >Tốt</option>
+                    <option value="4" >Rất tốt </option>
+                    <option value="5">Tuyệt vời</option>
+                    <option value="1">Tệ</option>
+                    <option value="2">Tạm được</option>
+                    
+                </select>
+            </span>
+            <input type="submit" value="Gửi phản hồi" /> 
+        </form>
+        </p>
+        
+    </div>
+   
+    <%- include('comment') ; -%>
+   
+    
     <%- include('_layouts/footer') ; -%>
 
         <script>
@@ -85,6 +111,10 @@
             const image2 = document.querySelector('.image-2')
             const image3 = document.querySelector('.image-3')
             const image4 = document.querySelector('.image-4')
+            let average = '<%= product.averageRating %>'
+
+            average = (parseInt(average)/5).toFixed(1)
+            console.log(average)
 
             image1.onclick = function() {
                 image0.src = image1.src
@@ -98,10 +128,14 @@
             image4.onclick = function() {
                 image0.src = image4.src
             }
+
             document.addEventListener('DOMContentLoaded', async function() {
+                
+                document.querySelector(".stars-inner").style.width = `${average*100}%`
                 if ('<%= warning %>') {
                     await swal("Thất bại!", "<%= warning %>", "warning")
                 }
             })
+            
         </script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

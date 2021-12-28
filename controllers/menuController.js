@@ -46,6 +46,7 @@ const getSingleProduct = async(req, res) => {
     
     console.log(user._id)
     res.status(StatusCodes.OK).render('detail', {
+        rating: 3.5,
         comments: comments,
         product: product,
         user: user,
