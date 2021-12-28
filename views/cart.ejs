@@ -94,6 +94,7 @@
                                         </td>
                                     </form>
                                 </tr>
+                                <% if(orders.length !=0){ %>
                                 <tr class="cart-bottom">
                                     <td colspan="6">
                                         <select style="padding: 7px;" id="doichai" name="doivo" >
@@ -107,6 +108,7 @@
                                         
                                     </td>
                                 </tr>
+                                <% } %>
                                 <tr class="cart-bottom">
                                     <td colspan="6">
                                         <span class="cart-bottom-span">Mua <span class="cart-total-num"><%= orders.length %></span> Sản phẩm</span>
@@ -163,8 +165,10 @@
 
     async function doivochai(){
         let chai= $('#doichai option:selected').val();
+        
         let amount ='<%= amount %>'
         amount= parseInt(amount)
+       
 
         if(amount>=5){
             await swal(`Quý khách được đổi ${chai/5} chai miễn phí`, "Click để tiếp tục", "success")

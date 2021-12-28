@@ -428,11 +428,12 @@ const getCart = async(req, res) => {
     orders = orders.filter((e) => {
         return e.status == 'tìm shipper';
     });
-    let amount=0
-    orders[0].orderItems.forEach((e) =>{
-        amount+= e.amount
-    })
+    
     if (orders.length > 0) {
+        let amount=0
+        orders[0].orderItems.forEach((e) =>{
+            amount+= e.amount
+        })
         res.render('cart', {
             orders: orders[0].orderItems,
             total: orders[0].total,
@@ -445,6 +446,7 @@ const getCart = async(req, res) => {
         });
     } else {
         res.render('cart', {
+            amount:0,
             orders: [],
             total: 0,
             subtotal: 0,
