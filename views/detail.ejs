@@ -25,7 +25,6 @@
                 </div>
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                    <form method="POST" action="/KACoffe/v1/order">
                         <div class="heading-section ftco-animate mb-5">
                             <span class="subheading">Thông tin sản phẩm</span>
                             <h2 name="product" class="mb-4">
@@ -39,16 +38,16 @@
 
                         </div>
                         <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
-                            class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
-                            class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
-                            class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
+              class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
+            class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
+              class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
                         <div class="woocommerce-product-details__short-description">
                             <p>
                                 <%= product.description %>
                             </p>
                             <p><strong>Nguyên liệu:</strong></p>
                             <p>
-                                <%= product.material %>
+                                <%= product.material %> 
                             </p>
                             <p><strong>Mô tả sản phẩm:</strong></p>
                             <p style="white-space: pre-line;margin-top: -30px;">
@@ -56,46 +55,54 @@
                             </p>
 
                         </div>
-                        <div class="quantity p-3" style="border:1px solid #D5E5F5">
-                            <input type="hidden" name="product" value="<%= product._id %>">
-                            <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ:
-                            <select name="size">
-                                <option value="S" >S</option>
-                                <option value="M" >M</option>
-                                <option value="L" >L</option>
-                            </select>
-                            <% if(user.role=="user" || !user) { %>
-                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                                <% }else{ %>
+                        <!-- <p>Hình ảnh sản phầm: </p>
+                <div>
+                    <% product.Image.forEach(function(img){ %>
+                        <img src="<%= img  %>" >
+                    <% }) %>
+                </div> -->
+                        <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
+                        <% if(user.role=="user" || !user) { %>
+                            <form method="POST" action="/KACoffe/v1/order">
+                                <div class="quantity p-3" style="border:1px solid #D5E5F5">
+                                    <input type="hidden" name="product" value="<%= product._id %>">
+                                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
+                                    <select name="size" >
+                                        <option value="S" >S</option>
+                                        <option value="M" >M</option>
+                                        <option value="L" >L</option>
+                                    </select>
+                                    <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
+                                </div>
+                            </form>
+                        <% }else{ %>
+                            <div class="quantity p-3" style="border:1px solid #D5E5F5">
+                                <form method="POST" action="/KACoffe/v1/order">
+                                    <input type="hidden" name="product" value="<%= product._id %>">
+                                    <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
+                                    <select name="size" >
+                                        <option value="S" >S</option>
+                                        <option value="M" >M</option>
+                                        <option value="L" >L</option>
+                                    </select>
                                     <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
-                                   
-                                    <% } %>
-                                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
-                        </div>
-
-                    </form>
-
-                    <form method="POST" action="/KACoffe/v1/order/buyfree" >
-                        <div class="quantity p-3" style="border:1px solid #D5E5F5">
-                            <input type="hidden" name="product" value="<%= product._id %>">
-                            <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                            Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ:
-                            <select name="size">
-                                <option value="S" >S</option>
-                                <option value="M" >M</option>
-                                <option value="L" >L</option>
-                            </select>
-                            <% if(user.role=="user" || !user) { %>
-                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                                <% }else{ %>
-                                    <input type="submit" value="Chọn chai miễn phí" class="btn btn-primary py-3 px-5 mt-4">
-                                   
-                                    <% } %>
-                                        <!-- <input type="submit" value="Mua ngay" class="btn btn-primary py-3 px-5"> -->
-                        </div>
-                    </form>
-                   
+                                </form>
+                                <br>
+                                <form method="POST" action="/KACoffe/v1/order/buyfree" >
+                                    <input type="hidden" name="product" value="<%= product._id %>">
+                                    <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
+                                    <select name="size" >
+                                        <option value="S" >S</option>
+                                        <option value="M" >M</option>
+                                        <option value="L" >L</option>
+                                    </select>
+                                    <input type="submit" value="Đổi chai miễn phí" class="btn btn-primary py-3 px-5 mt-4">   
+                                </form> 
+                            </div>
+                        <% } %>
                 </div>
 
             </div>
@@ -124,41 +131,35 @@
     </div>
    
     <%- include('comment') ; -%>
-   
-    
-    <%- include('_layouts/footer') ; -%>
 
-        <script>
-            const image0 = document.querySelector('.image-0')
-            const image1 = document.querySelector('.image-1')
-            const image2 = document.querySelector('.image-2')
-            const image3 = document.querySelector('.image-3')
-            const image4 = document.querySelector('.image-4')
-            let average = '<%= product.averageRating %>'
+    <%- include('_layouts/footer') ; -%>    
+    <script>
+        const image0 = document.querySelector('.image-0')
+        const image1 = document.querySelector('.image-1')
+        const image2 = document.querySelector('.image-2')
+        const image3 = document.querySelector('.image-3')
+        const image4 = document.querySelector('.image-4')
+        let average = '<%= product.averageRating %>'
 
-            average = (parseInt(average)/5).toFixed(1)
-            console.log(average)
-
-            image1.onclick = function() {
-                image0.src = image1.src
+        average = (parseInt(average)/5).toFixed(1)
+        
+        image1.onclick = function() {
+            image0.src = image1.src
+        }
+        image2.onclick = function() {
+            image0.src = image2.src
+        }
+        image3.onclick = function() {
+            image0.src = image3.src
+        }
+        image4.onclick = function() {
+            image0.src = image4.src
+        }
+        document.addEventListener('DOMContentLoaded', async function() {
+            document.querySelector(".stars-inner").style.width = `${average*100}%`
+            if ('<%= warning %>') {
+                await swal("Thất bại!", "<%= warning %>", "warning")
             }
-            image2.onclick = function() {
-                image0.src = image2.src
-            }
-            image3.onclick = function() {
-                image0.src = image3.src
-            }
-            image4.onclick = function() {
-                image0.src = image4.src
-            }
-
-            document.addEventListener('DOMContentLoaded', async function() {
-                
-                document.querySelector(".stars-inner").style.width = `${average*100}%`
-                if ('<%= warning %>') {
-                    await swal("Thất bại!", "<%= warning %>", "warning")
-                }
-            })
-            
-        </script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        })
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
