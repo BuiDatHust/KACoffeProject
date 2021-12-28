@@ -12,7 +12,8 @@ const {
     updateProduct,
     deleteProduct,
     saveComment,
-    deleteComment
+    deleteComment,
+    editComment
 } = require('../controllers/productController');
 
 // router
@@ -22,6 +23,8 @@ const {
 //   .delete([authenticateUser, authorizePermission('admin')], deleteProduct);
 router.route('/saveComment').post(authenticateUser, saveComment);
 router.route('/:productId/deleteComment/:commentId').post(authenticateUser, deleteComment);
+router.route('/:productId/editComment/:commentId').post(authenticateUser, editComment);
+
 router
     .route('/')
     // .post([authenticateUser, authorizePermission('admin')], createProduct)

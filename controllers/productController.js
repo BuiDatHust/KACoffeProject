@@ -101,6 +101,14 @@ const deleteComment = async(req, res) => {
     res.redirect('/KACoffe/v1/menu/' + productId);
 };
 
+const editComment = async (req,res) =>{
+    const { commentId,productId } = req.params;
+    const { editcmt } = req.body;
+    console.log(editcmt)
+    await Review.findByIdAndUpdate({ _id: commentId }, { comment: editcmt })
+    res.redirect('/KACoffe/v1/menu/' + productId)
+}
+
 module.exports = {
     createProduct,
     getAllProducts,
@@ -109,5 +117,6 @@ module.exports = {
     deleteProduct,
     getupdateProductPage,
     saveComment,
-    deleteComment
+    deleteComment,
+    editComment
 };

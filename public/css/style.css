@@ -13422,3 +13422,18 @@ align-items: center;
     margin-bottom: 10px;
     
 }
+.inputcmt{
+    border-top: white;
+    border-left: white;
+    border-right: white;
+    border-bottom:var(--gray);
+    border-radius: 5px;
+}
+.btncmt{
+    border: none;
+    cursor: pointer;
+}
+.cmtarea{
+    padding: 0px;
+    margin-bottom: 0px;
+}
