@@ -93,33 +93,42 @@ const saveComment = async(req, res) => {
 };
 
 const deleteComment = async(req, res) => {
-    const {commentId,productId} =req.params
-    console.log(productId)
+    const { commentId, productId } = req.params;
     const comment = await Review.findOne({ _id: commentId });
+    if (comment.user.toString() !== req.user.userId) {
+        res.redirect('/KACoffe/v1/menu/' + productId);
+    } else {
+        console.log(productId)
 
-    await comment.remove();
-    res.redirect('/KACoffe/v1/menu/' + productId);
+        await comment.remove();
+        res.redirect('/KACoffe/v1/menu/' + productId);
+    }
 };
 
-const editComment = async (req,res) =>{
-    const { commentId,productId } = req.params;
-    const { editcmt } = req.body;
-    console.log(editcmt)
-    await Review.findByIdAndUpdate({ _id: commentId }, { comment: editcmt })
-    res.redirect('/KACoffe/v1/menu/' + productId)
+const editComment = async(req, res) => {
+    const { commentId, productId } = req.params;
+    const comment = await Review.findOne({ _id: commentId });
+    if (comment.user.toString() !== req.user.userId) {
+        res.redirect('/KACoffe/v1/menu/' + productId);
+    } else {
+        const { editcmt } = req.body;
+        console.log(editcmt)
+        await Review.findByIdAndUpdate({ _id: commentId }, { comment: editcmt })
+        res.redirect('/KACoffe/v1/menu/' + productId)
+    }
 }
 
-const rateProduct=  async (req,res) =>{
+const rateProduct = async(req, res) => {
     let { rate } = req.body;
     const { productId } = req.params
     rate = parseInt(rate)
-    
-    const product =await Product.findOne({ _id: productId })
 
-    let average= ( rate+product.averageRating )/2
-    average= average.toFixed(1)
-    
-    await Product.findByIdAndUpdate({ _id: productId }, {averageRating: average})
+    const product = await Product.findOne({ _id: productId })
+
+    let average = (rate + product.averageRating) / 2
+    average = average.toFixed(1)
+
+    await Product.findByIdAndUpdate({ _id: productId }, { averageRating: average })
     res.redirect('/KACoffe/v1/menu/' + productId)
 }
 
