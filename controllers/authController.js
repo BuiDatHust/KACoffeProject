@@ -1,11 +1,21 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
+const Discount = require('../models/Discount');
 const { StatusCodes } = require('http-status-codes');
 const BadRequestError = require('../errors/badRequestError');
 const UnauthentiatedError = require('../errors/unauthenticatedError');
 const { attachTokenToRes, createTokenUser } = require('../utils');
 const nodemailer = require('nodemailer');
 const randomString = require('randomstring');
+
+
+function difference(date1, date2) {
+    const date1utc = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    const date2utc = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    day = 1000 * 60 * 60 * 24;
+    return (date2utc - date1utc) / day
+}
+
 
 const register = async(req, res) => {
     const { email, name, password, phone } = req.body;
@@ -52,6 +62,27 @@ const register = async(req, res) => {
     drinks = drinks.slice(0, 3);
     doUongNhanh = doUongNhanh.slice(0, 3);
 
+    // push data numbers to index page
+    let beginDate = new Date("2021-10-7");
+    let today = new Date();
+    let numbersOfUsers = 0;
+    let numbersOfDiscount = 0;
+    let dayServed = difference(beginDate, today);
+    let monthServed = dayServed / 30 + 1;
+    const users = await User.find({});
+    console.log(today);
+    users.forEach(function(e) {
+        if (e.score > 0) {
+            numbersOfUsers += 1;
+        }
+    })
+    const discounts = await Discount.find({});
+    discounts.forEach(function(e) {
+        if (e.endTime > Date.now()) {
+            numbersOfDiscount += 1;
+        }
+    })
+
     res.clearCookie('token');
     res.status(StatusCodes.CREATED).render('index', {
         user: '',
@@ -63,6 +94,10 @@ const register = async(req, res) => {
         drinks,
         drinks,
         status: '',
+        numbersOfDiscount,
+        numbersOfUsers,
+        dayServed,
+        monthServed,
     });
 };
 
@@ -113,6 +148,28 @@ const login = async(req, res) => {
     drinks = drinks.slice(0, 3);
     doUongNhanh = doUongNhanh.slice(0, 3);
 
+
+    // push data numbers to index page
+    let beginDate = new Date("2021-10-7");
+    let today = new Date();
+    let numbersOfUsers = 0;
+    let numbersOfDiscount = 0;
+    let dayServed = difference(beginDate, today);
+    let monthServed = dayServed / 30 + 1;
+    const users = await User.find({});
+    console.log(today);
+    users.forEach(function(e) {
+        if (e.score > 0) {
+            numbersOfUsers += 1;
+        }
+    })
+    const discounts = await Discount.find({});
+    discounts.forEach(function(e) {
+        if (e.endTime > Date.now()) {
+            numbersOfDiscount += 1;
+        }
+    })
+
     const tokenUser = createTokenUser(user);
     attachTokenToRes({ res, user: tokenUser });
     res.status(StatusCodes.OK).render('index', {
@@ -125,6 +182,10 @@ const login = async(req, res) => {
         drinks,
         drinks,
         status: '',
+        numbersOfDiscount,
+        numbersOfUsers,
+        dayServed,
+        monthServed,
     });
 };
 

@@ -6,11 +6,11 @@ const Story = require('../models/Story');
 const User = require('../models/User');
 var ObjectId = require('mongodb').ObjectID;
 
-const createProductPage = async (req, res) => {
+const createProductPage = async(req, res) => {
     res.render('addProduct', { user: req.user });
 };
 
-const createDiscountPage = async (req, res) => {
+const createDiscountPage = async(req, res) => {
     res.render('addDiscount', {
         user: req.user,
         discount: 0,
@@ -18,7 +18,7 @@ const createDiscountPage = async (req, res) => {
     });
 };
 
-const createDiscount = async (req, res) => {
+const createDiscount = async(req, res) => {
     const newDiscount = req.body;
     if (newDiscount.startTime >= newDiscount.endTime) {
         res.render('addDiscount', {
@@ -41,13 +41,13 @@ const createDiscount = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/discount');
 };
 
-const updateDiscountPage = async (req, res) => {
+const updateDiscountPage = async(req, res) => {
     const { id: discountId } = req.params;
     const discount = await Discount.findOne({ _id: discountId });
     res.render('updateDiscount', { user: req.user, discount: discount });
 };
 
-const updateDiscount = async (req, res) => {
+const updateDiscount = async(req, res) => {
     const { id: discountId } = req.params;
     var update = req.body;
     var updateForm = {};
@@ -58,8 +58,7 @@ const updateDiscount = async (req, res) => {
         }
     });
 
-    const updateDiscount = await Discount.findOneAndUpdate(
-        { _id: discountId },
+    const updateDiscount = await Discount.findOneAndUpdate({ _id: discountId },
         updateForm
     );
 
@@ -70,7 +69,7 @@ const updateDiscount = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/discount');
 };
 
-const deleteDiscount = async (req, res) => {
+const deleteDiscount = async(req, res) => {
     const { id: discountId } = req.params;
     const discount = await Discount.findOne({ _id: discountId });
 
@@ -81,7 +80,7 @@ const deleteDiscount = async (req, res) => {
     await discount.remove();
     res.redirect('/KACoffe/v1/admin/discount');
 };
-const updateRoleUserAsAdmin = async (req, res) => {
+const updateRoleUserAsAdmin = async(req, res) => {
     const { id: userId } = req.params;
     const user = await User.findOne({ _id: userId });
     const update1 = user;
@@ -94,18 +93,18 @@ const updateRoleUserAsAdmin = async (req, res) => {
     });
     res.redirect('/KACoffe/v1/admin/user');
 };
-const createStoryPage = async (req, res) => {
+const createStoryPage = async(req, res) => {
     res.render('addStories', { user: req.user });
 };
 
-const getUpdateStoryPage = async (req, res) => {
+const getUpdateStoryPage = async(req, res) => {
     const { id: storyId } = req.params;
     const story = await Story.findOne({ _id: storyId });
 
     res.render('updateStories', { user: req.user, story: story });
 };
 
-const createStory = async (req, res) => {
+const createStory = async(req, res) => {
     req.body.user = req.user.userId;
 
     req.body.image = '/uploads/' + req.file.filename;
@@ -113,7 +112,7 @@ const createStory = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/stories');
 };
 
-const updateStory = async (req, res) => {
+const updateStory = async(req, res) => {
     const { id: storyId } = req.params;
     const { title, description, detaildescription } = req.body;
 
@@ -125,13 +124,13 @@ const updateStory = async (req, res) => {
     res.redirect('/KACoffe/v1/admin/stories');
 };
 
-const deleteStory = async (req, res) => {
+const deleteStory = async(req, res) => {
     const story = await Story.findByIdAndDelete(req.params.id);
     console.log(story);
     res.redirect('/KACoffe/v1/admin/stories');
 };
 
-const getAdminPage = async (req, res) => {
+const getAdminPage = async(req, res) => {
     const page = req.query.page || 1;
     const perPage = 10;
     const count = await Product.count({});
@@ -150,7 +149,7 @@ const getAdminPage = async (req, res) => {
     });
 };
 
-const getAdminDiscountPage = async (req, res) => {
+const getAdminDiscountPage = async(req, res) => {
     const discounts = await Discount.find({}).sort({ _id: -1 });
 
     for (var dc of discounts) {
@@ -169,7 +168,7 @@ const getAdminDiscountPage = async (req, res) => {
     });
 };
 
-const getAdminUserPage = async (req, res) => {
+const getAdminUserPage = async(req, res) => {
     const users = await User.find({}).sort({ score: -1 });
 
     res.render('admin/user', {
@@ -178,7 +177,7 @@ const getAdminUserPage = async (req, res) => {
     });
 };
 
-const getAdminOrderPage = async (req, res) => {
+const getAdminOrderPage = async(req, res) => {
     const perPage = 10;
     const page = req.query.page || 1;
     const count = await Order.count({ status: { $ne: 'tìm shipper' } });
@@ -199,7 +198,7 @@ const getAdminOrderPage = async (req, res) => {
     });
 };
 
-const getAdminStoriesPage = async (req, res) => {
+const getAdminStoriesPage = async(req, res) => {
     const stories = await Story.find({}).sort({ _id: -1 });
 
     res.render('admin/stories', {
@@ -208,7 +207,7 @@ const getAdminStoriesPage = async (req, res) => {
     });
 };
 
-const getAdminStatisticPage = async (req, res) => {
+const getAdminStatisticPage = async(req, res) => {
     const users = await User.find({});
     const orders = await Order.find({ status: 'giao thành công' })
         .sort({ _id: -1 })
@@ -304,8 +303,8 @@ const getAdminStatisticPage = async (req, res) => {
         }
     });
 
-    users.forEach(function (e) {
-        weekNow = Math.ceil(e.updatedAt.getDate() / 7);
+    users.forEach(function(e) {
+        weekNow = Math.ceil(e.createdAt.getDate() / 7);
         if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
@@ -371,7 +370,7 @@ const getAdminStatisticPage = async (req, res) => {
     });
 };
 
-const updateOrder = async (req, res) => {
+const updateOrder = async(req, res) => {
     const { id } = req.params;
     const status = req.body.capnhat;
 
