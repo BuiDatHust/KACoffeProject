@@ -46,7 +46,7 @@
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="security-tab">
                         <div class="grid__column-10">
-                            <div class="cart-cart">
+                            <div class="cart-cart mb-5">
                                 <span class="subheading" style="font-size:20px;">Người dùng vàng</span>
                                 <table class="cart-table">
                                     <tr>
@@ -72,7 +72,11 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning" title="Thêm quyền admin"><i class="fas fa-user-plus"></i></button>
+                                                        </form>
+                                                    <% } else { %>
+                                                        <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="xoa" class="btn btn-warning" title="Bỏ quyền admin"><i class="fas fa-user-minus"></i></button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -81,7 +85,7 @@
                                     <% }) ; %>
                                 </table>
                             </div>
-                            <div class="cart-cart" style="padding-top: 50px;">
+                            <div class="cart-cart mb-5" style="padding-top: 50px;">
                                 <span class="subheading" style="font-size:20px;">Người dùng bạc</span>
                                 <table class="cart-table">
                                     <tr>
@@ -107,7 +111,11 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning" title="Thêm quyền admin"><i class="fas fa-user-plus"></i></button>
+                                                        </form>
+                                                    <% } else { %>
+                                                        <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="xoa" class="btn btn-warning" title="Bỏ quyền admin"><i class="fas fa-user-minus"></i></button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -116,7 +124,7 @@
                                     <% }) ; %>
                                 </table>
                             </div>
-                            <div class="cart-cart" style="padding-top: 50px;">
+                            <div class="cart-cart mb-5" style="padding-top: 50px;">
                                 <span class="subheading" style="font-size:20px;">Người dùng đồng</span>
                                 <table class="cart-table">
                                     <tr>
@@ -142,7 +150,11 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning" title="Thêm quyền admin"><i class="fas fa-user-plus"></i></button>
+                                                        </form>
+                                                    <% } else { %>
+                                                        <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="xoa" class="btn btn-warning" title="Bỏ quyền admin"><i class="fas fa-user-minus"></i></button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -152,7 +164,7 @@
                                 </table>
                             </div>
     
-                            <div class="cart-cart" style="padding-top: 50px;">
+                            <div class="cart-cart mb-5" style="padding-top: 50px;">
                                 <span class="subheading" style="font-size:20px;">Người dùng hạng thường</span>
                                 <table class="cart-table">
                                     <tr>
@@ -178,7 +190,11 @@
                                                 <td>
                                                     <% if(user.role != 'admin')  { %>
                                                         <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
-                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning">Thêm Admin</button>
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="sua" class="btn btn-warning" title="Thêm quyền admin"><i class="fas fa-user-plus"></i></button>
+                                                        </form>
+                                                    <% } else { %>
+                                                        <form id="userSubmit<%= user._id %>" action="/KACoffe/v1/admin/updateUserAsAdmin/<%= user._id  %>" method="post">
+                                                            <button onclick="event.preventDefault();UpdateRoleUser('<%= user._id %>');" id="xoa" class="btn btn-warning" title="Bỏ quyền admin"><i class="fas fa-user-minus"></i></button>
                                                         </form>
                                                     <% } %>
                                                 </td>
@@ -215,7 +231,9 @@
                         'Cập nhật thành công',
                         'success'
                     )
-                    usersubmit.submit()
+                    .then(() => {
+                        usersubmit.submit()
+                    })
                 }
             })
         }

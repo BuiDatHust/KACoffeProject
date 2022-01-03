@@ -57,28 +57,30 @@
                                     <tr>
                                         <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Thứ tự</span></th>
                                         <th class="admin-header__products">Tiêu đề tin tức</th>
-                                        <th class="admin-header__time">Ngày tạo tin tức</th>
+                                        <th class="admin-header__price">Ngày tạo tin tức</th>
                                         <th class="admin-header__header">Thao tác</th>
                                     </tr>
                                     <!-- insert code here -->
                                     <% stories.forEach(function(e,i) {  %>
-                                        <tr>
+                                        <tr class="cart-item">
                                             <td style="width: 30px; margin-left: 8px;"><span class="cart-all"><%= i + 1 %></span></td>
-                                            <td class="admin-header__products">
+                                            <td class="cart-txt-left cart-name">
                                                 <%= e.title  %>
                                             </td>
-                                            <td class="admin-header__time">
+                                            <td class="cart-price">
                                                 <%= e.createdAt.toLocaleDateString("en-US") %>-<%= e.createdAt.toLocaleString([], {
                                                     hour: '2-digit',
                                                     minute: '2-digit'
                                                 }) %>
                                             </td>
                                             <td class="admin-header__header">
-                                                <form method="get" action="/KACoffe/v1/admin/updateStory/<%= e._id %>">
-                                                    <input id="sua" type="submit" value="Sửa" />
-                                                </form>
                                                 <form id="story<%= e._id %>" method="post" action="/KACoffe/v1/admin/deleteStory/<%= e._id %>">
-                                                    <input id="xoa" onclick="event.preventDefault();DeleteStory('<%= e._id %>');" type="submit" value="Xoá" />
+                                                    <a class="mr-1" href="/KACoffe/v1/admin/updateStory/<%= e._id %>">
+                                                        <button id="sua" type="button">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                    <button id="xoa" onclick="event.preventDefault();DeleteStory('<%= e._id %>');" type="submit"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

@@ -17,11 +17,11 @@
         <div class="container">
             <div class="row d-flex">
                 <div class="col-md-5 ftco-animate img img-2 cart-img-img">
-                    <img class="image-0" src="<%= product.Image[0] %>" style="width:434px; margin-bottom: 12px">
-                    <img class="image-1" src="<%= product.Image[0] %>" style="width:100px; margin-right:7px">
-                    <img class="image-2" src="<%= product.Image[1] %>" style="width:100px; margin-right:7px">
-                    <img class="image-3" src="<%= product.Image[2] %>" style="width:100px; margin-right:7px">
-                    <img class="image-4" src="<%= product.Image[3] %>" style="width:100px">
+                    <img class="image-0" src="<%= product.Image[0] %>" style="width:100%; margin-bottom: 12px">
+                    <img class="image-1" src="<%= product.Image[0] %>" style="width:calc(25% - 10px); margin-right:9px">
+                    <img class="image-2" src="<%= product.Image[1] %>" style="width:calc(25% - 10px); margin-right:9px">
+                    <img class="image-3" src="<%= product.Image[2] %>" style="width:calc(25% - 10px); margin-right:9px">
+                    <img class="image-4" src="<%= product.Image[3] %>" style="width:calc(25% - 10px)">
                 </div>
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
@@ -78,7 +78,7 @@
                             </form>
                         <% }else{ %>
                             <div class="quantity p-3" style="border:1px solid #D5E5F5">
-                                <form method="POST" action="/KACoffe/v1/order">
+                                <form id="form-buy" method="POST">
                                     <input type="hidden" name="product" value="<%= product._id %>">
                                     <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
                                     Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
@@ -87,25 +87,42 @@
                                         <option value="M" >M</option>
                                         <option value="L" >L</option>
                                     </select>
-                                    <input type="submit" value="Đặt tại quán" class="btn btn-primary py-3 px-5 mt-4">
+                                    <input id="buy-by-admin" type="button" value="Đặt tại quán" class="btn btn-primary mt-4 mr-3">
+                                    <input id="buy-free" type="button" value="Đổi chai miễn phí" class="btn btn-primary mt-4"> 
                                 </form>
-                                <br>
+                                <script>
+                                    var formBuy = document.getElementById("form-buy")
+                                    var buyByAdmin = document.getElementById("buy-by-admin")
+                                    var buyFree = document.getElementById("buy-free")
+
+                                    buyByAdmin.addEventListener('click', () => {
+                                        formBuy.action = "/KACoffe/v1/order"
+                                        formBuy.submit()
+                                    })
+
+                                    buyFree.addEventListener('click', () => {
+                                        formBuy.action = "/KACoffe/v1/order/buyfree"
+                                        formBuy.submit()
+                                    })
+                                </script>
+                                <!--<br>
                                 <form method="POST" action="/KACoffe/v1/order/buyfree" >
                                     <input type="hidden" name="product" value="<%= product._id %>">
-                                    <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                    <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> 
                                     Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
                                     <select name="size" >
                                         <option value="S" >S</option>
                                         <option value="M" >M</option>
                                         <option value="L" >L</option>
                                     </select>
-                                    <input type="submit" value="Đổi chai miễn phí" class="btn btn-primary py-3 px-5 mt-4">   
-                                </form> 
+                                      
+                                </form>-->
                             </div>
                         <% } %>
                 </div>
 
             </div>
+        
         </div>
     </section>
 
@@ -129,7 +146,7 @@
         </p>
         
     </div>
-   
+    
     <%- include('comment') ; -%>
 
     <%- include('_layouts/footer') ; -%>    

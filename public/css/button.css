@@ -1,25 +1,43 @@
 #sua {
-    background-color: #62529c;
+    background-color: #2178db;
     border: none;
-    width: 60px;
+    width: 36px;
+    height: 36px;
     color: #fff;
-    padding: 1px 2px;
     text-decoration: none;
-    margin: 1px 2px;
+    margin: auto;
+    padding: inherit;
     cursor: pointer;
-    padding: 2px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#sua:disabled, #xoa:disabled {
+    background-color: rgb(121, 121, 121);
+}
+
+#sua:disabled:hover, #xoa:disabled:hover {
+    opacity: 1;
 }
 
 #xoa {
-    background-color: #f30606;
+    background-color: #db4949;
     border: none;
-    width: 60px;
-    color: rgb(15, 2, 2);
-    padding: 1px 2px;
+    width: 36px;
+    height: 36px;
+    color: #fff;
     text-decoration: none;
-    margin: 1px 2px;
+    margin: auto;
+    padding: inherit;
     cursor: pointer;
-    padding: 2px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#sua:hover, #xoa:hover {
+    opacity: .8;
 }
 
 #address {

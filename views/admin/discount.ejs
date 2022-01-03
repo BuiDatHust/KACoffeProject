@@ -65,7 +65,12 @@
                                             <td><span class="cart-time"><% if(discount.startTime) { %><%= discount.startTime.toLocaleString('en-GB') %> - <%= discount.endTime.toLocaleString('en-GB') %><% } %> </span></td>
                                             <td>
                                                 <form id="discount<%= discount._id %>" action="/KACoffe/v1/admin/allDiscount/delete/<%= discount._id  %>" method="post">
-                                                    <button id="xoa" onclick="event.preventDefault();DeleteDiscount('<%= discount._id %>');" >Xóa</button>
+                                                    <a class="mr-1" href="/KACoffe/v1/admin/allDiscount/<%= discount._id  %>">
+                                                        <button id="sua" type="button">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </button>
+                                                    </a>
+                                                    <button id="xoa" onclick="event.preventDefault();DeleteDiscount('<%= discount._id %>');" ><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

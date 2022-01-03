@@ -85,7 +85,7 @@ const updateRoleUserAsAdmin = async (req, res) => {
     const { id: userId } = req.params;
     const user = await User.findOne({ _id: userId });
     const update1 = user;
-    update1.role = 'admin';
+    update1.role = update1.role == 'user' ? 'admin' : 'user';
     if (!user) {
         throw new NotFoundError(`No user with id: ${userId}`);
     }
@@ -210,7 +210,7 @@ const getAdminStoriesPage = async (req, res) => {
 
 const getAdminStatisticPage = async (req, res) => {
     const users = await User.find({});
-    const orders = await Order.find({ status: { $ne: 'tìm shipper' } })
+    const orders = await Order.find({ status: 'giao thành công' })
         .sort({ _id: -1 })
         .populate({
             path: 'orderItems',
@@ -238,16 +238,17 @@ const getAdminStatisticPage = async (req, res) => {
     if (weekNow > 4) weekNow = 4;
     let monthNow = today.getMonth() + 1;
     let yearNow = today.getFullYear();
+    let lastMonth = today.getMonth() + 1 === 1 ? 12 : today.getMonth();
 
     // Thống kê
-    orders.forEach(function (e) {
-        if (e.createdAt.getMonth() == monthNow - 1) {
+    orders.forEach((e) => {
+        if (e.updatedAt.getMonth() + 1 === monthNow) {
             avenue += e.subtotal;
             sumorder += 1;
             if (e.user == undefined) {
                 newcustomer += 1;
             }
-        } else if (e.createAt.getMonth() == monthNow - 2) {
+        } else if (e.updatedAt.getMonth() + 1 === lastMonth) {
             oldAvenue += e.subtotal;
             oldSumOrder += 1;
             if (e.user == undefined) {
@@ -255,10 +256,10 @@ const getAdminStatisticPage = async (req, res) => {
             }
         }
     });
-    users.forEach(function (e) {
-        if (e.createdAt.getMonth() == monthNow - 1) {
+    users.forEach((e) => {
+        if (e.createdAt.getMonth() + 1 === monthNow) {
             newcustomer += 1;
-        } else if (e.createdAt.getMonth() == monthNow - 2) {
+        } else if (e.createdAt.getMonth() + 1 === lastMonth) {
             oldCustomer += 1;
         }
     });
@@ -287,10 +288,10 @@ const getAdminStatisticPage = async (req, res) => {
         guess.push(0);
     }
     orders.forEach(function (e) {
-        weekNow = Math.ceil(e.createdAt.getDate() / 7);
+        weekNow = Math.ceil(e.updatedAt.getDate() / 7);
         if (weekNow > 4) weekNow = 4;
-        monthNow = e.createdAt.getMonth() + 1;
-        yearNow = e.createdAt.getFullYear();
+        monthNow = e.updatedAt.getMonth() + 1;
+        yearNow = e.updatedAt.getFullYear();
         let orderDate = 'week ' + weekNow + ' - ' + monthNow + ' - ' + yearNow;
         for (let i = 0; i <= 11; i++) {
             if (time[i].localeCompare(orderDate) == 0) {
@@ -304,7 +305,7 @@ const getAdminStatisticPage = async (req, res) => {
     });
 
     users.forEach(function (e) {
-        weekNow = Math.ceil(e.createdAt.getDate() / 7);
+        weekNow = Math.ceil(e.updatedAt.getDate() / 7);
         if (weekNow > 4) weekNow = 4;
         monthNow = e.createdAt.getMonth() + 1;
         yearNow = e.createdAt.getFullYear();
@@ -328,8 +329,8 @@ const getAdminStatisticPage = async (req, res) => {
 
     orders.forEach((order) => {
         if (
-            order.createdAt.getFullYear() == yearNow &&
-            order.createdAt.getMonth() == monthNow
+            order.updatedAt.getFullYear() == yearNow &&
+            order.updatedAt.getMonth() == monthNow
         ) {
             order.orderItems.forEach((orderItem) => {
                 if (orderItem.product) {
@@ -374,8 +375,25 @@ const updateOrder = async (req, res) => {
     const { id } = req.params;
     const status = req.body.capnhat;
 
-    await Order.findByIdAndUpdate(id, { status: status });
-    res.redirect('/KACoffe/v1/admin/order');
+    const order = await Order.findOne({ _id: id });
+    const user = await User.findOne({ _id: order.user });
+
+    order.status = status;
+    await order.save();
+
+    if (user) {
+        var notification = user.notification;
+        notification = [
+            ...notification,
+            `Đơn hàng #${id
+                .toString()
+                .slice(18, 24)} của bạn đã cập nhật trạng thái thành ${status}`,
+        ];
+        user.notification = notification;
+        await user.save();
+    }
+
+    res.redirect('back');
 };
 
 module.exports = {

@@ -38,7 +38,16 @@
                         <img src="/images/avt.jpg" alt="Image" class="shadow">
                     </div>
                     <h4 class="text-center"><%= user.name %></h4>
-                    <p class="text-center">Hạng <%= user.rank %></p>
+                    <div class="text-center">Hạng <%= user.rank %></div>
+                    <% if(user.rank == 'thường') { %>
+                        <div class="text-center">Điểm <%= user.score %>/100</div>
+                    <% }else if(user.rank == 'đồng') { %>
+                        <div class="text-center">Điểm <%= user.score %>/200</div>
+                    <% } else if(user.rank == 'bạc') { %> 
+                        <div class="text-center">Điểm <%= user.score %>/300</div>
+                    <% } else { %> 
+                        <div class="text-center">Điểm <%= user.score %></div>
+                    <% } %>
                 </div>
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">

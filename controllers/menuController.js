@@ -4,7 +4,7 @@ const Review = require('../models/Review');
 const { StatusCodes } = require('http-status-codes');
 const User = require('../models/User');
 
-const getproducts = async(req, res) => {
+const getproducts = async (req, res) => {
     const products = await Product.find({}).sort({ _id: -1 });
     var user;
 
@@ -19,7 +19,7 @@ const getproducts = async(req, res) => {
     });
 };
 
-const getSingleProduct = async(req, res) => {
+const getSingleProduct = async (req, res) => {
     const { id: productId } = req.params;
     var user;
     // const product = await Product.findOne({ _id: productId }).populate('reviews');
@@ -36,26 +36,30 @@ const getSingleProduct = async(req, res) => {
     }
 
     let comments = await Review.find({
-        product: productId
-    })
-    comments.forEach(function(e){
-        
-        e.created = e.createdAt.getDay() +'/' + e.createdAt.getMonth() +'/'+e.createdAt.getFullYear()
-    })
-    console.log(comments)
-    
-    console.log(user._id)
+        product: productId,
+    });
+    comments.forEach(function (e) {
+        e.created =
+            e.createdAt.getDay() +
+            '/' +
+            e.createdAt.getMonth() +
+            '/' +
+            e.createdAt.getFullYear();
+    });
+    console.log(comments);
+
+    console.log(user._id);
     res.status(StatusCodes.OK).render('detail', {
         rating: 3.5,
         comments: comments,
         product: product,
         user: user,
         warning: '',
-        len: comments.length
+        len: comments.length,
     });
 };
 
-const filterProduct = async(req, res) => {
+const filterProduct = async (req, res) => {
     let { category, min, max, sort } = req.body;
 
     const sortquery = sort == 'ASC' ? 'price' : '-price';
@@ -66,12 +70,12 @@ const filterProduct = async(req, res) => {
 
     min = parseInt(min);
     max = parseInt(max);
-    if (min && max) {
-        products = products.filter(function(e) {
+    if (min != NaN && max != NaN) {
+        products = products.filter(function (e) {
             return e.price > min && e.price < max;
-        });
+        }); 
     }
-    console.log(products);
+    //console.log(products);
 
     res.render('menu', { products: products, user: req.user });
 };

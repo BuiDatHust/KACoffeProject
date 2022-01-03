@@ -32,6 +32,9 @@
                                 <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
                                 <a href="white-coffee.html" class="cart-name">
                                     <%= order.name  %>
+                                    <% if(order.price == 0) { %> 
+                                        (Đổi chai)    
+                                    <% } %>
                                 </a>
                             </td>
                             <td><span class="cart-price"><%=  order.price  %>đ</span></td>
@@ -45,7 +48,7 @@
                     <% }) %>
                 </table>
             </div>
-            <div class="cart mb-5 pb-0 pr-5 pl-5">
+            <div class="cart mb-5 pb-0 pr-lg-4 pl-lg-4">
                 <% if( user.role=="user"){ %>
                     <div class="row">
                         <div class="col-md-6">

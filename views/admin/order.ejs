@@ -67,12 +67,14 @@
                                             <td><span class="cart-price"><%= order.orderItems.length %></span></td>
                                             <td><span class="cart-price"><%= order.status %></span></td>
                                             <td>
-                                                <form id="ordersubmit<%= order._id %>" method="post" action="/KACoffe/v1/admin/deleteOrder/<%= order._id %>">
-                                                    <input id="xoa" onclick="event.preventDefault();XoaDon('<%= order._id %>');" type="submit" value="Xóa" />
-                                                </form>
-                                                <form id="updateorder<%= order._id %>" method="post" action="/KACoffe/v1/admin/updateOrder/<%= order._id %>">
-                                                    <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
-                                                    <input id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>', '<%= order.status %>');" value="Cập nhật" type="submit" />
+                                                <form id="ordersubmit<%= order._id %>" method="post">
+                                                    <% if(order.status == 'giao thành công') { %>
+                                                        <button id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>', '<%= order.status %>');" type="button" disabled="disabled"><i class="fas fa-times"></i></button>
+                                                    <% } else { %>
+                                                        <input hidden name="capnhat" value="" id="capnhat<%= order._id %>" />
+                                                        <button id="sua" onclick="event.preventDefault();capnhatdon('<%= order._id %>', '<%= order.status %>');" type="button" ><i class="fas fa-pencil-alt"></i></button>
+                                                    <% } %> 
+                                                    <button class="ml-1" id="xoa" onclick="event.preventDefault();XoaDon('<%= order._id %>');" type="button"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -142,48 +144,68 @@
                         'Xóa thành công',
                         'success'
                     )
-                    ordersubmit.submit()
+                    .then(() => {
+                        ordersubmit.action=`/KACoffe/v1/admin/deleteOrder/${orderid}`
+                        ordersubmit.submit()
+                    })
                 }
             })
     }
 
     async function capnhatdon(id, status) {
-        const updateOrder = document.getElementById(`updateorder${id}`) 
+        const ordersubmit = document.getElementById(`ordersubmit${id}`)
         const updateValue = document.getElementById(`capnhat${id}`) 
 
         if (status == 'giao thành công') {
             await Swal.fire("Không thể cập nhật!", "Đơn đã giao thành công", "warning")
-        } else {
-            const { value: status } = await Swal.fire({
-                title: 'Chọn một trạng thái bên dưới',
-                input: 'select',
-                inputOptions: {
-                    "shipper đang lấy hàng" : "shipper đang lấy hàng", 
-                    "shipper đang giao" : "shipper đang giao", 
-                    "giao thành công" : "giao thành công"
-                },
-                inputPlaceholder: 'Trạng thái',
+        } else if(status == 'shipper đang giao') {
+            await Swal.fire({
+            title: 'Bạn có chắc cập nhật?',
+                text: "Trạng thái mới: giao thành công!",
+                icon: 'warning',
                 showCancelButton: true,
-                inputValidator: (value) => {
-                    return new Promise((resolve) => {
-                        if (!value) {
-                            resolve('Chưa lựa chọn trạng thái!')
-                        } else {
-                            resolve()
-                        }
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có !'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Thành công!',
+                        'Cập nhật thành công',
+                        'success'
+                    )
+                    .then(() => {
+                        updateValue.value = 'giao thành công'
+                        ordersubmit.action=`/KACoffe/v1/admin/updateOrder/${id}`
+                        ordersubmit.submit()
                     })
                 }
             })
-            if (status) {
-                Swal.fire({
-                    text: `Đã cập nhật trạng thái thành: ${status}`, 
-                    icon: 'success'
-                })
-                .then(() => {
-                    updateValue.value = status
-                    updateOrder.submit()
-                })
-            }
+        } else if (status == 'shipper đang lấy hàng') {
+            await Swal.fire({
+            title: 'Bạn có chắc cập nhật?',
+                text: "Trạng thái mới: shipper đang giao!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có !'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Thành công!',
+                        'Cập nhật thành công',
+                        'success'
+                    )
+                    .then(() => {
+                        updateValue.value = 'shipper đang giao'
+                        ordersubmit.action=`/KACoffe/v1/admin/updateOrder/${id}`
+                        ordersubmit.submit()
+                    })
+                }
+            })
         }
     }
 </script>

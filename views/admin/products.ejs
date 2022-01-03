@@ -72,10 +72,14 @@
                                         <td><span class="cart-price"><%= product.price  %></span></td>
                                         <td>
                                             <form id="product<%= product._id %>" action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post">
-                                                <input id="xoa" onclick="event.preventDefault();DeleteProduct('<%= product._id %>');" type="submit"  value="Xoá" />
-                                            </form>
-                                            <form action="/KACoffe/v1/admin/allproduct/<%= product._id  %>" method="get">
-                                            <input id="sua" type="submit" value="Sửa" />
+                                                <a class="mr-1" href="/KACoffe/v1/admin/allproduct/<%= product._id  %>">
+                                                    <button id="sua" type="button">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                </a>
+                                                <button id="xoa" onclick="event.preventDefault();DeleteProduct('<%= product._id %>');">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>

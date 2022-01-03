@@ -23,8 +23,12 @@
                     <form  id="orderdetail<%= order._id %>" action="/KACoffe/v1/order/detail/<%= order._id %>" method="get"></form>
                     
                     <td>
-                        <input   onclick="HuyDon('<%= order._id %>');" type="submit" id="xoa" value="Hủy Đơn"  />
-                        <input   onclick="XemDon('<%= order._id %>');" type="submit" id="sua" value="Xem Đơn"  />
+                        <button onclick="XemDon('<%= order._id %>');" type="submit" id="sua" title="Xem đơn"><i class="fas fa-eye"></i></button>
+                        <% if(order.status == 'shipper đang lấy hàng') { %> 
+                            <button class="ml-1" onclick="HuyDon('<%= order._id %>');" type="submit" id="xoa" title="Yêu cầu hủy đơn"><i class="fas fa-trash"></i></button>
+                        <% } else { %>
+                            <button class="ml-1" id="xoa" disabled="disabled"><i class="fas fa-trash"></i></button>
+                        <% } %>
                     </td>
                     
                 </tr>            
