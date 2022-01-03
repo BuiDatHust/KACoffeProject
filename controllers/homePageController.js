@@ -4,7 +4,14 @@ const Story = require('../models/Story');
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 
-const getHomepage = async (req, res) => {
+function difference(date1, date2) {
+    const date1utc = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    const date2utc = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    day = 1000 * 60 * 60 * 24;
+    return (date2utc - date1utc) / day
+}
+
+const getHomepage = async(req, res) => {
     let productNew = await Product.find({}).sort({ _id: -1 });
     let caPhe = await Product.find({ category: 'Cà phê' }).sort({ _id: -1 });
     let traSua = await Product.find({ category: 'Trà trái cây-Trà sữa' }).sort({
@@ -30,6 +37,27 @@ const getHomepage = async (req, res) => {
         user = req.user;
     }
 
+    // push data numbers to index page
+    let beginDate = new Date("2021-10-7");
+    let today = new Date();
+    let numbersOfUsers = 0;
+    let numbersOfDiscount = 0;
+    let dayServed = difference(beginDate, today);
+    let monthServed = dayServed / 30 + 1;
+    const users = await User.find({});
+    console.log(today);
+    users.forEach(function(e) {
+        if (e.score > 0) {
+            numbersOfUsers += 1;
+        }
+    })
+    const discounts = await Discount.find({});
+    discounts.forEach(function(e) {
+        if (e.endTime > Date.now()) {
+            numbersOfDiscount += 1;
+        }
+    })
+
     res.status(StatusCodes.OK).render('index', {
         user: user,
         productNew: productNew,
@@ -40,10 +68,14 @@ const getHomepage = async (req, res) => {
         drinks,
         drinks,
         status: '',
+        numbersOfDiscount,
+        numbersOfUsers,
+        dayServed,
+        monthServed,
     });
 };
 
-const getDiscount = async (req, res) => {
+const getDiscount = async(req, res) => {
     const discount = await Discount.find({}).sort({ _id: -1 });
     for (var dc of discount) {
         if (dc.endTime < Date.now()) {
@@ -71,7 +103,7 @@ const getDiscount = async (req, res) => {
     });
 };
 
-const getStories = async (req, res) => {
+const getStories = async(req, res) => {
     const stories = await Story.find({}).populate({
         path: 'user',
         model: User,
@@ -97,7 +129,7 @@ const getStories = async (req, res) => {
     });
 };
 
-const getSingleStory = async (req, res) => {
+const getSingleStory = async(req, res) => {
     const { id: storyId } = req.params;
     var user;
     // const story = await Story.findOne({ _id: storyId }).populate('reviews');
@@ -120,7 +152,7 @@ const getSingleStory = async (req, res) => {
     });
 };
 
-const getNotification = async (req, res) => {
+const getNotification = async(req, res) => {
     const user = await User.findOne({ _id: req.user.userId });
 
     user.notification.reverse();

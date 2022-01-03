@@ -13,9 +13,9 @@
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee </p>
                             <% if( !user ){ %>
                                 <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% } else { %>
-                                <p><a href="/KACoffe/v1/menu" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% } %>
+                                <% } else { %>
+                                    <p><a href="/KACoffe/v1/menu" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                                    <% } %>
                         </div>
                     </div>
                 </div>
@@ -35,9 +35,9 @@
                             <p class="text-introduce">Chào mừng bạn đến với KACoffee. Hy vọng bạn sẽ tận hưởng được hương vị cà phê ở khắp nơi trên thế giới ở KACoffee</p>
                             <% if( !user ){ %>
                                 <p><a href="#order_now" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% } else { %>
-                                <p><a href="/KACoffe/v1/menu" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
-                            <% } %>
+                                <% } else { %>
+                                    <p><a href="/KACoffe/v1/menu" class="btn btn-primary px-4 py-3 mt-3" style="margin-left: 42%;">Đặt đồ ngay</a></p>
+                                    <% } %>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                         <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18">
                                 <div class="text">
-                                    <strong class="number" data-number="2">0</strong>
+                                    <strong class="number" data-number="<%= monthServed %>">0</strong>
                                     <span>Tháng phục vụ</span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                         <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18">
                                 <div class="text">
-                                    <strong class="number" data-number="1001">0</strong>
+                                    <strong class="number" data-number="<%= numbersOfUsers %>">0</strong>
                                     <span>Khách hàng mua café</span>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                         <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18">
                                 <div class="text">
-                                    <strong class="number" data-number="15">0</strong>
+                                    <strong class="number" data-number="<%= numbersOfDiscount %>">0</strong>
                                     <span>Chương trình khuyến mãi</span>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                         <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18">
                                 <div class="text">
-                                    <strong class="number" data-number="69">0</strong>
+                                    <strong class="number" data-number="<%= dayServed %>">0</strong>
                                     <span>Ngày mở cửa</span>
                                 </div>
                             </div>
