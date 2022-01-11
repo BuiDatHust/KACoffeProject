@@ -29,7 +29,7 @@
                                 <input type="checkbox" checked="checked" class="cart-check" name="courseIds[]" value="<%= order._id %>" />
                             </td>-->
                             <td class="cart-txt-left">
-                                <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
+                                <img src="<%= order.Image%>" alt="" class="cart-txt-left-img">
                                 <a href="/KACoffe/v1/menu/<%= order.product %>" class="cart-name">
                                     <%= order.name  %>
                                 </a>
