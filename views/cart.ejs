@@ -30,17 +30,30 @@
                             </td>-->
                             <td class="cart-txt-left">
                                 <img src="/images/white-coffee.jpg" alt="" class="cart-txt-left-img">
-                                <a href="white-coffee.html" class="cart-name">
+                                <a href="/KACoffe/v1/menu/<%= order.product %>" class="cart-name">
                                     <%= order.name  %>
-                                    <% if(order.price == 0) { %> 
-                                        (Đổi chai)    
-                                    <% } %>
                                 </a>
                             </td>
-                            <td><span class="cart-price"><%=  order.price  %>đ</span></td>
+                            <td>
+                                <span class="cart-price">
+                                    <% if(order.price==0) { %>
+                                        5 vỏ chai
+                                    <% } else { %>
+                                        <%= order.price %>đ
+                                    <% } %>
+                                </span>
+                            </td>
                             <td><!--<span class="cart-reduce">-</span>--><span class="cart-num"><%= order.amount  %></span><!--<span class="cart-add">+</span>--></td>
                             <td><span class="cart-price"><%=  order.size  %></span></td>
-                            <td><span class="cart-subtotal"> <%= order.amount*order.price %>đ</span></td>
+                            <td>
+                                <span class="cart-subtotal"> 
+                                    <% if(order.price==0) { %>
+                                        <%= order.amount*5 %> vỏ chai
+                                    <% } else { %>
+                                        <%= order.amount*order.price %>đ
+                                    <% } %>
+                                </span>
+                            </td>
                             <form action="/KACoffe/v1/order/delete/<%= order._id %>" method="POST">
                                 <td><span class="cart-del"> <button class="btn btn-danger" type="submit">Xóa</button></span></td>
                             </form>
@@ -151,7 +164,6 @@
         } else if(category == 'rate') {
             discount.innerText = `-${minus}%`
             subtotal.innerText = `${total - total*minus/100}đ` 
-            console.log();
         } else if(category == 'shippingfee') {
             discount.innerText = `Free ship`
             subtotal.innerText = '<%= user.role %>' == 'user' ? `${total - 10000}đ`  : `${total}đ`
