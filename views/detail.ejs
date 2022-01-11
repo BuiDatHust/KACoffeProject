@@ -1,4 +1,9 @@
 <%- include('_layouts/header'); -%>
+    <div class="responsive-nav" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i
+        class="ion-ios-arrow-forward"></i></a></span> <span>Thông tin sản phẩm<i
+      class="ion-ios-arrow-forward"></i></span></p>
+    </div>
     <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_5.jpg');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
@@ -16,7 +21,7 @@
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
             <div class="row d-flex">
-                <div class="col-md-5 ftco-animate img img-2 cart-img-img">
+                <div class="responsive-productdetail ftco-animate img img-2 cart-img-img">
                     <img class="image-0" src="<%= product.Image[0] %>" style="width:100%; margin-bottom: 12px">
                     <img class="image-1" src="<%= product.Image[0] %>" style="width:calc(25% - 10px); margin-right:9px">
                     <img class="image-2" src="<%= product.Image[1] %>" style="width:calc(25% - 10px); margin-right:9px">
@@ -25,70 +30,88 @@
                 </div>
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
-                        <div class="heading-section ftco-animate mb-5">
-                            <span class="subheading">Thông tin sản phẩm</span>
-                            <h2 name="product" class="mb-4">
-                                <%= product.name %>
-                            </h2>
+                    <div class="heading-section ftco-animate">
+                        <span class="subheading">Thông tin sản phẩm</span>
+                        <h2 name="product" class="mb-4">
+                            <%= product.name %>
+                        </h2>
 
-                            <div class="stars-outer">
-                                <div class="stars-inner"></div>
-                                <span style="margin-left: 2px;" class="number-rating"><%= product.averageRating %></span>
-                            </div>
-
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                            <span style="margin-left: 2px;" class="number-rating"><%= product.averageRating %></span>
                         </div>
-                        <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
+
+                    </div>
+                    <p class="price"><del><span class="woocommerce-Price-amount amount"><%= product.realprice %>&nbsp;<span
               class="woocommerce-Price-currencySymbol">₫</span></span></del> <ins><span
             class="woocommerce-Price-amount amount"><%= product.price %>&nbsp;<span
               class="woocommerce-Price-currencySymbol">₫</span></span></ins></p>
-                        <div class="woocommerce-product-details__short-description">
-                            <p>
-                                <%= product.description %>
-                            </p>
-                            <p><strong>Nguyên liệu:</strong></p>
-                            <p>
-                                <%= product.material %> 
-                            </p>
-                            <p><strong>Mô tả sản phẩm:</strong></p>
-                            <p style="white-space: pre-line;margin-top: -30px;">
-                                <%= product.detaildescription %>
-                            </p>
+                    <div class="woocommerce-product-details__short-description">
+                        <p>
+                            <%= product.description %>
+                        </p>
+                        <p><strong>Nguyên liệu:</strong></p>
+                        <p>
+                            <%= product.material %>
+                        </p>
+                        <p><strong>Mô tả sản phẩm:</strong></p>
+                        <p style="white-space: pre-line;margin-top: -30px;">
+                            <%= product.detaildescription %>
+                        </p>
 
-                        </div>
-                        <!-- <p>Hình ảnh sản phầm: </p>
+                    </div>
+                    <!-- <p>Hình ảnh sản phầm: </p>
                 <div>
                     <% product.Image.forEach(function(img){ %>
                         <img src="<%= img  %>" >
                     <% }) %>
                 </div> -->
-                        <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
-                        <% if(user.role=="user" || !user) { %>
-                            <form method="POST" action="/KACoffe/v1/order">
-                                <div class="quantity p-3" style="border:1px solid #D5E5F5">
-                                    <input type="hidden" name="product" value="<%= product._id %>">
-                                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
-                                    <select name="size" >
+                    <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
+                    <% if(user.role=="user" || !user) { %>
+                        <form method="POST" action="/KACoffe/v1/order">
+                            <div class="quantity p-3" style="border:1px solid #D5E5F5" id="responsive__cart">
+                                <input type="hidden" name="product" value="<%= product._id %>">
+                                <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                                Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ:
+                                <select name="size">
                                         <option value="S" >S</option>
                                         <option value="M" >M</option>
                                         <option value="L" >L</option>
                                     </select>
-                                    <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                                </div>
-                            </form>
+                                <input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
+                            </div>
+                            <div class="responsive-cart" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <ul style="height: 100%; display: flex; list-style-type: none !important;padding-left: 0;">
+                                    <li class="responsive-button"><a href="/KACoffe/v1/order/cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Xem giỏ hàng</a></li>
+                                    <li class="responsive-button"><a href="#responsive__cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Mua hàng</a></li>
+                                    <!--<input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%;margin-left: 50%;">
+                                        <li href="/KACoffe/v1/order/cart" value="Xem giỏ hàng" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%; ">
+                                            <i style="align-items: center; color: #ffa92d;" class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </li> -->
+
+
+                                </ul>
+
+
+
+                            </div>
+                        </form>
                         <% }else{ %>
-                            <div class="quantity p-3" style="border:1px solid #D5E5F5">
+                            <div class="quantity p-3" style="border:1px solid #D5E5F5" id="responsive__cartadmin">
                                 <form id="form-buy" method="POST">
                                     <input type="hidden" name="product" value="<%= product._id %>">
                                     <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity">Chọn kích cỡ: 
-                                    <select name="size" >
+                                    Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity"></br>Chọn kích cỡ:
+                                    <select name="size">
                                         <option value="S" >S</option>
                                         <option value="M" >M</option>
                                         <option value="L" >L</option>
                                     </select>
+                                    </br>
                                     <input id="buy-by-admin" type="button" value="Đặt tại quán" class="btn btn-primary mt-4 mr-3">
-                                    <input id="buy-free" type="button" value="Đổi chai miễn phí" class="btn btn-primary mt-4"> 
+                                    <input id="buy-free" type="button" value="Đổi chai miễn phí" class="btn btn-primary mt-4">
+
                                 </form>
                                 <script>
                                     var formBuy = document.getElementById("form-buy")
@@ -118,18 +141,47 @@
                                       
                                 </form>-->
                             </div>
-                        <% } %>
+                            <div class="responsive-cart" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <ul style="height: 100%; display: flex; list-style-type: none !important;padding-left: 0;">
+                                    <li class="responsive-button"><a href="/KACoffe/v1/order/cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Xem giỏ hàng</a></li>
+                                    <li class="responsive-button"><a href="#responsive__cartadmin" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Mua hàng</a></li>
+                                    <!--<input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%;margin-left: 50%;">
+                                        <li href="/KACoffe/v1/order/cart" value="Xem giỏ hàng" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%; ">
+                                            <i style="align-items: center; color: #ffa92d;" class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        </li> -->
+
+
+                                </ul>
+
+
+
+                            </div>
+                            <% } %>
                 </div>
 
             </div>
-        
+            <div class="woocommerce-product-details1__short-description">
+                <p>
+                    <%= product.description %>
+                </p>
+                <p><strong>Nguyên liệu:</strong></p>
+                <p>
+                    <%= product.material %>
+                </p>
+                <p><strong>Mô tả sản phẩm:</strong></p>
+                <p style="white-space: pre-line;margin-top: -30px;">
+                    <%= product.detaildescription %>
+                </p>
+
+            </div>
         </div>
     </section>
 
-    <div style="margin-left: 650px;" >
-        <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>"  method="POST" >
-        <p>Bạn thấy sản phẩm này:
-            <span>
+    <div style="margin-left: 35%;">
+        <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>" method="POST">
+            <p>Bạn thấy sản phẩm này:
+                <span>
                 <select name="rate" >
                     <option value="3" >Tốt</option>
                     <option value="4" >Rất tốt </option>
@@ -139,44 +191,44 @@
                     
                 </select>
             </span>
-            <input type="submit" value="Gửi phản hồi" /> 
-            
-            
+                <input type="submit" value="Gửi phản hồi" />
+
+
         </form>
         </p>
-        
+
     </div>
-    
+
     <%- include('comment') ; -%>
 
-    <%- include('_layouts/footer') ; -%>    
-    <script>
-        const image0 = document.querySelector('.image-0')
-        const image1 = document.querySelector('.image-1')
-        const image2 = document.querySelector('.image-2')
-        const image3 = document.querySelector('.image-3')
-        const image4 = document.querySelector('.image-4')
-        let average = '<%= product.averageRating %>'
+        <%- include('_layouts/footer') ; -%>
+            <script>
+                const image0 = document.querySelector('.image-0')
+                const image1 = document.querySelector('.image-1')
+                const image2 = document.querySelector('.image-2')
+                const image3 = document.querySelector('.image-3')
+                const image4 = document.querySelector('.image-4')
+                let average = '<%= product.averageRating %>'
 
-        average = (parseInt(average)/5).toFixed(1)
-        
-        image1.onclick = function() {
-            image0.src = image1.src
-        }
-        image2.onclick = function() {
-            image0.src = image2.src
-        }
-        image3.onclick = function() {
-            image0.src = image3.src
-        }
-        image4.onclick = function() {
-            image0.src = image4.src
-        }
-        document.addEventListener('DOMContentLoaded', async function() {
-            document.querySelector(".stars-inner").style.width = `${average*100}%`
-            if ('<%= warning %>') {
-                await swal("Thất bại!", "<%= warning %>", "warning")
-            }
-        })
-    </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                average = (parseInt(average) / 5).toFixed(1)
+
+                image1.onclick = function() {
+                    image0.src = image1.src
+                }
+                image2.onclick = function() {
+                    image0.src = image2.src
+                }
+                image3.onclick = function() {
+                    image0.src = image3.src
+                }
+                image4.onclick = function() {
+                    image0.src = image4.src
+                }
+                document.addEventListener('DOMContentLoaded', async function() {
+                    document.querySelector(".stars-inner").style.width = `${average*100}%`
+                    if ('<%= warning %>') {
+                        await swal("Thất bại!", "<%= warning %>", "warning")
+                    }
+                })
+            </script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
