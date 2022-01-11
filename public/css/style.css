@@ -4810,6 +4810,8 @@ input[type="button"].btn-block {
     white-space: nowrap;
 }
 
+@media(max-width:48.1875em) {}
+
 .navbar-brand:hover,
 .navbar-brand:focus {
     text-decoration: none;
