@@ -868,11 +868,17 @@ ul#responsive_nav {
     }
 }
 
+.cart-item1 .cart-txt-left1 {
+    text-align: left;
+    display: flex;
+    padding: 11px;
+}
+
 
 /* responsive admin page */
 
 @media(max-width:48.1875em) {
-    .cart-item .cart-txt-left {
+    .cart-item1 .cart-txt-left1 {
         text-align: center;
         margin-top: 30px;
     }
