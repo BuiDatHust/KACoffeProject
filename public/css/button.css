@@ -13,11 +13,13 @@
     font-size: 16px;
 }
 
-#sua:disabled, #xoa:disabled {
+#sua:disabled,
+#xoa:disabled {
     background-color: rgb(121, 121, 121);
 }
 
-#sua:disabled:hover, #xoa:disabled:hover {
+#sua:disabled:hover,
+#xoa:disabled:hover {
     opacity: 1;
 }
 
@@ -36,11 +38,27 @@
     font-size: 16px;
 }
 
-#sua:hover, #xoa:hover {
+#sua:hover,
+#xoa:hover {
     opacity: .8;
 }
 
 #address {
     width: 100px;
     padding: 50px;
+}
+
+
+/* responsive admin page */
+
+@media(max-width:48.1875em) {
+    #sua {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    #xoa {
+        margin-right: 3px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }
