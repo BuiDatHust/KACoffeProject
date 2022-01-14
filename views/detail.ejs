@@ -1,6 +1,6 @@
 <%- include('_layouts/header'); -%>
     <div class="responsive-nav" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i
+        <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffe/v1">Trang chủ <i
         class="ion-ios-arrow-forward"></i></a></span> <span>Thông tin sản phẩm<i
       class="ion-ios-arrow-forward"></i></span></p>
     </div>
@@ -10,7 +10,7 @@
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
                     <h1 class="mb-2 bread">Sản phẩm</h1>
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang chủ <i
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffe/v1">Trang chủ <i
               class="ion-ios-arrow-forward"></i></a></span> <span>Thông tin sản phẩm<i
             class="ion-ios-arrow-forward"></i></span></p>
                 </div>
@@ -20,7 +20,7 @@
 
     <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
-            <div class="row d-flex">
+            <div class="row d-flex2">
                 <div class="responsive-productdetail ftco-animate img img-2 cart-img-img">
                     <img class="image-0" src="<%= product.Image[0] %>" style="width:100%; margin-bottom: 12px">
                     <img class="image-1" src="<%= product.Image[0] %>" style="width:calc(25% - 10px); margin-right:9px">
@@ -118,9 +118,8 @@
                                 <form id="form-buy" method="POST">
                                     <input type="hidden" name="product" value="<%= product._id %>">
                                     <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
-                                    Số lượng: 
-                                    <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity" value="1">
-                                    Chọn kích cỡ:
+                                    Số lượng:
+                                    <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity" value="1"> Chọn kích cỡ:
                                     <select name="size">
                                         <option value="S" >S</option>
                                         <option value="M" >M</option>
@@ -136,18 +135,18 @@
                                     var buyByAdmin = document.getElementById("buy-by-admin")
                                     var buyFree = document.getElementById("buy-free")
 
-                                    buyByAdmin.addEventListener('click', async (event) => {
+                                    buyByAdmin.addEventListener('click', async(event) => {
                                         const quantity = document.querySelector('input[name="quantity"]')
                                         if (!quantity.value) {
                                             event.preventDefault()
                                             await swal("Thất bại!", "Bạn chưa nhập số lượng sản phẩm", "warning")
                                         } else {
                                             formBuy.action = "/KACoffe/v1/order"
-                                            formBuy.submit()   
+                                            formBuy.submit()
                                         }
                                     })
 
-                                    buyFree.addEventListener('click', async (event) => {
+                                    buyFree.addEventListener('click', async(event) => {
                                         const quantity = document.querySelector('input[name="quantity"]')
                                         if (!quantity.value) {
                                             event.preventDefault()
@@ -238,9 +237,9 @@
                     if ('<%= warning %>') {
                         await swal("Thất bại!", "<%= warning %>", "warning")
                     }
-                })          
-                
-                const checkQuantity = async (e) => {
+                })
+
+                const checkQuantity = async(e) => {
                     const quantity = document.querySelector('input[name="quantity"]')
                     if (!quantity.value) {
                         e.preventDefault()

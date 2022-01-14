@@ -630,7 +630,7 @@ pre code {
 /* mobile*/
 
 @media (max-width: 48.1875em) {
-    .d-flex {
+    .d-flex2 {
         flex-direction: column-reverse;
     }
     .woocommerce-product-details__short-description {
@@ -7422,6 +7422,17 @@ button.bg-dark:focus {
     display: flex !important;
 }
 
+.d-flex2 {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.d-flex1 {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+}
+
 .d-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -12197,6 +12208,12 @@ textarea.form-control {
 }
 
 .ftco-footer .ftco-heading-2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.ftco-footer .ftco-heading-21 {
     font-size: 17px;
     font-weight: 700;
     color: #000000;

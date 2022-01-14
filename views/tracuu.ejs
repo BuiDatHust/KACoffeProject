@@ -1,72 +1,74 @@
 <%- include('_layouts/header') ; -%>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_10.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Mã giảm giá</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffee/v1/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Mã giảm giá <i class="ion-ios-arrow-forward"></i></span></p>
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_10.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-2 bread">Mã giảm giá</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/KACoffee/v1/">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Mã giảm giá <i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
 
-            <% discount.forEach((discount) =>{   %> 
-    <div class="col-md-6 menu-wrap">
-           
-                <div class="menus d-flex ftco-animate">
-                    <div class="mr-4">
-                        <img src="/images/discount.png" style="width:180px;height:180px">
-                    </div>
-                    <div class="text">
-                        <div class="d-flex ">
-                            <div class="one-half">
-                                <h2><%= discount.name %></h2>
+                <% discount.forEach((discount) =>{   %>
+                    <div class="col-md-6 menu-wrap">
+
+                        <div class="menus d-flex ftco-animate">
+                            <div class="mr-4">
+                                <img src="/images/discount.png" class="responsive-img">
                             </div>
-                            <div class="one-forth">
-                                <form method="POST" action="/KACoffe/v1/user/saveDiscount/<%= discount._id  %>"  >
-                                    <h3><button class="btn btn-primary" type="submit">Lưu</button></h3>
-                                </form>
-                            </div>
-                        </div>
-                        <div >
-                            <p><span style="padding: 4px 8px;color: red;border: 1px solid;">
+                            <div class="text">
+                                <div class="d-flex ">
+                                    <div class="one-half">
+                                        <h2 class="responsive-header">
+                                            <%= discount.name %>
+                                        </h2>
+                                    </div>
+                                    <div class="one-forth">
+                                        <form method="POST" action="/KACoffe/v1/user/saveDiscount/<%= discount._id  %>">
+                                            <h3><button class="btn btn-primary" type="submit">Lưu</button></h3>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><span style="padding: 4px 8px;color: red;border: 1px solid;">
                                 Khách hàng <%= discount.condition1 %>
                             </span></p>
-                            <% if (discount.category == "shippingfee") { %>
-                                <p><span>Free ship cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
-                            <% } else if (discount.category == "money") { %>
-                                <p><span>Giảm <%= discount.minusPrice %>₫ cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
-                            <% } else { %>
-                                <p><span>Giảm <%= discount.minusPrice %>% cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
-                            <% } %> 
-                            <p><span>Bắt đầu: <%= discount.startTime.toLocaleString('en-GB') %></span></p>
-                            <p><span>Kết thúc: <%= discount.endTime.toLocaleString('en-GB') %></span></p>
+                                    <% if (discount.category == "shippingfee") { %>
+                                        <p><span>Free ship cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
+                                        <% } else if (discount.category == "money") { %>
+                                            <p><span>Giảm <%= discount.minusPrice %>₫ cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
+                                            <% } else { %>
+                                                <p><span>Giảm <%= discount.minusPrice %>% cho đơn hàng từ <%= discount.condition2 %>₫</span></p>
+                                                <% } %>
+                                                    <p><span>Bắt đầu: <%= discount.startTime.toLocaleString('en-GB') %></span></p>
+                                                    <p><span>Kết thúc: <%= discount.endTime.toLocaleString('en-GB') %></span></p>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                </div>
-            
-    </div>
-    <%  }) %>
-    
-    </div>
-    
-</div>
-</section>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', async function() {
-        if ('<%= status %>' == 0) {
-            await swal("<%= error %>", "Click để tiếp tục", "success")
-        }
-        if ('<%= status %>' == 1) {
-            await swal("Lưu không thành công!", "<%= error %>", "warning")
-        }
-    })
-</script>
-<%- include('_layouts/footer') ; -%>
+                    <%  }) %>
+
+            </div>
+
+        </div>
+    </section>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            if ('<%= status %>' == 0) {
+                await swal("<%= error %>", "Click để tiếp tục", "success")
+            }
+            if ('<%= status %>' == 1) {
+                await swal("Lưu không thành công!", "<%= error %>", "warning")
+            }
+        })
+    </script>
+    <%- include('_layouts/footer') ; -%>
