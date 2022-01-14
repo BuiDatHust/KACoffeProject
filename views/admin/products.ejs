@@ -61,66 +61,70 @@
                                         <th class="admin-header__header">Thao tác</th>
                                     </tr>
                                     <% products.forEach(function(product){  %>
-                                    <tr class="cart-item">
-                                        <!--<td class="button__check"><input type="checkbox" checked="checked" class="cart-check" /></td>-->
-                                        <td class="cart-txt-left">
-                                            <img src="<%= product.Image[0] %>" alt="" class="cart-txt-left-img">
-                                            <a href="/KACoffe/v1/menu/<%= product._id %>" class="cart-name">
-                                                <%= product.name  %>
-                                            </a>
-                                        </td>
-                                        <td><span class="cart-price"><%= product.price  %></span></td>
-                                        <td>
-                                            <form id="product<%= product._id %>" action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post">
-                                                <a class="mr-1" href="/KACoffe/v1/admin/allproduct/<%= product._id  %>">
-                                                    <button id="sua" type="button">
+                                        <tr class="cart-item1">
+                                            <!--<td class="button__check"><input type="checkbox" checked="checked" class="cart-check" /></td>-->
+                                            <td class="cart-txt-left1">
+                                                <img src="<%= product.Image[0] %>" alt="" class="cart-txt-left-img">
+                                                <a href="/KACoffe/v1/menu/<%= product._id %>" class="cart-name">
+                                                    <%= product.name  %>
+                                                </a>
+                                            </td>
+                                            <td><span class="cart-price"><%= product.price  %></span></td>
+                                            <td>
+                                                <form id="product<%= product._id %>" action="/KACoffe/v1/admin/allproduct/delete/<%= product._id  %>" method="post">
+                                                    <a class="mr-1" href="/KACoffe/v1/admin/allproduct/<%= product._id  %>">
+                                                        <button id="sua" type="button">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                </a>
-                                                <button id="xoa" onclick="event.preventDefault();DeleteProduct('<%= product._id %>');">
+                                                    </a>
+                                                    <button id="xoa" onclick="event.preventDefault();DeleteProduct('<%= product._id %>');">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <% }) ; %>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) ; %>
                                 </table>
                                 <br>
-                                <% if ( pages > 1) { %> 
-                                <nav aria-label="...">
-                                    <ul class="pagination">
-                                        <% if ( page == 1) { %> 
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#">Previous</a>
-                                            </li>
-                                        <% } else { %>
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<%= page - 1 %>">Previous</a>
-                                            </li>
-                                        <% } %>
-                                        <% for( let i=0; i < pages; i++ ){  %>
-                                            <% if ( i == page - 1) { %> 
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="?page=<%= i + 1 %>"><%= i + 1 %></a>
+                                <% if ( pages > 1) { %>
+                                    <nav aria-label="...">
+                                        <ul class="pagination">
+                                            <% if ( page == 1) { %>
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
                                                 </li>
-                                            <% } else { %>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page=<%= i + 1 %>"><%= i + 1 %></a>
-                                                </li>
-                                            <% } %>
-                                        <%  } %>
-                                        <% if ( page == pages) { %> 
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        <% } else { %>
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<%= page + 1 %>">Next</a>
-                                            </li>
-                                        <% } %>
-                                    </ul>
-                                </nav>
-                                <% } %>
+                                                <% } else { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=<%= page - 1 %>">Previous</a>
+                                                    </li>
+                                                    <% } %>
+                                                        <% for( let i=0; i < pages; i++ ){  %>
+                                                            <% if ( i == page - 1) { %>
+                                                                <li class="page-item active">
+                                                                    <a class="page-link" href="?page=<%= i + 1 %>">
+                                                                        <%= i + 1 %>
+                                                                    </a>
+                                                                </li>
+                                                                <% } else { %>
+                                                                    <li class="page-item">
+                                                                        <a class="page-link" href="?page=<%= i + 1 %>">
+                                                                            <%= i + 1 %>
+                                                                        </a>
+                                                                    </li>
+                                                                    <% } %>
+                                                                        <%  } %>
+                                                                            <% if ( page == pages) { %>
+                                                                                <li class="page-item disabled">
+                                                                                    <a class="page-link" href="#">Next</a>
+                                                                                </li>
+                                                                                <% } else { %>
+                                                                                    <li class="page-item">
+                                                                                        <a class="page-link" href="?page=<%= page + 1 %>">Next</a>
+                                                                                    </li>
+                                                                                    <% } %>
+                                        </ul>
+                                    </nav>
+                                    <% } %>
                             </div>
                         </div>
                     </div>
@@ -128,32 +132,32 @@
             </div>
         </div>
     </section>
-<%- include('../_layouts/footer') ; -%>
+    <%- include('../_layouts/footer') ; -%>
 
-<script>
-    async function DeleteProduct(productId) {
-        const productDel = document.getElementById(`product${productId}`)
-        await Swal.fire({
-                title: 'Bạn có chắc xóa?',
-                text: "Bạn không thể quay lại kết quả",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Có !'
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Thành công!',
-                        'Xóa thành công',
-                        'success'
-                    )
-                    .then(() => {
-                        productDel.submit()
+        <script>
+            async function DeleteProduct(productId) {
+                const productDel = document.getElementById(`product${productId}`)
+                await Swal.fire({
+                        title: 'Bạn có chắc xóa?',
+                        text: "Bạn không thể quay lại kết quả",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Có !'
                     })
-                }
-            })
-        }
-</script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    'Thành công!',
+                                    'Xóa thành công',
+                                    'success'
+                                )
+                                .then(() => {
+                                    productDel.submit()
+                                })
+                        }
+                    })
+            }
+        </script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
