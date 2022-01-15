@@ -735,6 +735,15 @@ ul#responsive_nav {
 
 /*mobile*/
 
+.nav-item-responsive1 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0 0 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .0785);
+}
+
 .nav-item-responsive {
     font-size: 1.4rem;
     font-weight: 400;
@@ -758,6 +767,13 @@ ul#responsive_nav {
     display: block;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+}
+
+.responsive-notification {
+    padding-top: 10%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 @media (max-width:48.1875em) {
@@ -822,6 +838,14 @@ ul#responsive_nav {
     border-radius: 3%;
 }
 
+.responsive-account {
+    display: none;
+}
+
+.responsive-notification-header {
+    align-items: center;
+}
+
 @media(max-width:48.1875em) {
     .responsive-backgroud {
         padding-left: 0;
@@ -865,5 +889,50 @@ ul#responsive_nav {
         width: 40px;
         height: 40px;
         border-radius: 20%;
+    }
+    .responsive-account {
+        display: block;
+    }
+    .responsive-account-header {
+        display: none;
+    }
+    .ftco-footer {
+        padding: 0 0;
+    }
+    .responsive-notification {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        padding-right: 5px;
+        font-size: 13px;
+    }
+    .responsive-notification-header {
+        font-size: 25px;
+    }
+}
+
+.cart-item1 .cart-txt-left1 {
+    text-align: left;
+    display: flex;
+    padding: 11px;
+}
+
+
+/* responsive admin page */
+
+@media(max-width:48.1875em) {
+    .cart-item1 .cart-txt-left1 {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .cart-txt-left-img {
+        width: 40px;
+        height: 40px;
+    }
+    .cart-table {
+        font-size: 14px;
+    }
+    .cart-name {
+        font-size: 12px;
     }
 }

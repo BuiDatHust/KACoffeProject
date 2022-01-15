@@ -1,20 +1,21 @@
 <%- include('_layouts/header') ; -%>
 
+    <div class="responsive-notification">
+        <div class="list-group">
+            <h1 class="responsive-notification-header">Thông báo :</h1>
+            <% noti.forEach(function(e,i){  %>
+                <% if( i==0 ){ %>
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <%= e  %>
+                    </a>
+                    <% }else { %>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <%= e  %>
+                        </a>
+                        <% } %>
 
-<div style="padding-top:100px;padding-bottom: 50px;padding-left: 100px;padding-right: 100px;" class="list-group">
-    <h1 style="align-items: center;">Thông báo :</h1>
-    <% noti.forEach(function(e,i){  %>
-     <% if( i==0 ){ %>
-        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-            <%= e  %>
-          </a>
-    <% }else { %>
-        <a href="#" class="list-group-item list-group-item-action" >
-            <%= e  %>
-          </a>
-    <% } %>
-    
-    <% }) %>
-  </div>
+                            <% }) %>
+        </div>
+    </div>
 
-<%- include('_layouts/footer') ; -%>
+    <%- include('_layouts/footer') ; -%>
