@@ -5,4 +5,4 @@ I. Các bước set up cài đặt:
 + npm install để cài các pakage 
 + npm start để chạy web trên local
 
-link web deploy: http://ka-coffee-project.herokuapp.com/
+link web deploy: https://ka-coffee-project.herokuapp.com/KACoffe/v1
