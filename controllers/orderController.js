@@ -678,28 +678,30 @@ const getDetailOrder = async(req, res) => {
 const checkAccount = async(req, res) => {
     const email = req.body.email;
     const user1 = await User.findOne({ email: email });
-    var discounts = user1.discount;
-    var newDc = [];
-    var dbDc = [];
-
-    for (let dc of discounts) {
-        const discount = await Discount.findOne({
-            name: dc,
-            condition1: user1.rank,
-        });
-        if (discount) {
-            if (discount.endTime < Date.now()) {
-                await discount.remove();
-            } else {
-                newDc = [...newDc, dc];
-                dbDc = [...dbDc, discount];
+    if (user1) {
+        var discounts = user1.discount;
+        var newDc = [];
+        var dbDc = [];
+    
+        for (let dc of discounts) {
+            const discount = await Discount.findOne({
+                name: dc,
+                condition1: user1.rank,
+            });
+            if (discount) {
+                if (discount.endTime < Date.now()) {
+                    await discount.remove();
+                } else {
+                    newDc = [...newDc, dc];
+                    dbDc = [...dbDc, discount];
+                }
             }
         }
+    
+        user1.discount = newDc;
+        await user1.save();
     }
-
-    user1.discount = newDc;
-    await user1.save();
-
+    
     var orders = await Order.find({ user: req.user.userId });
     var user = await User.findOne({ _id: req.user.userId });
     console.log(user.role);
