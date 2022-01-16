@@ -952,6 +952,9 @@ ul#responsive_nav {
     .responsive-none {
         display: block;
     }
+    .responsive-pc {
+        display: none;
+    }
     .responsive-product-h2 {
         display: none;
     }

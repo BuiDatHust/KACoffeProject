@@ -1,79 +1,83 @@
 <div class="comment">
-    <div class="danhgia" >Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;" ><%= len %> comments</span> </div>
+    <div class="danhgia responsive-none">Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;">
+    </br><%= len %> comments</span> </div>
+    <div class="danhgia responsive-pc">Đánh giá sản phẩm <span style="margin-left: 20px; font-size: 20px;font-weight: 300;">
+    <%= len %> comments</span> </div>
 
-    <div class="alert1" >
+
+    <div class="alert1">
 
     </div>
-    
-    <div class="vietcmt" >
+
+    <div class="vietcmt">
         <form action="/KACoffe/v1/product/saveComment" method="POST">
-        <input type="hidden" name="product" value="<%= product._id %>">
-        <input class="inputcmt" type="text" id="comment" name="comment" placeholder="Bình luận của bạn..." />
-        <input type="submit" class="btncmt" value="Bình luận" />
+            <input type="hidden" name="product" value="<%= product._id %>">
+            <input class="inputcmt" type="text" id="comment" name="comment" placeholder="Bình luận của bạn..." />
+            <input type="submit" class="btncmt" value="Bình luận" />
         </form>
     </div>
-   
-    <ul class="listcmnt" >
+
+    <ul class="listcmnt">
         <% comments.forEach(function(e){  %>
             <form hidden action="/KACoffe/v1/product/<%= e.product %>/deleteComment/<%= e._id %>" name="formsubmit1" method="POST"></form>
-            
-            <li >
-                
-                <div class="grid" >
-                <p class="title" ><span><img src="/uploads/image-1640135291160.jpg" alt="Avatar" class="avatar">
-                    </span><%= e.title %> <span class="time" ><%= e.created %></span>
-                    <% if( e.title == user.name ){ %>
-                    <span style="margin-left: 60px;" ><a href="javascript: submitform2('<%= e.comment %>')" ><i  class="fas fa-edit"></i></a></span>
-                    
-                    <span style="margin-left: 5px;" ><a href="javascript: submitform1()" class="delete" ><i class="fas fa-trash"></i></a></span>
-                    
-                    <% } %>
-                </p>
-                <div class="cmtarea" > 
-                <p  class="cmt" id="cmt<%= e.comment %>" ><%= e.comment %></p>
-                
-                <form id="formsubmit2<%= e.comment %>" style="visibility: hidden;" action="/KACoffe/v1/product/<%= e.product %>/editComment/<%= e._id %>" name="formsubmit1" method="POST">
-                <input type="text" name="editcmt"   />
-                <input type="submit" value="Edit" />
-                <button onclick="canceledit(event,'<%= e.comment %>')" >Cancel</button>
-                
-                </form>
+
+            <li>
+
+                <div class="grid">
+                    <p class="title"><span><img src="/uploads/image-1640135291160.jpg" alt="Avatar" class="avatar">
+                    </span>
+                        <%= e.title %> <span class="time"><%= e.created %></span>
+                            <% if( e.title == user.name ){ %>
+                                <span style="margin-left: 60px;"><a href="javascript: submitform2('<%= e.comment %>')" ><i  class="fas fa-edit"></i></a></span>
+
+                                <span style="margin-left: 5px;"><a href="javascript: submitform1()" class="delete" ><i class="fas fa-trash"></i></a></span>
+
+                                <% } %>
+                    </p>
+                    <div class="cmtarea">
+                        <p class="cmt" id="cmt<%= e.comment %>">
+                            <%= e.comment %>
+                        </p>
+
+                        <form id="formsubmit2<%= e.comment %>" style="visibility: hidden;" action="/KACoffe/v1/product/<%= e.product %>/editComment/<%= e._id %>" name="formsubmit1" method="POST">
+                            <input type="text" name="editcmt" />
+                            <input type="submit" value="Edit" />
+                            <button onclick="canceledit(event,'<%= e.comment %>')">Cancel</button>
+
+                        </form>
+                    </div>
                 </div>
-            </div>
             </li>
-        <% }) %>
+            <% }) %>
     </ul>
-    
+
 </div>
 <script>
-    var formsubmit2= document.forms['formsubmit2']
+    var formsubmit2 = document.forms['formsubmit2']
     var div = document.getElementsByClassName('cmtarea')
 
-    function submitform1(){
+    function submitform1() {
         document.forms['formsubmit1'].submit()
     }
 
-    function submitform2(id){
-        
+    function submitform2(id) {
+
         var cmt = document.getElementById(`cmt${id}`)
-        var formsubmit2= document.forms[`formsubmit2${id}`]
+        var formsubmit2 = document.forms[`formsubmit2${id}`]
 
         console.log(cmt)
-        cmt.remove() 
-        formsubmit2.style.visibility= "visible"
+        cmt.remove()
+        formsubmit2.style.visibility = "visible"
     }
 
-    function canceledit(event,id){
+    function canceledit(event, id) {
         event.preventDefault();
         var cmt1 = document.getElementById(`cmt${id}`)
-        var formsubmit2= document.forms[`formsubmit2${id}`]
+        var formsubmit2 = document.forms[`formsubmit2${id}`]
 
-        formsubmit2.style.visibility="hidden"
+        formsubmit2.style.visibility = "hidden"
         var child = `<p  class="cmt" id=${id} >${id}</p>`
         cmt1.appendChild(child)
         window.location.reload(true)
     }
-
-    
-    
 </script>

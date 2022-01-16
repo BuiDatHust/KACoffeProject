@@ -618,6 +618,12 @@ pre code {
 }
 */
 
+@media(min-width:48.1875em) {
+    .responsive-cart {
+        display: none;
+    }
+}
+
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
@@ -13499,6 +13505,9 @@ align-items: center;
 
 .loai {
     padding-right: 10px;
+    background: rgb(48, 49, 51) none repeat scroll 0 0;
+    float: left;
+    font-weight: 400;
 }
 
 .category1 {
