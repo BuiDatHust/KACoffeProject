@@ -658,6 +658,9 @@ pre code {
 /* mobile*/
 
 @media (max-width: 48.1875em) {
+    #responsive__cart {
+        display: block!important;
+    }
     .d-flex2 {
         flex-direction: column-reverse;
     }
@@ -694,6 +697,9 @@ pre code {
     .danhgia {
         font-size: 16px;
         margin-left: 5%;
+    }
+    .quantity {
+        display: none;
     }
 }
 

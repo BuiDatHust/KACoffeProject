@@ -27,7 +27,6 @@
                     <img class="image-2" src="<%= product.Image[1] %>" style="width:calc(25% - 10px); margin-right:9px">
                     <img class="image-3" src="<%= product.Image[2] %>" style="width:calc(25% - 10px); margin-right:9px">
                     <img class="image-4" src="<%= product.Image[3] %>" style="width:calc(25% - 10px)">
-
                 </div>
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
@@ -69,8 +68,8 @@
                 </div> -->
                     <!-- <form class="cart" action="/reservation.html" method="" enctype="multipart/form-data"> -->
                     <% if(user.role=="user" || !user) { %>
-                        <form method="POST" action="/KACoffe/v1/order">
-                            <div class="quantity p-3" style="border:1px solid #D5E5F5" id="responsive__cart">
+                        <div class="quantity p-3" style="border:1px solid #D5E5F5">
+                            <form method="POST" action="/KACoffe/v1/order">
                                 <input type="hidden" name="product" value="<%= product._id %>">
                                 <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
                                 Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity" value="1">Chọn kích cỡ:
@@ -80,26 +79,10 @@
                                         <option value="L" >L</option>
                                     </select>
                                 <input type="submit" onclick="checkQuantity(event)" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4">
-                            </div>
-                            <div class="responsive-cart" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-
-                                <ul style="height: 100%; display: flex; list-style-type: none !important;padding-left: 0;">
-                                    <li class="responsive-button"><a href="/KACoffe/v1/order/cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Xem giỏ hàng</a></li>
-                                    <li class="responsive-button"><a href="#responsive__cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Mua hàng</a></li>
-                                    <!--<input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%;margin-left: 50%;">
-                                        <li href="/KACoffe/v1/order/cart" value="Xem giỏ hàng" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%; ">
-                                            <i style="align-items: center; color: #ffa92d;" class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        </li> -->
-
-
-                                </ul>
-
-
-
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                         <% }else{ %>
-                            <div class="quantity p-3" style="border:1px solid #D5E5F5" id="responsive__cartadmin">
+                            <div class="quantity p-3" style="border:1px solid #D5E5F5">
                                 <form id="form-buy" method="POST">
                                     <input type="hidden" name="product" value="<%= product._id %>">
                                     <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
@@ -111,9 +94,8 @@
                                         <option value="L" >L</option>
                                     </select>
                                     </br>
-                                    <input id="buy-by-admin" type="button" value="Đặt tại quán" class="btn btn-primary mt-4 mr-3">
-                                    <input id="buy-free" type="button" value="Đổi chai miễn phí" class="btn btn-primary mt-4">
-
+                                    <input id="buy-by-admin" type="submit" value="Đặt tại quán" class="btn btn-primary mt-4 mr-3">
+                                    <input id="buy-free" type="submit" value="Đổi chai miễn phí" class="btn btn-primary mt-4">
                                 </form>
                                 <script>
                                     var formBuy = document.getElementById("form-buy")
@@ -155,25 +137,73 @@
                                       
                                 </form>-->
                             </div>
-                            <div class="responsive-cart" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-
-                                <ul style="height: 100%; display: flex; list-style-type: none !important;padding-left: 0;">
-                                    <li class="responsive-button"><a href="/KACoffe/v1/order/cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Xem giỏ hàng</a></li>
-                                    <li class="responsive-button"><a href="#responsive__cartadmin" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Mua hàng</a></li>
-                                    <!--<input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%;margin-left: 50%;">
-                                        <li href="/KACoffe/v1/order/cart" value="Xem giỏ hàng" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%; ">
-                                            <i style="align-items: center; color: #ffa92d;" class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        </li> -->
-
-
-                                </ul>
-
-
-
-                            </div>
                             <% } %>
                 </div>
 
+            </div>
+            <div class="p-3 mt-4 mb-4" style="border:1px solid #D5E5F5;display: none;" id="responsive__cart">
+                <% if(user.role=="user" || !user) { %>
+                    <form method="POST" action="/KACoffe/v1/order">
+                        <input type="hidden" name="product" value="<%= product._id %>">
+                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                        Số lượng: <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text mr-5" name="quantity" value="1">
+                        <br>
+                        <div class="mt-3 mb-3">
+                            Chọn kích cỡ:
+                            <select name="size">
+                                <option value="S" >S</option>
+                                <option value="M" >M</option>
+                                <option value="L" >L</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Thêm vào giỏ" class="btn btn-primary">
+                    </form>
+                <% } else { %>
+                    <form id="form-buy-1" method="POST">
+                        <input type="hidden" name="product" value="<%= product._id %>">
+                        <!-- <input type="number" id="quantity_61968f808d09d" class="input-text qty text" step="1" min="1" max="" name="quantity" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="Cà phê Hạt Arabica gu đặc biệt gói 250g quantity"> -->
+                        Số lượng:
+                        <input type="number" id="quantity_61968f808d09d" min="1" class="input-text qty text" name="quantity" value="1"> 
+                        <div class="mt-3 mb-3">
+                            Chọn kích cỡ:
+                            <select name="size">
+                                <option value="S" >S</option>
+                                <option value="M" >M</option>
+                                <option value="L" >L</option>
+                            </select>
+                        </div>
+                        <input id="buy-by-admin-1" type="button" value="Đặt tại quán" class="btn btn-primary">
+                        <input id="buy-free-1" type="button" value="Đổi chai miễn phí" class="btn btn-primary">
+                    </form>
+                    <script>
+                        var formBuy = document.getElementById("form-buy-1")
+                        var buyByAdmin = document.getElementById("buy-by-admin-1")
+                        var buyFree = document.getElementById("buy-free-1")
+    
+                        buyByAdmin.addEventListener('click', async(event) => {
+                            console.log(111);
+                            const quantity = document.querySelector('input[name="quantity"]')
+                            if (!quantity.value) {
+                                event.preventDefault()
+                                await swal("Thất bại!", "Bạn chưa nhập số lượng sản phẩm", "warning")
+                            } else {
+                                formBuy.action = "/KACoffe/v1/order"
+                                formBuy.submit()
+                            }
+                        })
+    
+                        buyFree.addEventListener('click', async(event) => {
+                            const quantity = document.querySelector('input[name="quantity"]')
+                            if (!quantity.value) {
+                                event.preventDefault()
+                                await swal("Thất bại!", "Bạn chưa nhập số lượng sản phẩm", "warning")
+                            } else {
+                                formBuy.action = "/KACoffe/v1/order/buyfree"
+                                formBuy.submit()
+                            }
+                        })
+                    </script>
+                <% } %>
             </div>
             <div class="woocommerce-product-details1__short-description">
                 <p>
@@ -207,6 +237,22 @@
             </div>
         </div>
     </section>
+    <div class="responsive-cart" data-toggle="collapse" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <ul style="height: 100%; display: flex; list-style-type: none !important;padding-left: 0;">
+            <li class="responsive-button"><a href="/KACoffe/v1/order/cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Xem giỏ hàng</a></li>
+            <li class="responsive-button"><a href="#responsive__cart" class="nav-link" style="color: #ffffff; padding-top: 0.75rem; display: block;">Mua hàng</a></li>
+            <!--<input type="submit" value="Thêm vào giỏ" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%;margin-left: 50%;">
+                <li href="/KACoffe/v1/order/cart" value="Xem giỏ hàng" class="btn btn-primary py-3 px-5 mt-4" style="width: 50%; ">
+                    <i style="align-items: center; color: #ffa92d;" class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </li> -->
+
+
+        </ul>
+
+
+
+    </div>
 
     <%- include('comment') ; -%>
 
