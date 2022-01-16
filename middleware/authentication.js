@@ -11,8 +11,8 @@ const authenticateUser = async (req, res, next) => {
     }
 
     try {
-        const { name, userId, role } = isToken({ token });
-        req.user = { name, userId, role };
+        const { name, userId, role, score, rank } = isToken({ token });
+        req.user = { name, userId, role, score, rank };
         next();
     } catch (error) {
         throw new UnauthentiatedError('Authenticate Fail');
@@ -25,8 +25,8 @@ const attachUser = async (req, res, next) => {
         next();
     } else {
         try {
-            const { name, userId, role } = isToken({ token });
-            req.user = { name, userId, role };
+            const { name, userId, role, score, rank } = isToken({ token });
+            req.user = { name, userId, role, score, rank };
             next();
         } catch (error) {
             throw new UnauthentiatedError('Authenticate Fail');

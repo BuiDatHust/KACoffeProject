@@ -57,7 +57,7 @@ const getHomepage = async(req, res) => {
             numbersOfDiscount += 1;
         }
     })
-
+    
     res.status(StatusCodes.OK).render('index', {
         user: user,
         productNew: productNew,
