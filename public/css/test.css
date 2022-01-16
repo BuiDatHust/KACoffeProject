@@ -955,6 +955,9 @@ ul#responsive_nav {
     .responsive-product-h2 {
         display: none;
     }
+    .responsive-order-img {
+        display: none;
+    }
 }
 
 .cart-item1 .cart-txt-left1 {
@@ -980,5 +983,8 @@ ul#responsive_nav {
     }
     .cart-name {
         font-size: 12px;
+    }
+    .responsive-order-text {
+        margin-top: 35px;
     }
 }

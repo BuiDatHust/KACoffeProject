@@ -54,7 +54,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-content p-md-5" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="stories" role="tabpanel" aria-labelledby="stories-tab">
                         <div class="grid__column-10">
                             <div class="cart-cart" style="padding: 20px 10px 10px;">
@@ -66,7 +66,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="width: 30px; margin-left: 8px;"><span class="cart-all">Thứ tự</span></th>
                                         <th class="admin-header__products">Tiêu đề tin tức</th>
                                         <th class="admin-header__price">Ngày tạo tin tức</th>
                                         <th class="admin-header__header">Thao tác</th>
@@ -74,8 +73,8 @@
                                     <!-- insert code here -->
                                     <% stories.forEach(function(e,i) {  %>
                                         <tr class="cart-item">
-                                            <td style="width: 30px; margin-left: 8px;"><span class="cart-all"><%= i + 1 %></span></td>
-                                            <td class="cart-txt-left cart-name">
+
+                                            <td class="cart-txt-left cart-name responsive-order-text">
                                                 <%= e.title  %>
                                             </td>
                                             <td class="cart-price">

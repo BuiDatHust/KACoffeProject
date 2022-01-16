@@ -27,22 +27,7 @@
                     <img class="image-2" src="<%= product.Image[1] %>" style="width:calc(25% - 10px); margin-right:9px">
                     <img class="image-3" src="<%= product.Image[2] %>" style="width:calc(25% - 10px); margin-right:9px">
                     <img class="image-4" src="<%= product.Image[3] %>" style="width:calc(25% - 10px)">
-                    <div class="mt-5">
-                        <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>" method="POST">
-                            <p>Bạn thấy sản phẩm này:
-                                <span>
-                                    <select name="rate">
-                                        <option value="3">Tốt</option>
-                                        <option value="4">Rất tốt </option>
-                                        <option value="5">Tuyệt vời</option>
-                                        <option value="1">Tệ</option>
-                                        <option value="2">Tạm được</option>
-                                    </select>
-                                </span>
-                                <input type="submit" class="btn btn-primary ml-3" value="Gửi phản hồi" />
-                            </p>
-                        </form>
-                    </div>
+
                 </div>
 
                 <div class="col-md-7 ftco-animate makereservation p-4 p-md-5">
@@ -203,6 +188,22 @@
                     <%= product.detaildescription %>
                 </p>
 
+            </div>
+            <div class="mt-5">
+                <form action="/KACoffe/v1/product/rateProduct/<%= product._id %>" method="POST">
+                    <p>Bạn thấy sản phẩm này:
+                        <span>
+                            <select name="rate">
+                                <option value="3">Tốt</option>
+                                <option value="4">Rất tốt </option>
+                                <option value="5">Tuyệt vời</option>
+                                <option value="1">Tệ</option>
+                                <option value="2">Tạm được</option>
+                            </select>
+                        </span>
+                        <input type="submit" class="btn btn-primary ml-3" value="Gửi phản hồi" />
+                    </p>
+                </form>
             </div>
         </div>
     </section>

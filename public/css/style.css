@@ -655,6 +655,9 @@ pre code {
     .d-flex2 {
         flex-direction: column-reverse;
     }
+    .d-flex3 {
+        display: block;
+    }
     .woocommerce-product-details__short-description {
         display: none;
     }
@@ -7439,6 +7442,12 @@ button.bg-dark:focus {
 }
 
 .d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.d-flex3 {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
